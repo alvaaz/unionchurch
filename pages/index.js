@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,7 +9,24 @@ import { Facebook, Youtube, Instagram } from '../components/icons';
 
 // eslint-disable-next-line react/prop-types
 export default function Home({ data }) {
-  console.log(data);
+  const [email, setEmail] = useState('');
+  const [firstname, setFirstname] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [state, setState] = useState('IDLE');
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  const subscribe = async () => {
+    setState('LOADING');
+    setErrorMessage(null);
+    try {
+      await axios.post('api/newsletter', { email, firstname, lastname });
+      setState('SUCCESS');
+    } catch (e) {
+      setErrorMessage(e.response.data.error);
+      setState('ERROR');
+    }
+  };
+
   return (
     <>
       <Head>
@@ -196,6 +214,19 @@ export default function Home({ data }) {
               name="name"
               placeholder="Ingresa tu nombre"
               className="px-4 py-3 outline-none mb-4"
+              value={firstname}
+              onChange={(e) => setFirstname(e.target.value)}
+            />
+            <label className="text-xl text-white mb-2" htmlFor="name">
+              Apellido
+            </label>
+            <input
+              type="text"
+              name="lastname"
+              placeholder="Ingresa tu apellido"
+              className="px-4 py-3 outline-none mb-4"
+              value={lastname}
+              onChange={(e) => setLastname(e.target.value)}
             />
             <label className="text-xl text-white mb-2" htmlFor="email">
               Email
@@ -205,10 +236,19 @@ export default function Home({ data }) {
               name="email"
               placeholder="Ingresa tu Email"
               className="px-4 py-3 outline-none mb-8"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
-            <button className="inline px-8 py-3 border border-primary bg-primary text-white mr-8 uppercase text-sm tracking-wider font-bold">
+            <button
+              disabled={state === 'LOADING'}
+              onClick={subscribe}
+              type="button"
+              className="inline px-8 py-3 border border-primary bg-primary text-white mr-8 uppercase text-sm tracking-wider font-bold"
+            >
               Enviar
             </button>
+            {state === 'ERROR' && <span>{errorMessage}</span>}
+            {state === 'SUCCESS' && <span>Success</span>}
           </form>
           <Circle className="h-1/2" />
         </div>
