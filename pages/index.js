@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { siteTitle } from '../components/layout';
-import { Separator, Adn, Vision, Mision } from '../components/shapes';
+import { Separator, Adn, Vision, Mision, Circle } from '../components/shapes';
 import { Facebook, Youtube, Instagram } from '../components/icons';
 
 // eslint-disable-next-line react/prop-types
@@ -179,6 +179,38 @@ export default function Home({ data }) {
           >
             Ir al canal de Youtube
           </a>
+        </div>
+      </div>
+      <div style={{ backgroundColor: '#435448' }}>
+        <div className="container mx-auto flex justify-between">
+          <p className="font-serif text-4xl text-white pt-20">
+            Suscríbete a nuestro <br />
+            boletín de noticias
+          </p>
+          <form action="" className="flex flex-col pt-20 w-1/3">
+            <label className="text-xl text-white mb-2" htmlFor="name">
+              Nombre
+            </label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Ingresa tu nombre"
+              className="px-4 py-3 outline-none mb-4"
+            />
+            <label className="text-xl text-white mb-2" htmlFor="email">
+              Email
+            </label>
+            <input
+              type="text"
+              name="email"
+              placeholder="Ingresa tu Email"
+              className="px-4 py-3 outline-none mb-8"
+            />
+            <button className="inline px-8 py-3 border border-primary bg-primary text-white mr-8 uppercase text-sm tracking-wider font-bold">
+              Enviar
+            </button>
+          </form>
+          <Circle className="h-1/2" />
         </div>
       </div>
     </>
