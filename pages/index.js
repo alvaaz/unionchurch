@@ -4,13 +4,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { siteTitle } from '../components/layout';
-import {
-  Separator,
-  Adn,
-  Vision,
-  Mision,
-  Newsletter,
-} from '../components/shapes';
+import { Separator, Adn, Vision, Mision } from '../components/shapes';
 import { Facebook, Youtube, Instagram } from '../components/icons';
 
 export function validate(field, value) {
