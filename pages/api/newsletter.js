@@ -38,7 +38,7 @@ export default async (req, res) => {
 
   if (!email || !email.length) {
     return res.status(400).json({
-      error: 'Forgot to add your email?',
+      error: 'No olvides completar todos los campos',
     });
   }
 
@@ -50,7 +50,7 @@ export default async (req, res) => {
     return res.status(201).json({ error: null });
   } catch (error) {
     return res.status(400).json({
-      error: `Oops, something went wrong...`,
+      error: `Algo anda mal, escríbenos a info@unionchurch.cl`,
     });
   }
 };

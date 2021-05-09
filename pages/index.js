@@ -4,7 +4,13 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { siteTitle } from '../components/layout';
-import { Separator, Adn, Vision, Mision, Circle } from '../components/shapes';
+import {
+  Separator,
+  Adn,
+  Vision,
+  Mision,
+  Newsletter,
+} from '../components/shapes';
 import { Facebook, Youtube, Instagram } from '../components/icons';
 
 export function validate(field, value) {
@@ -90,6 +96,10 @@ function reducer(state, action) {
         email: '',
         firstname: '',
         lastname: '',
+        emailError: true,
+        firstnameError: true,
+        lastnameError: true,
+        canISend: false,
       };
     }
 
@@ -101,6 +111,10 @@ function reducer(state, action) {
         firstname: '',
         lastname: '',
         error: action.payload,
+        emailError: true,
+        firstnameError: true,
+        lastnameError: true,
+        canISend: false,
       };
     }
     default:
@@ -225,7 +239,7 @@ export default function Home({ data }) {
           <p className="font-serif text-4xl text-gray-800 mb-16">
             En esto creemos
           </p>
-          <div className="flex justify-between px-16 text-left flex-col lg:flex-row">
+          <div className="flex justify-between text-left flex-col lg:flex-row md:px-16">
             <div className="flex-1 px-12 mb-12 lg:mb-0">
               <Mision className="mb-8" />
               <p className="text-2xl text-gray-800 mb-4">Misión</p>
@@ -261,7 +275,7 @@ export default function Home({ data }) {
           <p className="font-serif text-4xl text-gray-800 mb-16">
             Últimos servicios
           </p>
-          <div className="flex flex-wrap flex-col sm:flex-row justify-between px-16 text-left pb-16">
+          <div className="flex flex-wrap flex-col sm:flex-row justify-between md:px-16 text-left pb-16">
             {/* eslint-disable-next-line react/prop-types */}
             {data.items.map(({ id, snippet = {} }) => {
               const { title, thumbnails = {}, resourceId = {} } = snippet;
@@ -304,14 +318,14 @@ export default function Home({ data }) {
         </div>
       </div>
       <div style={{ backgroundColor: '#435448' }}>
-        <div className="container mx-auto flex justify-between flex-col sm:flex-row px-8 sm:px-0">
-          <p className="font-serif text-4xl text-white pt-20">
+        <div className="container mx-auto flex justify-between flex-col px-8 sm:px-0 pb-20">
+          <p className="font-serif text-4xl text-white pt-20 mb-20 text-center">
             Suscríbete a nuestro <br />
             boletín de noticias
           </p>
           <form
             action=""
-            className="flex flex-col pt-20 w-full sm:w-1/3 "
+            className="flex flex-col w-11/12 sm:w-1/2 mx-auto"
             onSubmit={onSubmit}
           >
             <label className="text-lg text-white mb-2" htmlFor="name">
@@ -401,7 +415,6 @@ export default function Home({ data }) {
               {isLoading ? 'Enviando...' : 'Enviar'}
             </button>
           </form>
-          <Circle className="h-1/2 hidden md:inline" />
         </div>
       </div>
     </>
@@ -413,7 +426,7 @@ const YOUTUBE_PLAYLIST_ITEMS_API =
 
 export async function getServerSideProps() {
   const res = await fetch(
-    `${YOUTUBE_PLAYLIST_ITEMS_API}?part=snippet&maxResults=3&playlistId=PLV_Ax0JpimXPtD-QDqcygoAwERU0rvU82&key=AIzaSyDMLPX3Q56QXbxcGbfIlsKDU5HyOtCIwsM`
+    `${YOUTUBE_PLAYLIST_ITEMS_API}?part=snippet&maxResults=3&playlistId=${process.env.PLAYLIST_ID}&key=${process.env.YOUTUBE_KEY}`
   );
   const data = await res.json();
   return {
