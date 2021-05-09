@@ -7,6 +7,65 @@ import { siteTitle } from '../components/layout';
 import { Separator, Adn, Vision, Mision, Circle } from '../components/shapes';
 import { Facebook, Youtube, Instagram } from '../components/icons';
 
+const actions = {
+  submitSuccess: 'SUCCESS',
+  submitError: 'ERROR',
+  fieldsChanged: 'FIELDS_CHANGED',
+  formSubmitted: 'FORM_SUBMITTED',
+};
+
+function newsletterReducer(state, action) {
+  let error;
+  switch (action.type) {
+    case actions.fieldsChanged: {
+      error = validate(action.fieldName, action.payload);
+      return {
+        ...state,
+        [action.fieldName]: action.payload,
+        [action.fieldName + 'Error']: error,
+        error: '',
+      };
+    }
+    case actions.formSubmitted: {
+      return {
+        ...state,
+        error: '',
+        isLoading: true,
+      };
+    }
+    case actions.submitSuccess: {
+      return {
+        ...state,
+        isLoggedIn: true,
+        isLoading: false,
+      };
+    }
+    case actions.submitError: {
+      return {
+        ...state,
+        isLoading: false,
+        error: 'Incorrect username or password!',
+        email: '',
+        password: '',
+        passwordError: true,
+        emailError: true,
+      };
+    }
+    case actions.logOut: {
+      return {
+        ...state,
+        isLoggedIn: false,
+        email: '',
+        password: '',
+        passwordError: true,
+        emailError: true,
+      };
+    }
+    default:
+      return state;
+  }
+}
+
 // eslint-disable-next-line react/prop-types
 export default function Home({ data }) {
   const [email, setEmail] = useState('');
@@ -112,15 +171,15 @@ export default function Home({ data }) {
           <p className="font-serif text-4xl text-gray-800 mb-16">
             En esto creemos
           </p>
-          <div className="flex justify-between px-16 text-left">
-            <div className="flex-1 px-12">
+          <div className="flex justify-between px-16 text-left flex-col lg:flex-row">
+            <div className="flex-1 px-12 mb-12 lg:mb-0">
               <Mision className="mb-8" />
               <p className="text-2xl text-gray-800 mb-4">Misión</p>
               <p className="text-gray-500 font-normal">
                 Conocer, llegar a ser, e impactar como Jesús
               </p>
             </div>
-            <div className="flex-1 px-12">
+            <div className="flex-1 px-12 mb-12 lg:mb-0">
               <Vision className="mb-8" />
               <p className="text-2xl text-gray-800 mb-4">Visión</p>
               <p className="text-gray-500 font-normal">
@@ -138,57 +197,52 @@ export default function Home({ data }) {
             </div>
           </div>
         </div>
-        <div className="mt-40 text-center relative pb-20 mb-40">
-          <div
-            className="absolute l-0 t-0 w-full h-full -left-1/4"
-            style={{ zIndex: '-1', backgroundColor: '#FACFB0' }}
-          ></div>
-          <div className="py-16">
-            <Separator className="block mx-auto" />
-            <p className="font-sans uppercase text-gray-500 tracking-wider mt-4 mb-4">
-              Servicios
-            </p>
-            <p className="font-serif text-4xl text-gray-800 mb-8">
-              Últimos servicios
-            </p>
-            <p className="text-gray-500 font-normal mb-16">
-              Participa junto a nosotros en los eventos que cambiarán tu vida.
-              Incribete y partícipa.
-            </p>
-            <div className="flex justify-between px-16 text-left">
-              {/* eslint-disable-next-line react/prop-types */}
-              {data.items.map(({ id, snippet = {} }) => {
-                const { title, thumbnails = {}, resourceId = {} } = snippet;
-                const { standard } = thumbnails;
-                const regexDate = /\w[^-]*$/;
-                const regexTitle = /"(.*?)"/;
-                const name = regexTitle.exec(title);
-                const date = regexDate.exec(title);
-                return (
-                  <a
-                    key={id}
-                    href={`https://www.youtube.com/watch?v=${resourceId.videoId}`}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <div className="flex-1 px-12">
-                      <Image
-                        width={standard.width}
-                        height={standard.height}
-                        src={standard.url}
-                        alt=""
-                      />
-                      <p className="my-4 uppercase text-sm tracking-wider font-bold text-gray-700">
-                        {date[0]}
-                      </p>
-                      <p className="text-2xl text-gray-800 mb-4 font-medium">
-                        {name[0]}
-                      </p>
-                    </div>
-                  </a>
-                );
-              })}
-            </div>
+      </div>
+      <div style={{ zIndex: '-1', backgroundColor: '#FACFB0' }}>
+        <div className="container mx-auto mt-40 text-center relative pb-20 mb-40">
+          <Separator className="block mx-auto pt-16" />
+          <p className="font-sans uppercase text-gray-500 tracking-wider mt-4 mb-4">
+            Servicios
+          </p>
+          <p className="font-serif text-4xl text-gray-800 mb-8">
+            Últimos servicios
+          </p>
+          <p className="text-gray-500 font-normal mb-16 px-8 sm:px-0">
+            Participa junto a nosotros en los eventos que cambiarán tu vida.
+            Incribete y partícipa.
+          </p>
+          <div className="flex flex-wrap flex-col sm:flex-row justify-between px-16 text-left pb-16">
+            {/* eslint-disable-next-line react/prop-types */}
+            {data.items.map(({ id, snippet = {} }) => {
+              const { title, thumbnails = {}, resourceId = {} } = snippet;
+              const { standard } = thumbnails;
+              const regexDate = /\w[^-]*$/;
+              const regexTitle = /"(.*?)"/;
+              const name = regexTitle.exec(title);
+              const date = regexDate.exec(title);
+              return (
+                <a
+                  key={id}
+                  href={`https://www.youtube.com/watch?v=${resourceId.videoId}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex-1 px-12 mb-8 lg:mb-0"
+                >
+                  <Image
+                    width={standard.width}
+                    height={standard.height}
+                    src={standard.url}
+                    alt=""
+                  />
+                  <p className="my-4 uppercase text-sm tracking-wider font-bold text-gray-700">
+                    {date[0]}
+                  </p>
+                  <p className="text-2xl text-gray-800 mb-4 font-medium">
+                    {name[0]}
+                  </p>
+                </a>
+              );
+            })}
           </div>
 
           <a
@@ -200,12 +254,12 @@ export default function Home({ data }) {
         </div>
       </div>
       <div style={{ backgroundColor: '#435448' }}>
-        <div className="container mx-auto flex justify-between">
+        <div className="container mx-auto flex justify-between flex-col sm:flex-row px-8 sm:px-0">
           <p className="font-serif text-4xl text-white pt-20">
             Suscríbete a nuestro <br />
             boletín de noticias
           </p>
-          <form action="" className="flex flex-col pt-20 w-1/3">
+          <form action="" className="flex flex-col pt-20 w-full sm:w-1/3 ">
             <label className="text-xl text-white mb-2" htmlFor="name">
               Nombre
             </label>
@@ -250,7 +304,7 @@ export default function Home({ data }) {
             {state === 'ERROR' && <span>{errorMessage}</span>}
             {state === 'SUCCESS' && <span>Success</span>}
           </form>
-          <Circle className="h-1/2" />
+          <Circle className="h-1/2 hidden md:inline" />
         </div>
       </div>
     </>
