@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import axios from 'axios';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -7,14 +7,59 @@ import { siteTitle } from '../components/layout';
 import { Separator, Adn, Vision, Mision, Circle } from '../components/shapes';
 import { Facebook, Youtube, Instagram } from '../components/icons';
 
-const actions = {
-  submitSuccess: 'SUCCESS',
-  submitError: 'ERROR',
-  fieldsChanged: 'FIELDS_CHANGED',
-  formSubmitted: 'FORM_SUBMITTED',
+export function validate(field, value) {
+  if (typeof value === 'string') value = value.trim();
+  switch (field) {
+    case 'firstname':
+      if (value.length < 3) {
+        return true;
+      } else {
+        return false;
+      }
+    case 'lastname':
+      if (value.length < 3) {
+        return true;
+      } else {
+        return false;
+      }
+    case 'email':
+      if (value.length === 0) {
+        return true;
+      } else if (
+        !value.includes('@') ||
+        !value.includes('.') ||
+        value.split('.')[1].length < 2
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    default:
+      break;
+  }
+}
+
+const initialState = {
+  email: '',
+  firstname: '',
+  lastname: '',
+  canISend: false,
+  emailError: true,
+  firstnameError: true,
+  lastnameError: true,
+  isLoading: false,
+  successMessage: '',
+  error: '',
 };
 
-function newsletterReducer(state, action) {
+const actions = {
+  fieldsChanged: 'FIELDS_CHANGED',
+  formSubmitted: 'FORM_SUBMITTED',
+  submitSuccess: 'SUCCESS',
+  submitError: 'ERROR',
+};
+
+function reducer(state, action) {
   let error;
   switch (action.type) {
     case actions.fieldsChanged: {
@@ -24,41 +69,38 @@ function newsletterReducer(state, action) {
         [action.fieldName]: action.payload,
         [action.fieldName + 'Error']: error,
         error: '',
+        successMessage: '',
+        canISend:
+          !state.firstnameError && !state.lastnameError && !state.emailError,
       };
     }
+
     case actions.formSubmitted: {
       return {
         ...state,
-        error: '',
         isLoading: true,
       };
     }
+
     case actions.submitSuccess: {
       return {
         ...state,
-        isLoggedIn: true,
         isLoading: false,
+        successMessage: action.payload,
+        email: '',
+        firstname: '',
+        lastname: '',
       };
     }
+
     case actions.submitError: {
       return {
         ...state,
         isLoading: false,
-        error: 'Incorrect username or password!',
         email: '',
-        password: '',
-        passwordError: true,
-        emailError: true,
-      };
-    }
-    case actions.logOut: {
-      return {
-        ...state,
-        isLoggedIn: false,
-        email: '',
-        password: '',
-        passwordError: true,
-        emailError: true,
+        firstname: '',
+        lastname: '',
+        error: action.payload,
       };
     }
     default:
@@ -68,21 +110,33 @@ function newsletterReducer(state, action) {
 
 // eslint-disable-next-line react/prop-types
 export default function Home({ data }) {
-  const [email, setEmail] = useState('');
-  const [firstname, setFirstname] = useState('');
-  const [lastname, setLastname] = useState('');
-  const [state, setState] = useState('IDLE');
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const {
+    email,
+    firstname,
+    lastname,
+    canISend,
+    isLoading,
+    successMessage,
+    error,
+  } = state;
 
-  const subscribe = async () => {
-    setState('LOADING');
-    setErrorMessage(null);
+  const handleChange = (e) => {
+    dispatch({
+      type: actions.fieldsChanged,
+      fieldName: e.currentTarget.name,
+      payload: e.currentTarget.value,
+    });
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    dispatch({ type: actions.formSubmitted });
     try {
       await axios.post('api/newsletter', { email, firstname, lastname });
-      setState('SUCCESS');
+      dispatch({ type: actions.submitSuccess, payload: 'Agregado' });
     } catch (e) {
-      setErrorMessage(e.response.data.error);
-      setState('ERROR');
+      dispatch({ type: actions.submitError, payload: e.response.data.error });
     }
   };
 
@@ -105,7 +159,7 @@ export default function Home({ data }) {
         />
 
         <nav
-          className="container mx-auto pt-10 flex relative"
+          className="container mx-auto pt-10 flex relative px-8 sm:px-0"
           style={{ zIndex: '1' }}
         >
           <Link href="/">
@@ -117,7 +171,7 @@ export default function Home({ data }) {
         <div className="absolute w-full top-0 h-screen flex justify-center content-center items-center">
           <div>
             <p
-              className="text-center text-white m-0 font-serif text-8xl mb-20"
+              className="text-center text-white m-0 font-serif text-6xl mb-20 md:text-8xl"
               style={{ textShadow: ' 0px 4px 4px rgba(0, 0, 0, 0.5)' }}
             >
               Bienvenido a casa
@@ -199,17 +253,13 @@ export default function Home({ data }) {
         </div>
       </div>
       <div style={{ zIndex: '-1', backgroundColor: '#FACFB0' }}>
-        <div className="container mx-auto mt-40 text-center relative pb-20 mb-40">
-          <Separator className="block mx-auto pt-16" />
+        <div className="container mx-auto my-40 text-center relative pb-20 pt-10">
+          <Separator className="block mx-auto" />
           <p className="font-sans uppercase text-gray-500 tracking-wider mt-4 mb-4">
             Servicios
           </p>
-          <p className="font-serif text-4xl text-gray-800 mb-8">
+          <p className="font-serif text-4xl text-gray-800 mb-16">
             Últimos servicios
-          </p>
-          <p className="text-gray-500 font-normal mb-16 px-8 sm:px-0">
-            Participa junto a nosotros en los eventos que cambiarán tu vida.
-            Incribete y partícipa.
           </p>
           <div className="flex flex-wrap flex-col sm:flex-row justify-between px-16 text-left pb-16">
             {/* eslint-disable-next-line react/prop-types */}
@@ -259,50 +309,97 @@ export default function Home({ data }) {
             Suscríbete a nuestro <br />
             boletín de noticias
           </p>
-          <form action="" className="flex flex-col pt-20 w-full sm:w-1/3 ">
-            <label className="text-xl text-white mb-2" htmlFor="name">
+          <form
+            action=""
+            className="flex flex-col pt-20 w-full sm:w-1/3 "
+            onSubmit={onSubmit}
+          >
+            <label className="text-lg text-white mb-2" htmlFor="name">
               Nombre
             </label>
             <input
               type="text"
-              name="name"
+              name="firstname"
+              id="name"
               placeholder="Ingresa tu nombre"
-              className="px-4 py-3 outline-none mb-4"
+              className="px-4 py-3 outline-none w-full mb-4"
               value={firstname}
-              onChange={(e) => setFirstname(e.target.value)}
+              onChange={handleChange}
             />
-            <label className="text-xl text-white mb-2" htmlFor="name">
+
+            <label className="text-lg text-white mb-2" htmlFor="lastname">
               Apellido
             </label>
+
             <input
               type="text"
               name="lastname"
+              id="lastname"
               placeholder="Ingresa tu apellido"
-              className="px-4 py-3 outline-none mb-4"
+              className="px-4 py-3 outline-none w-full mb-4"
               value={lastname}
-              onChange={(e) => setLastname(e.target.value)}
+              onChange={handleChange}
             />
-            <label className="text-xl text-white mb-2" htmlFor="email">
+
+            <label className="text-lg text-white mb-2" htmlFor="email">
               Email
             </label>
+
             <input
-              type="text"
+              type="email"
               name="email"
-              placeholder="Ingresa tu Email"
-              className="px-4 py-3 outline-none mb-8"
+              id="email"
+              placeholder="Ingresa tu email"
+              className="px-4 py-3 outline-none w-full mb-4"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleChange}
             />
+            {error ? (
+              <div className="bg-white flex items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6 text-red-600 mr-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <p>{error}</p>
+              </div>
+            ) : null}
+            {successMessage ? (
+              <div className="bg-white flex items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6 text-green-600 mr-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <p>{successMessage}</p>
+              </div>
+            ) : null}
+
             <button
-              disabled={state === 'LOADING'}
-              onClick={subscribe}
-              type="button"
-              className="inline px-8 py-3 border border-primary bg-primary text-white mr-8 uppercase text-sm tracking-wider font-bold"
+              disabled={!canISend}
+              type="submit"
+              className="inline px-8 py-3 border border-primary bg-primary text-white uppercase text-sm tracking-wider font-bold disabled:text-opacity-80 disabled:cursor-not-allowed"
             >
-              Enviar
+              {isLoading ? 'Enviando...' : 'Enviar'}
             </button>
-            {state === 'ERROR' && <span>{errorMessage}</span>}
-            {state === 'SUCCESS' && <span>Success</span>}
           </form>
           <Circle className="h-1/2 hidden md:inline" />
         </div>
