@@ -59,7 +59,7 @@ export default function Home({ data }) {
         />
 
         <nav
-          className="pt-10 absolute top-0 px-8 sm:px-0 text-center sm:text-left sm:left-12"
+          className="container mx-auto pt-10 absolute top-0 px-8 sm:px-0 text-center sm:text-left sm:left-12"
           style={{ zIndex: '1' }}
         >
           <Link href="/">
@@ -229,7 +229,7 @@ export default function Home({ data }) {
               name="firstname"
               id="name"
               placeholder="Ingresa tu nombre"
-              className="mb-4 px-4 py-3 outline-none w-full focus:border-indigo-500 shadow-sm sm:text-sm border-gray-300 border"
+              className="appearance-none mb-4 px-4 py-3 outline-none w-full focus:border-indigo-500 shadow-sm sm:text-sm border-gray-300 border"
               value={firstname}
               onChange={handleChange}
             />
@@ -246,7 +246,7 @@ export default function Home({ data }) {
               name="lastname"
               id="lastname"
               placeholder="Ingresa tu apellido"
-              className="mb-4 px-4 py-3 outline-none w-full focus:border-indigo-500 shadow-sm sm:text-sm border-gray-300 border"
+              className="appearance-none mb-4 px-4 py-3 outline-none w-full focus:border-indigo-500 shadow-sm sm:text-sm border-gray-300 border"
               value={lastname}
               onChange={handleChange}
             />
@@ -263,7 +263,7 @@ export default function Home({ data }) {
               name="email"
               id="email"
               placeholder="Ingresa tu email"
-              className="mb-8 px-4 py-3 outline-none w-full focus:border-indigo-500 shadow-sm sm:text-sm border-gray-300 border"
+              className="appearance-none mb-8 px-4 py-3 outline-none w-full focus:border-indigo-500 shadow-sm sm:text-sm border-gray-300 border"
               value={email}
               onChange={handleChange}
             />
