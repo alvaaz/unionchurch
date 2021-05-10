@@ -69,7 +69,7 @@ export default function Home({ data }) {
         />
 
         <nav
-          className="container mx-auto pt-10 absolute top-0 px-8 sm:px-0 text-center sm:text-left sm:left-12"
+          className="w-full pt-10 absolute top-0 text-center"
           style={{ zIndex: '1' }}
         >
           <Link href="/">
