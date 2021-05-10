@@ -238,7 +238,7 @@ export default function Home({ data }) {
               <input
                 type="text"
                 name="firstname"
-                id="name"
+                id="firstname"
                 placeholder="Ingresa tu nombre"
                 className="appearance-none px-4 py-3 outline-none w-full focus:border-indigo-500 shadow-sm sm:text-sm border-gray-300 border"
                 value={firstname}
@@ -334,7 +334,7 @@ export default function Home({ data }) {
         </div>
       </div>
       <div className="bg-gray">
-        <div className="container mx-auto flex justify-between flex-col md:flex-row px-8 sm:px-0 py-32 md:py-20 text-white">
+        <div className="container mx-auto flex justify-between flex-col md:flex-row px-8 sm:px-0 py-32 text-white">
           <div className="md:pl-12">
             <Image
               src="/logo-white.png"
@@ -345,7 +345,9 @@ export default function Home({ data }) {
             />
           </div>
           <div className="mt-8 md:mt-0 mb-8 md:mb-0 md:px-12">
-            <p className="font-serif text-2xl my-4 font-medium">Streaming</p>
+            <p className="font-serif text-2xl my-4 font-medium md:mt-0">
+              Streaming
+            </p>
             <p className="mb-4">
               <span className="font-bold text-lg block">Reunión general</span>{' '}
               Domingos a las 10:45 hrs
@@ -356,7 +358,9 @@ export default function Home({ data }) {
             </p>
           </div>
           <div className="mb-8 md:mb-0">
-            <p className="font-serif text-2xl my-4 font-medium">Contacto</p>
+            <p className="font-serif text-2xl my-4 font-medium md:mt-0">
+              Contacto
+            </p>
             <p className="mb-4">
               <span className="font-bold text-lg block">Teléfono</span> 32
               2125033
@@ -369,7 +373,7 @@ export default function Home({ data }) {
             </p>
           </div>
           <div className="md:px-12">
-            <p className="font-serif text-2xl my-4 font-medium">
+            <p className="font-serif text-2xl my-4 font-medium md:mt-0">
               Ubicación y horario
             </p>
             <p className="mb-4">Von Schroeders #356, Viña del mar, Chile</p>
