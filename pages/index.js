@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { siteTitle } from '../components/layout';
 import { Separator, Adn, Vision, Mision, Footer } from '../components/shapes';
-import { Facebook, Youtube, Instagram } from '../components/icons';
+import { Facebook, Youtube, Instagram, Error } from '../components/icons';
 import { reducer, initialState, actions } from '../lib/reducer';
 
 // eslint-disable-next-line react/prop-types
@@ -18,6 +18,9 @@ export default function Home({ data }) {
     canISend,
     isLoading,
     successMessage,
+    firstnameError,
+    lastnameError,
+    emailError,
     error,
   } = state;
 
@@ -33,8 +36,15 @@ export default function Home({ data }) {
     e.preventDefault();
     dispatch({ type: actions.formSubmitted });
     try {
-      await axios.post('api/newsletter', { email, firstname, lastname });
-      dispatch({ type: actions.submitSuccess, payload: 'Agregado' });
+      if (canISend) {
+        await axios.post('api/newsletter', { email, firstname, lastname });
+        dispatch({ type: actions.submitSuccess, payload: 'Agregado' });
+      } else {
+        dispatch({
+          type: actions.submitError,
+          payload: 'Agrega todos los campos solicitados',
+        });
+      }
     } catch (e) {
       dispatch({ type: actions.submitError, payload: e.response.data.error });
     }
@@ -76,7 +86,7 @@ export default function Home({ data }) {
             >
               Bienvenido a casa
             </p>
-            <div className="mb-40 flex justify-center">
+            <div className="mb-24 flex justify-center">
               <a
                 href="https://www.youtube.com/c/UnionChurchcl"
                 className="tracking-wider uppercase text-sm inline px-8 py-3 border border-primary font-bold bg-primary hover:bg-primary-dark text-white mr-8 transition duration-150 ease-in-out"
@@ -220,19 +230,22 @@ export default function Home({ data }) {
           >
             <label
               className="block text-sm font-medium text-gray-700 mb-2"
-              htmlFor="name"
+              htmlFor="firstname"
             >
               Nombre
             </label>
-            <input
-              type="text"
-              name="firstname"
-              id="name"
-              placeholder="Ingresa tu nombre"
-              className="appearance-none mb-4 px-4 py-3 outline-none w-full focus:border-indigo-500 shadow-sm sm:text-sm border-gray-300 border"
-              value={firstname}
-              onChange={handleChange}
-            />
+            <div className="relative mb-4">
+              <input
+                type="text"
+                name="firstname"
+                id="name"
+                placeholder="Ingresa tu nombre"
+                className="appearance-none px-4 py-3 outline-none w-full focus:border-indigo-500 shadow-sm sm:text-sm border-gray-300 border"
+                value={firstname}
+                onChange={handleChange}
+              />
+              {firstnameError && <Error />}
+            </div>
 
             <label
               className="block text-sm font-medium text-gray-700 mb-2"
@@ -240,33 +253,36 @@ export default function Home({ data }) {
             >
               Apellido
             </label>
-
-            <input
-              type="text"
-              name="lastname"
-              id="lastname"
-              placeholder="Ingresa tu apellido"
-              className="appearance-none mb-4 px-4 py-3 outline-none w-full focus:border-indigo-500 shadow-sm sm:text-sm border-gray-300 border"
-              value={lastname}
-              onChange={handleChange}
-            />
-
+            <div className="relative mb-4">
+              <input
+                type="text"
+                name="lastname"
+                id="lastname"
+                placeholder="Ingresa tu apellido"
+                className="appearance-none px-4 py-3 outline-none w-full focus:border-indigo-500 shadow-sm sm:text-sm border-gray-300 border"
+                value={lastname}
+                onChange={handleChange}
+              />
+              {lastnameError && <Error />}
+            </div>
             <label
               className="block text-sm font-medium text-gray-700 mb-2"
               htmlFor="email"
             >
               Email
             </label>
-
-            <input
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Ingresa tu email"
-              className="appearance-none mb-8 px-4 py-3 outline-none w-full focus:border-indigo-500 shadow-sm sm:text-sm border-gray-300 border"
-              value={email}
-              onChange={handleChange}
-            />
+            <div className="relative mb-8">
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Ingresa tu email"
+                className="appearance-none px-4 py-3 outline-none w-full focus:border-indigo-500 shadow-sm sm:text-sm border-gray-300 border"
+                value={email}
+                onChange={handleChange}
+              />
+              {emailError && <Error />}
+            </div>
             {error ? (
               <div className="bg-white flex items-center">
                 <svg
@@ -307,9 +323,10 @@ export default function Home({ data }) {
             ) : null}
 
             <button
-              disabled={!canISend}
               type="submit"
-              className="inline px-8 py-3 border border-primary bg-primary text-white uppercase text-sm tracking-wider font-bold disabled:text-opacity-80 disabled:cursor-not-allowed"
+              className={`inline px-8 py-3 border border-primary bg-primary text-white uppercase text-sm tracking-wider font-bold ${
+                isLoading ? 'disabled:cursor-not-allowed' : null
+              }`}
             >
               {isLoading ? 'Enviando...' : 'Enviar'}
             </button>
