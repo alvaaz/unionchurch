@@ -7,7 +7,11 @@ module.exports = {
       serif: ['DM Serif Display', 'serif'],
     },
     extend: {
-      colors: { primary: { DEFAULT: '#FE5245' } },
+      colors: {
+        primary: { DEFAULT: '#FE5245', dark: '#FE4638' },
+        gray: { DEFAULT: '#1C2C2D' },
+        oil: { DEFAULT: '#435448' },
+      },
     },
   },
   variants: {

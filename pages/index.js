@@ -4,117 +4,9 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { siteTitle } from '../components/layout';
-import { Separator, Adn, Vision, Mision } from '../components/shapes';
+import { Separator, Adn, Vision, Mision, Footer } from '../components/shapes';
 import { Facebook, Youtube, Instagram } from '../components/icons';
-
-export function validate(field, value) {
-  if (typeof value === 'string') value = value.trim();
-  switch (field) {
-    case 'firstname':
-      if (value.length < 3) {
-        return true;
-      } else {
-        return false;
-      }
-    case 'lastname':
-      if (value.length < 3) {
-        return true;
-      } else {
-        return false;
-      }
-    case 'email':
-      if (value.length === 0) {
-        return true;
-      } else if (
-        !value.includes('@') ||
-        !value.includes('.') ||
-        value.split('.')[1].length < 2
-      ) {
-        return true;
-      } else {
-        return false;
-      }
-    default:
-      break;
-  }
-}
-
-const initialState = {
-  email: '',
-  firstname: '',
-  lastname: '',
-  canISend: false,
-  emailError: true,
-  firstnameError: true,
-  lastnameError: true,
-  isLoading: false,
-  successMessage: '',
-  error: '',
-};
-
-const actions = {
-  fieldsChanged: 'FIELDS_CHANGED',
-  formSubmitted: 'FORM_SUBMITTED',
-  submitSuccess: 'SUCCESS',
-  submitError: 'ERROR',
-};
-
-function reducer(state, action) {
-  let error;
-  switch (action.type) {
-    case actions.fieldsChanged: {
-      error = validate(action.fieldName, action.payload);
-      return {
-        ...state,
-        [action.fieldName]: action.payload,
-        [action.fieldName + 'Error']: error,
-        error: '',
-        successMessage: '',
-        canISend:
-          !state.firstnameError && !state.lastnameError && !state.emailError,
-      };
-    }
-
-    case actions.formSubmitted: {
-      return {
-        ...state,
-        isLoading: true,
-      };
-    }
-
-    case actions.submitSuccess: {
-      return {
-        ...state,
-        isLoading: false,
-        successMessage: action.payload,
-        email: '',
-        firstname: '',
-        lastname: '',
-        emailError: true,
-        firstnameError: true,
-        lastnameError: true,
-        canISend: false,
-      };
-    }
-
-    case actions.submitError: {
-      return {
-        ...state,
-        isLoading: false,
-        email: '',
-        firstname: '',
-        lastname: '',
-        error: action.payload,
-        emailError: true,
-        firstnameError: true,
-        lastnameError: true,
-        canISend: false,
-      };
-    }
-    default:
-      return state;
-  }
-}
+import { reducer, initialState, actions } from '../lib/reducer';
 
 // eslint-disable-next-line react/prop-types
 export default function Home({ data }) {
@@ -167,7 +59,7 @@ export default function Home({ data }) {
         />
 
         <nav
-          className="container mx-auto pt-10 flex relative px-8 sm:px-0"
+          className="pt-10 absolute top-0 px-8 sm:px-0 text-center sm:text-left sm:left-12"
           style={{ zIndex: '1' }}
         >
           <Link href="/">
@@ -176,24 +68,24 @@ export default function Home({ data }) {
             </a>
           </Link>
         </nav>
-        <div className="absolute w-full top-0 h-screen flex justify-center content-center items-center">
+        <div className="h-full flex justify-center items-center relative">
           <div>
             <p
-              className="text-center text-white m-0 font-serif text-6xl mb-20 md:text-8xl"
+              className="text-center text-white font-serif text-5xl mb-20 md:text-6xl lg:text-8xl"
               style={{ textShadow: ' 0px 4px 4px rgba(0, 0, 0, 0.5)' }}
             >
               Bienvenido a casa
             </p>
             <div className="mb-40 flex justify-center">
               <a
-                href="google.cl"
-                className="tracking-wider uppercase text-sm inline px-8 py-3 border border-primary font-bold bg-primary text-white mr-8"
+                href="https://www.youtube.com/c/UnionChurchcl"
+                className="tracking-wider uppercase text-sm inline px-8 py-3 border border-primary font-bold bg-primary hover:bg-primary-dark text-white mr-8 transition duration-150 ease-in-out"
               >
                 Ver
               </a>
               <a
                 href="google.cl"
-                className="tracking-wider uppercase font-bold text-sm inline px-8 py-3 border-white font-bold bg-transparent text-white border"
+                className="tracking-wider uppercase font-bold text-sm inline px-8 py-3 border-white font-bold bg-transparent text-white border bg-white bg-opacity-10 hover:bg-opacity-30 transition duration-150 ease-in-out"
               >
                 Dar
               </a>
@@ -227,32 +119,32 @@ export default function Home({ data }) {
       <div className="container mx-auto">
         <div className="mt-20 text-center">
           <Separator className="block mx-auto" />
-          <p className="font-sans uppercase text-gray-500 tracking-wider mt-4 mb-4">
+          <p className="font-sans uppercase text-gray-500 tracking-wider mt-4 mb-4 font-bold">
             Nosotros
           </p>
           <p className="font-serif text-4xl text-gray-800 mb-16">
             En esto creemos
           </p>
-          <div className="flex justify-between text-left flex-col lg:flex-row md:px-16">
-            <div className="flex-1 px-12 mb-12 lg:mb-0">
-              <Mision className="mb-8" />
-              <p className="text-2xl text-gray-800 mb-4">Misión</p>
-              <p className="text-gray-500 font-normal">
+          <div className="flex justify-between text-left flex-col md:flex-row">
+            <div className="flex-1 px-8 md:px-12 mb-16 lg:mb-0 text-center md:text-left">
+              <Mision className="mb-8 block mx-auto md:mx-0" />
+              <p className="text-2xl text-gray-800 mb-4 font-bold">Misión</p>
+              <p className="text-gray-500 font-normal text-xl">
                 Conocer, llegar a ser, e impactar como Jesús
               </p>
             </div>
-            <div className="flex-1 px-12 mb-12 lg:mb-0">
-              <Vision className="mb-8" />
-              <p className="text-2xl text-gray-800 mb-4">Visión</p>
-              <p className="text-gray-500 font-normal">
+            <div className="flex-1 px-8 md:px-12 mb-16 lg:mb-0 text-center md:text-left">
+              <Vision className="mb-8 block mx-auto md:mx-0" />
+              <p className="text-2xl text-gray-800 mb-4 font-bold">Visión</p>
+              <p className="text-gray-500 font-normal text-xl">
                 Transformar la ciudad, influenciar al mundo, ayudar a las
                 personas a conocer, amar y compartir a Jesús.
               </p>
             </div>
-            <div className="flex-1 px-12">
-              <Adn className="mb-8" />
-              <p className="text-2xl text-gray-800 mb-4">ADN</p>
-              <p className="text-gray-500 font-normal">
+            <div className="flex-1 px-8 md:px-12 text-center md:text-left">
+              <Adn className="mb-8 block mx-auto md:mx-0" />
+              <p className="text-2xl text-gray-800 mb-4 font-bold">ADN</p>
+              <p className="text-gray-500 font-normal text-xl">
                 Vemos y anhelamos ser una iglesia que ama a Jesús y a las
                 personas.
               </p>
@@ -261,15 +153,15 @@ export default function Home({ data }) {
         </div>
       </div>
       <div style={{ zIndex: '-1', backgroundColor: '#FACFB0' }}>
-        <div className="container mx-auto my-40 text-center relative pb-20 pt-10">
+        <div className="container mx-auto mt-40 text-center relative pb-20 md:pb-40 pt-10">
           <Separator className="block mx-auto" />
-          <p className="font-sans uppercase text-gray-500 tracking-wider mt-4 mb-4">
-            Servicios
+          <p className="font-sans uppercase text-gray-500 tracking-wider mt-4 mb-4 font-bold">
+            Iglesia en línea
           </p>
           <p className="font-serif text-4xl text-gray-800 mb-16">
             Últimos servicios
           </p>
-          <div className="flex flex-wrap flex-col sm:flex-row justify-between md:px-16 text-left pb-16">
+          <div className="flex flex-wrap flex-col sm:flex-row justify-between text-left pb-16">
             {/* eslint-disable-next-line react/prop-types */}
             {data.items.map(({ id, snippet = {} }) => {
               const { title, thumbnails = {}, resourceId = {} } = snippet;
@@ -292,11 +184,11 @@ export default function Home({ data }) {
                     src={standard.url}
                     alt=""
                   />
-                  <p className="my-4 uppercase text-sm tracking-wider font-bold text-gray-700">
-                    {date[0]}
-                  </p>
-                  <p className="text-2xl text-gray-800 mb-4 font-medium">
+                  <p className="text-2xl text-gray-800 my-4 font-medium">
                     {name[0]}
+                  </p>
+                  <p className="text-sm font-medium text-gray-700 mb-4">
+                    {date[0]}
                   </p>
                 </a>
               );
@@ -304,25 +196,32 @@ export default function Home({ data }) {
           </div>
 
           <a
-            href="google.cl"
-            className="inline px-8 py-3 border border-primary bg-primary text-white mr-8 uppercase text-sm tracking-wider font-bold"
+            href="https://www.youtube.com/c/UnionChurchcl"
+            className="tracking-wider uppercase text-sm inline px-8 py-3 border border-primary font-bold bg-primary hover:bg-primary-dark text-white transition duration-150 ease-in-out"
           >
             Ir al canal de Youtube
           </a>
         </div>
       </div>
-      <div style={{ backgroundColor: '#435448' }}>
-        <div className="container mx-auto flex justify-between flex-col px-8 sm:px-0 pb-20">
-          <p className="font-serif text-4xl text-white pt-20 mb-20 text-center">
-            Suscríbete a nuestro <br />
-            boletín de noticias
-          </p>
+      <div className="bg-oil">
+        <div className="container mx-auto flex justify-between flex-col md:flex-row px-8 md:px-0 pt-16 relative ">
+          <div className="sm:px-12">
+            <p className="font-sans uppercase text-white tracking-wider mb-4 font-bold text-center md:text-left">
+              Mantente informado
+            </p>
+            <p className="font-serif text-4xl lg:text-5xl text-white text-center md:text-left mb-4 md:pb-16">
+              Suscríbete a nuestro <br />
+              boletín de noticias
+            </p>
+          </div>
           <form
-            action=""
-            className="flex flex-col w-11/12 sm:w-1/2 mx-auto"
+            className="flex flex-col w-full md:w-2/5 lg:w-1/3 mx-auto md:mx-0 bg-white p-4 shadow-2xl top-10 md:-top-12 md:right-12 relative md:absolute"
             onSubmit={onSubmit}
           >
-            <label className="text-lg text-white mb-2" htmlFor="name">
+            <label
+              className="block text-sm font-medium text-gray-700 mb-2"
+              htmlFor="name"
+            >
               Nombre
             </label>
             <input
@@ -330,12 +229,15 @@ export default function Home({ data }) {
               name="firstname"
               id="name"
               placeholder="Ingresa tu nombre"
-              className="px-4 py-3 outline-none w-full mb-4"
+              className="mb-4 px-4 py-3 outline-none w-full focus:border-indigo-500 shadow-sm sm:text-sm border-gray-300 border"
               value={firstname}
               onChange={handleChange}
             />
 
-            <label className="text-lg text-white mb-2" htmlFor="lastname">
+            <label
+              className="block text-sm font-medium text-gray-700 mb-2"
+              htmlFor="lastname"
+            >
               Apellido
             </label>
 
@@ -344,12 +246,15 @@ export default function Home({ data }) {
               name="lastname"
               id="lastname"
               placeholder="Ingresa tu apellido"
-              className="px-4 py-3 outline-none w-full mb-4"
+              className="mb-4 px-4 py-3 outline-none w-full focus:border-indigo-500 shadow-sm sm:text-sm border-gray-300 border"
               value={lastname}
               onChange={handleChange}
             />
 
-            <label className="text-lg text-white mb-2" htmlFor="email">
+            <label
+              className="block text-sm font-medium text-gray-700 mb-2"
+              htmlFor="email"
+            >
               Email
             </label>
 
@@ -358,7 +263,7 @@ export default function Home({ data }) {
               name="email"
               id="email"
               placeholder="Ingresa tu email"
-              className="px-4 py-3 outline-none w-full mb-4"
+              className="mb-8 px-4 py-3 outline-none w-full focus:border-indigo-500 shadow-sm sm:text-sm border-gray-300 border"
               value={email}
               onChange={handleChange}
             />
@@ -409,6 +314,57 @@ export default function Home({ data }) {
               {isLoading ? 'Enviando...' : 'Enviar'}
             </button>
           </form>
+        </div>
+      </div>
+      <div className="bg-gray">
+        <div className="container mx-auto flex justify-between flex-col md:flex-row px-8 sm:px-0 py-32 md:py-20 text-white">
+          <div className="md:pl-12">
+            <Image
+              src="/logo-white.png"
+              width={146}
+              height={73}
+              alt="logo"
+              layout="fixed"
+            />
+          </div>
+          <div className="mt-8 md:mt-0 mb-8 md:mb-0 md:px-12">
+            <p className="font-serif text-2xl my-4 font-medium">Streaming</p>
+            <p className="mb-4">
+              <span className="font-bold text-lg block">Reunión general</span>{' '}
+              Domingos a las 10:45 hrs
+            </p>
+            <p>
+              <span className="font-bold text-lg block">Reunión oración</span>{' '}
+              Miércoles a las 19:45 hrs
+            </p>
+          </div>
+          <div className="mb-8 md:mb-0">
+            <p className="font-serif text-2xl my-4 font-medium">Contacto</p>
+            <p className="mb-4">
+              <span className="font-bold text-lg block">Teléfono</span> 32
+              2125033
+            </p>
+            <p>
+              <span className="font-bold text-lg block">
+                Celular / WhatsApp
+              </span>{' '}
+              +56 9 6569 6958
+            </p>
+          </div>
+          <div className="md:px-12">
+            <p className="font-serif text-2xl my-4 font-medium">
+              Ubicación y horario
+            </p>
+            <p className="mb-4">Von Schroeders #356, Viña del mar, Chile</p>
+            <p>
+              <span className="font-bold text-lg block">Lunes a Viernes</span>{' '}
+              9:00 a 14:00 hrs y 15:00 a 18:00 hrs
+            </p>
+          </div>
+        </div>
+        <p className="text-white text-center mb-8">© Union Church 2021</p>
+        <div style={{ height: '32px', overflowX: 'hidden' }}>
+          <Footer />
         </div>
       </div>
     </>
