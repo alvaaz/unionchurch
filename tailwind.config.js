@@ -11,6 +11,7 @@ module.exports = {
         primary: { DEFAULT: '#FE5245', dark: '#FE4638' },
         gray: { DEFAULT: '#1C2C2D' },
         oil: { DEFAULT: '#435448' },
+        pink: { DEFAULT: '#FACFB0' },
       },
     },
   },

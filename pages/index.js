@@ -93,12 +93,11 @@ export default function Home({ data }) {
               >
                 Ver
               </a>
-              <a
-                href="google.cl"
-                className="tracking-wider uppercase font-bold text-sm inline px-8 py-3 border-white font-bold bg-transparent text-white border bg-white bg-opacity-10 hover:bg-opacity-30 transition duration-150 ease-in-out"
-              >
-                Dar
-              </a>
+              <Link href="/give">
+                <a className="tracking-wider uppercase font-bold text-sm inline px-8 py-3 border-white font-bold bg-transparent text-white border bg-white bg-opacity-10 hover:bg-opacity-30 transition duration-150 ease-in-out">
+                  Dar
+                </a>
+              </Link>
             </div>
             <div className="flex justify-center">
               <a
