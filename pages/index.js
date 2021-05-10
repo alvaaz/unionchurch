@@ -284,7 +284,7 @@ export default function Home({ data }) {
               {emailError && <Error />}
             </div>
             {error ? (
-              <div className="bg-white flex items-center">
+              <div className="bg-white flex items-center mb-8">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6 text-red-600 mr-2"
@@ -299,11 +299,11 @@ export default function Home({ data }) {
                     d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
-                <p>{error}</p>
+                <p className="text-sm">{error}</p>
               </div>
             ) : null}
             {successMessage ? (
-              <div className="bg-white flex items-center">
+              <div className="bg-white flex items-center mb-8">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6 text-green-600 mr-2"
@@ -318,7 +318,7 @@ export default function Home({ data }) {
                     d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
-                <p>{successMessage}</p>
+                <p className="text-sm">{successMessage}</p>
               </div>
             ) : null}
 
