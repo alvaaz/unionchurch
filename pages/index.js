@@ -196,7 +196,7 @@ export default function Home({ data }) {
                   <p className="text-2xl text-gray-800 my-4 font-medium">
                     {name[0]}
                   </p>
-                  <p className="text-sm font-medium text-gray-700 mb-4">
+                  <p className="text-lg font-medium text-gray-700 mb-4">
                     {date[0]}
                   </p>
                 </a>
