@@ -62,7 +62,7 @@ export default function Home({ data }) {
       </Head>
       <div className="h-screen">
         <Image
-          className="absolute object-cover back"
+          className="absolute object-cover back filter contrast-900"
           alt="Cover"
           src="/images/cover.png"
           layout="fill"

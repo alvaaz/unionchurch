@@ -49,8 +49,8 @@ export default function give() {
               en el Reino
             </p>
             <p className="text-gray-500 font-normal text-xl md:w-1/2">
-              Transformar la ciudad, influenciar al mundo, ayudar a las personas
-              a conocer, amar y compartir a Jesús.
+              Tus ofrendas, diezmos y misericordia puedes transferirlos a esta
+              cuenta.
             </p>
             <div className="flex flex-col w-full md:w-2/5 lg:w-1/3 mx-auto md:mx-0 bg-white p-4 shadow-2xl top-10 md:top-20 md:right-12 relative md:absolute">
               <p className="font-bold">Nombre</p>
