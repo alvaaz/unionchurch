@@ -4,12 +4,12 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { siteTitle } from '../components/layout';
-import { Separator, Adn, Vision, Mision, Footer } from '../components/shapes';
+import { Separator, Footer } from '../components/shapes';
 import { Facebook, Youtube, Instagram, Error } from '../components/icons';
 import { reducer, initialState, actions } from '../lib/reducer';
 
 // eslint-disable-next-line react/prop-types
-export default function Home({ data }) {
+export default function Home({ data, data2 }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const {
     email,
@@ -50,6 +50,84 @@ export default function Home({ data }) {
     }
   };
 
+  const postsGroups = [
+    data2.items.filter((_, i) => !(i % 2)),
+    data2.items.filter((_, i) => i % 2),
+  ];
+
+  const latestsServices = data.items.map(({ id, snippet = {} }) => {
+    const { title, thumbnails = {}, resourceId = {} } = snippet;
+    const { standard } = thumbnails;
+    const regexDate = /\w[^-]*$/;
+    const regexTitle = /"(.*?)"/;
+    const name = regexTitle.exec(title);
+    const date = regexDate.exec(title);
+    return (
+      <a
+        key={id}
+        href={`https://www.youtube.com/watch?v=${resourceId.videoId}`}
+        target="_blank"
+        rel="noreferrer"
+        className="flex-1 mb-8 lg:mb-0"
+      >
+        <Image
+          width={standard.width}
+          height={standard.height}
+          src={standard.url}
+          alt=""
+        />
+        <p className="text-2xl text-gray-800 my-4 font-medium">{name[0]}</p>
+        <p className="text-lg font-medium text-gray-700 mb-4">{date[0]}</p>
+      </a>
+    );
+  });
+
+  const latestsShepperdDeks = postsGroups.map((posts, index) => {
+    return (
+      <div className="flex flex-col flex-1" key={index}>
+        {posts.map(({ id, snippet = {} }) => {
+          const { title, thumbnails, resourceId, publishedAt } = snippet;
+          const { default: standard } = thumbnails;
+
+          const regexName = /\w[^:]*$/;
+          const name = regexName.exec(title);
+
+          return (
+            <a
+              key={id}
+              href={`https://www.youtube.com/watch?v=${resourceId.videoId}`}
+              target="_blank"
+              rel="noreferrer"
+              className="flex-1 mb-8 flex bg-gray-50 hover:bg-gray-100 p-4 transition ease-in-out duration-200"
+            >
+              <Image
+                width={68}
+                height={68}
+                src={standard.url}
+                alt=""
+                layout="fixed"
+                className="object-cover"
+              />
+              <div className="ml-4">
+                <p className="text-xl text-gray-800 mb-2 font-medium">
+                  {name[0]}
+                </p>
+                <p className="text-lg text-gray-600">
+                  {new Date(publishedAt).toLocaleDateString('es-ES', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </p>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    );
+  });
+
   return (
     <>
       <Head>
@@ -86,19 +164,6 @@ export default function Home({ data }) {
             >
               Bienvenido a casa
             </p>
-            <div className="mb-24 flex justify-center">
-              <a
-                href="https://www.youtube.com/c/UnionChurchcl"
-                className="tracking-wider uppercase text-sm inline px-8 py-3 border border-primary font-bold bg-primary hover:bg-primary-dark text-white mr-8 transition duration-150 ease-in-out"
-              >
-                Ver
-              </a>
-              <Link href="/give">
-                <a className="tracking-wider uppercase font-bold text-sm inline px-8 py-3 border-white font-bold bg-transparent text-white border bg-white bg-opacity-10 hover:bg-opacity-30 transition duration-150 ease-in-out">
-                  Dar
-                </a>
-              </Link>
-            </div>
             <div className="flex justify-center">
               <a
                 href="https://www.facebook.com/unionchurch.cl"
@@ -125,91 +190,104 @@ export default function Home({ data }) {
           </div>
         </div>
       </div>
-      <div className="container mx-auto">
-        <div className="mt-20 text-center">
-          <Separator className="block mx-auto" />
-          <p className="font-sans uppercase text-gray-500 tracking-wider mt-4 mb-4 font-bold">
-            Nosotros
-          </p>
-          <p className="font-serif text-4xl text-gray-800 mb-16">
-            En esto creemos
-          </p>
-          <div className="flex justify-between text-left flex-col md:flex-row">
-            <div className="flex-1 px-8 md:px-12 mb-16 lg:mb-0 text-center md:text-left">
-              <Mision className="mb-8 block mx-auto md:mx-0" />
-              <p className="text-2xl text-gray-800 mb-4 font-bold">Misión</p>
-              <p className="text-gray-500 font-normal text-xl">
-                Conocer, llegar a ser, e impactar como Jesús
-              </p>
-            </div>
-            <div className="flex-1 px-8 md:px-12 mb-16 lg:mb-0 text-center md:text-left">
-              <Vision className="mb-8 block mx-auto md:mx-0" />
-              <p className="text-2xl text-gray-800 mb-4 font-bold">Visión</p>
-              <p className="text-gray-500 font-normal text-xl">
-                Transformar la ciudad, influenciar al mundo, ayudar a las
-                personas a conocer, amar y compartir a Jesús.
-              </p>
-            </div>
-            <div className="flex-1 px-8 md:px-12 text-center md:text-left">
-              <Adn className="mb-8 block mx-auto md:mx-0" />
-              <p className="text-2xl text-gray-800 mb-4 font-bold">ADN</p>
-              <p className="text-gray-500 font-normal text-xl">
-                Vemos y anhelamos ser una iglesia que ama a Jesús y a las
-                personas.
-              </p>
-            </div>
+      <div className="container mx-auto mb-40">
+        <div className="mt-20 flex justify-center items-center">
+          <Image
+            src="/../public/images/horaciopatty.png"
+            alt="Horacio y Patty"
+            width={408}
+            height={438}
+          />
+          <div className="ml-16 w-4/12">
+            <p className="font-serif text-4xl text-gray-800 mb-8">
+              Uniendo personas con propósito
+            </p>
+            <p className="font-xl text-gray-600 mb-2">
+              Bienvenidos a Union Church. Somos una comunidad de La Viña que
+              busca vivir los valores bíblicos, experimentando naturalmente lo
+              sobrenatural. Te invitamos a vivir un encuentro con Jesús, a
+              cultivar una relación de intimidad con Dios, tener relaciones
+              significativas con otras personas, crecer y vivir la Palabra y
+              extender el Reino de Dios con tu vida.
+            </p>
+            <Image
+              src="/../public/images/sign.png"
+              alt="Horacio & Patty's Sign"
+              width={217}
+              height={57}
+            />
+            <p>
+              <span className="block">Horacio & Patty Gonzalez</span>
+              <span className="block">Pastores principales</span>
+              Union Church
+            </p>
           </div>
         </div>
       </div>
-      <div style={{ zIndex: '-1', backgroundColor: '#FACFB0' }}>
-        <div className="container mx-auto mt-40 text-center relative pb-20 md:pb-40 pt-10">
-          <Separator className="block mx-auto" />
-          <p className="font-sans uppercase text-gray-500 tracking-wider mt-4 mb-4 font-bold">
+      <div className="flex space-x-3 justify-center relative">
+        {[1, 2, 3, 4, 5, 6].map((item, key) => (
+          <Image
+            alt=""
+            key={key}
+            width={160}
+            height={160}
+            src={`/../public/images/ministries/${item}.png`}
+            className="filter grayscale-0"
+          />
+        ))}
+        <a
+          href="google.cl"
+          className="z-10 w-full h-full absolute flex justify-center items-center backdrop-filter backdrop-blur-sm backdrop-opacity-0 hover:backdrop-opacity-100"
+        >
+          Conocer más
+        </a>
+      </div>
+      <div style={{ zIndex: '-1', backgroundColor: '#FCF0DB' }}>
+        <div className="container mx-auto mt-40 relative py-16">
+          <p className="font-serif text-4xl text-gray-800 mb-4">
             Iglesia en línea
           </p>
-          <p className="font-serif text-4xl text-gray-800 mb-16">
-            Últimos servicios
+          <p className="text-2xl text-gray-700 mb-12">
+            Descubra como Union church puede mejorarle la vida
           </p>
-          <div className="flex flex-wrap flex-col sm:flex-row justify-between text-left pb-16">
-            {/* eslint-disable-next-line react/prop-types */}
-            {data.items.map(({ id, snippet = {} }) => {
-              const { title, thumbnails = {}, resourceId = {} } = snippet;
-              const { standard } = thumbnails;
-              const regexDate = /\w[^-]*$/;
-              const regexTitle = /"(.*?)"/;
-              const name = regexTitle.exec(title);
-              const date = regexDate.exec(title);
-              return (
-                <a
-                  key={id}
-                  href={`https://www.youtube.com/watch?v=${resourceId.videoId}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex-1 px-12 mb-8 lg:mb-0"
-                >
-                  <Image
-                    width={standard.width}
-                    height={standard.height}
-                    src={standard.url}
-                    alt=""
-                  />
-                  <p className="text-2xl text-gray-800 my-4 font-medium">
-                    {name[0]}
-                  </p>
-                  <p className="text-lg font-medium text-gray-700 mb-4">
-                    {date[0]}
-                  </p>
-                </a>
-              );
-            })}
-          </div>
-
           <a
             href="https://www.youtube.com/c/UnionChurchcl"
             className="tracking-wider uppercase text-sm inline px-8 py-3 border border-primary font-bold bg-primary hover:bg-primary-dark text-white transition duration-150 ease-in-out"
           >
             Ir al canal de Youtube
           </a>
+        </div>
+      </div>
+      <div>
+        <div className="container mx-auto text-center relative pb-20 md:pb-40 pt-10">
+          <div className="flex items-center justify-between py-16">
+            <p className="font-serif text-4xl text-gray-800">
+              Últimos servicios
+            </p>
+            <a
+              className="text-yellow-700	font-semibold border-b-4 flex items-center"
+              href="w"
+            >
+              Ver todos
+            </a>
+          </div>
+          <div className="flex flex-wrap flex-col sm:flex-row justify-between text-left pb-16 space-x-8">
+            {latestsServices}
+          </div>
+          <div className="flex items-center justify-between py-16">
+            <p className="font-serif text-4xl text-gray-800">
+              Escritorio del pastor
+            </p>
+            <a
+              className="text-yellow-700	font-semibold border-b-4 flex items-center"
+              href="w"
+            >
+              Ver todos
+            </a>
+          </div>
+          <div className="flex flex-wrap flex-col sm:flex-row justify-between text-left space-x-8">
+            {latestsShepperdDeks}
+          </div>
         </div>
       </div>
       <div className="bg-oil">
@@ -398,10 +476,15 @@ export async function getServerSideProps() {
   const res = await fetch(
     `${YOUTUBE_PLAYLIST_ITEMS_API}?part=snippet&maxResults=3&playlistId=${process.env.PLAYLIST_ID}&key=${process.env.YOUTUBE_KEY}`
   );
+  const res2 = await fetch(
+    `${YOUTUBE_PLAYLIST_ITEMS_API}?part=snippet&maxResults=6&playlistId=PLV_Ax0JpimXPgTVH7fvCVC-2X0XQ6vorg&key=${process.env.YOUTUBE_KEY}`
+  );
   const data = await res.json();
+  const data2 = await res2.json();
   return {
     props: {
       data,
+      data2,
     },
   };
 }

@@ -20,6 +20,7 @@ module.exports = {
       cursor: ['disabled'],
       opacity: ['disabled'],
       textOpacity: ['disabled'],
+      backdropOpacity: ['hover'],
     },
   },
   plugins: [],
