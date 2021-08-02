@@ -158,10 +158,7 @@ export default function Home({ data, data2 }) {
         </nav>
         <div className="h-full flex justify-center items-center relative">
           <div>
-            <p
-              className="text-center text-white font-serif text-5xl mb-20 md:text-6xl lg:text-8xl"
-              style={{ textShadow: ' 0px 4px 4px rgba(0, 0, 0, 0.5)' }}
-            >
+            <p className="text-center text-white font-serif text-5xl mb-20 md:text-6xl lg:text-8xl">
               Bienvenido a casa
             </p>
             <div className="flex justify-center">
