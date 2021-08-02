@@ -231,7 +231,7 @@ export default function Home({ data, data2 }) {
             key={key}
             width={160}
             height={160}
-            src={`/../public/images/ministries/${item}.png`}
+            src={`/images/ministries/${item}.png`}
             className="filter grayscale-0"
           />
         ))}
