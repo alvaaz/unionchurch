@@ -235,12 +235,6 @@ export default function Home({ data, data2 }) {
             className="filter grayscale-0"
           />
         ))}
-        <a
-          href="google.cl"
-          className="z-10 w-full h-full absolute flex justify-center items-center backdrop-filter backdrop-blur-sm backdrop-opacity-0 hover:backdrop-opacity-100"
-        >
-          Conocer más
-        </a>
       </div>
       <div style={{ zIndex: '-1', backgroundColor: '#FCF0DB' }}>
         <div className="container mx-auto mt-40 relative py-16">
