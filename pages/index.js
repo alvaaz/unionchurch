@@ -187,15 +187,16 @@ export default function Home({ data, data2 }) {
           </div>
         </div>
       </div>
-      <div className="container mx-auto mb-40">
+      <div className="container mx-auto mb-20 md:mb-40 px-8 sm:px-8">
         <div className="mt-20 flex justify-center items-center flex-col md:flex-row">
           <Image
             src="/images/horaciopatty.png"
             alt="Horacio y Patty"
             width={408}
             height={438}
+            className="mb-16"
           />
-          <div className="ml-16 md:w-4/12">
+          <div className="md:ml-16 md:w-4/12">
             <p className="font-serif text-4xl text-gray-800 mb-8">
               Uniendo personas con propósito
             </p>
@@ -265,7 +266,7 @@ export default function Home({ data, data2 }) {
               Ver todos
             </a>
           </div>
-          <div className="flex flex-wrap flex-col sm:flex-row justify-between text-left pb-16 space-x-8">
+          <div className="flex flex-wrap flex-col sm:flex-row justify-between text-left pb-16 md:space-x-8">
             {latestsServices}
           </div>
           <div className="flex items-center justify-between py-16">
@@ -279,7 +280,7 @@ export default function Home({ data, data2 }) {
               Ver todos
             </a>
           </div>
-          <div className="flex flex-wrap flex-col sm:flex-row justify-between text-left space-x-8">
+          <div className="flex flex-wrap flex-col sm:flex-row justify-between text-left md:space-x-8">
             {latestsShepperdDeks}
           </div>
         </div>

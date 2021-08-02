@@ -44,15 +44,34 @@ export default function give() {
             <p className="font-sans uppercase text-gray-500 tracking-wider mb-4 font-bold md:text-left">
               Dar
             </p>
-            <p className="font-serif text-4xl lg:text-5xl text-gray-800 md:text-left mb-4">
+            <p className="font-serif text-4xl lg:text-5xl text-gray-800 md:text-left mb-8">
               Gracias por invertir <br />
               en el Reino
             </p>
-            <p className="text-gray-500 font-normal text-xl md:w-1/2">
-              Tus ofrendas, diezmos y misericordia puedes transferirlos a esta
-              cuenta.
+            <p className="text-gray-500 font-normal text-xl md:w-1/2 mb-8">
+              Los diezmos y las ofrendas de los miembros, participantes y amigos
+              de esta Comunidad de fe, Union Church, son la única fuente de
+              recursos financieros para llevar adelante y extender la obra.
             </p>
-            <div className="flex flex-col w-full md:w-2/5 lg:w-1/3 mx-auto md:mx-0 bg-white p-4 shadow-2xl top-10 md:top-20 md:right-12 relative md:absolute">
+            <p className="text-gray-500 font-normal text-xl md:w-1/2 mb-8">
+              Creemos que Dios es dueño de todo, absolutamente todo y eso
+              incluye nuestra vida, tiempo y recursos de toda naturaleza. Como
+              consecuencia de ello nos consideramos administradores o mayordomos
+              de estos recursos.
+            </p>
+            <p className="text-gray-500 font-normal text-xl md:w-1/2 mb-8">
+              Creemos que los diezmos deben ser entregados totalmente, con
+              alegría y generosidad, en la comunidad donde estamos plantados y o
+              arraigados, y en consecuencia donde nos alimentamos, crecemos y
+              damos fruto. Los recursos serán destinados a la obra, sus
+              misiones, proyectos, mantención y crecimiento.
+            </p>
+            <p className="text-gray-500 font-normal text-xl md:w-1/2">
+              Puedes hacer llegar tus diezmos, ofrendas y donaciones depositando
+              o transfiriendo a la cuenta de la Corporación Iglesia Union.
+            </p>
+
+            <div className="flex flex-col w-full md:w-2/5 lg:w-1/3 mx-auto md:mx-0 bg-white p-4 shadow-2xl top-20 md:top-80 md:right-12 relative md:absolute">
               <p className="font-bold">Nombre</p>
               <p className="mb-4">Corporación Iglesia Union</p>
               <p className="font-bold">RUT</p>
