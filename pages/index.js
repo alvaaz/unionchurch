@@ -224,7 +224,7 @@ export default function Home({ data, data2 }) {
           </div>
         </div>
       </div>
-      <div className="flex space-x-3 justify-center relative">
+      <div className="flex justify-center">
         {[1, 2, 3, 4, 5, 6].map((item, key) => (
           <Image
             alt=""
@@ -232,7 +232,7 @@ export default function Home({ data, data2 }) {
             width={160}
             height={160}
             src={`/images/ministries/${item}.png`}
-            className="filter grayscale-0"
+            className="filter grayscale hover:grayscale-0"
           />
         ))}
       </div>
