@@ -188,14 +188,14 @@ export default function Home({ data, data2 }) {
         </div>
       </div>
       <div className="container mx-auto mb-40">
-        <div className="mt-20 flex justify-center items-center">
+        <div className="mt-20 flex justify-center items-center flex-col md:flex-row">
           <Image
             src="/images/horaciopatty.png"
             alt="Horacio y Patty"
             width={408}
             height={438}
           />
-          <div className="ml-16 w-4/12">
+          <div className="ml-16 md:w-4/12">
             <p className="font-serif text-4xl text-gray-800 mb-8">
               Uniendo personas con propósito
             </p>
@@ -221,7 +221,7 @@ export default function Home({ data, data2 }) {
           </div>
         </div>
       </div>
-      <div className="flex justify-center">
+      <div className="flex justify-center flex-wrap">
         {[1, 2, 3, 4, 5, 6].map((item, key) => (
           <Image
             alt=""
@@ -233,7 +233,10 @@ export default function Home({ data, data2 }) {
           />
         ))}
       </div>
-      <div style={{ zIndex: '-1', backgroundColor: '#FCF0DB' }}>
+      <div
+        className="px-8 sm:px-0"
+        style={{ zIndex: '-1', backgroundColor: '#FCF0DB' }}
+      >
         <div className="container mx-auto mt-40 relative py-16">
           <p className="font-serif text-4xl text-gray-800 mb-4">
             Iglesia en línea
@@ -249,7 +252,7 @@ export default function Home({ data, data2 }) {
           </a>
         </div>
       </div>
-      <div>
+      <div className="px-8 sm:px-0">
         <div className="container mx-auto text-center relative pb-20 md:pb-40 pt-10">
           <div className="flex items-center justify-between py-16">
             <p className="font-serif text-4xl text-gray-800">
