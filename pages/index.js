@@ -193,7 +193,7 @@ export default function Home({ data, data2 }) {
       <div className="container mx-auto mb-40">
         <div className="mt-20 flex justify-center items-center">
           <Image
-            src="/../public/images/horaciopatty.png"
+            src="/images/horaciopatty.png"
             alt="Horacio y Patty"
             width={408}
             height={438}
@@ -211,7 +211,7 @@ export default function Home({ data, data2 }) {
               extender el Reino de Dios con tu vida.
             </p>
             <Image
-              src="/../public/images/sign.png"
+              src="/images/sign.png"
               alt="Horacio & Patty's Sign"
               width={217}
               height={57}
