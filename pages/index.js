@@ -87,6 +87,7 @@ export default function Home({ data, data2 }) {
           height={maxres.height}
           src={maxres.url}
           alt=""
+          placeholder="blur"
         />
         <p className="text-2xl text-gray-800 my-4 font-medium">{name[0]}</p>
         <p className="text-lg font-medium text-gray-700 mb-4">{date[0]}</p>
@@ -119,6 +120,7 @@ export default function Home({ data, data2 }) {
                 alt=""
                 layout="fixed"
                 className="object-cover"
+                placeholder="blur"
               />
               <div className="ml-4">
                 <p className="text-xl text-gray-800 mb-2 font-medium">
@@ -207,6 +209,7 @@ export default function Home({ data, data2 }) {
               alt="Horacio y Patty"
               width={408}
               height={438}
+              placeholder="blur"
             />
           </div>
           <div className="md:ml-16 md:w-4/12">
