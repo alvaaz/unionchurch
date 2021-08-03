@@ -28,15 +28,14 @@ export default function give() {
           rel="stylesheet"
         />
       </Head>
-      <nav
-        className="w-full pt-10 top-0 text-center bg-pink"
-        style={{ zIndex: '1' }}
-      >
-        <Link href="/">
-          <a>
-            <Image alt="Logo" src="/logo.png" height="57" width="145" />
-          </a>
-        </Link>
+      <nav className="w-full pt-10 top-0 bg-pink" style={{ zIndex: '1' }}>
+        <div className="container mx-auto sm:px-12">
+          <Link href="/">
+            <a>
+              <Image alt="Logo" src="/logo.png" height="57" width="145" />
+            </a>
+          </Link>
+        </div>
       </nav>
       <div className="bg-pink">
         <div className="container mx-auto flex justify-between flex-col md:flex-row px-8 md:px-0 pt-16 md:pt-40 relative ">
