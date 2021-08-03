@@ -11,6 +11,7 @@ import { reducer, initialState, actions } from '../lib/reducer';
 // eslint-disable-next-line react/prop-types
 export default function Home({ data, data2 }) {
   const [state, dispatch] = useReducer(reducer, initialState);
+  console.log(data);
   const {
     email,
     firstname,
@@ -57,11 +58,12 @@ export default function Home({ data, data2 }) {
 
   const latestsServices = data.items.map(({ id, snippet = {} }) => {
     const { title, thumbnails = {}, resourceId = {} } = snippet;
-    const { standard } = thumbnails;
+    const { maxres } = thumbnails;
     const regexDate = /\w[^-]*$/;
     const regexTitle = /"(.*?)"/;
     const name = regexTitle.exec(title);
     const date = regexDate.exec(title);
+
     return (
       <a
         key={id}
@@ -71,9 +73,9 @@ export default function Home({ data, data2 }) {
         className="flex-1 mb-8 lg:mb-0"
       >
         <Image
-          width={standard.width}
-          height={standard.height}
-          src={standard.url}
+          width={maxres.width}
+          height={maxres.height}
+          src={maxres.url}
           alt=""
         />
         <p className="text-2xl text-gray-800 my-4 font-medium">{name[0]}</p>
@@ -194,7 +196,6 @@ export default function Home({ data, data2 }) {
             alt="Horacio y Patty"
             width={408}
             height={438}
-            className="mb-16"
           />
           <div className="md:ml-16 md:w-4/12">
             <p className="font-serif text-4xl text-gray-800 mb-8">
@@ -283,6 +284,24 @@ export default function Home({ data, data2 }) {
           <div className="flex flex-wrap flex-col sm:flex-row justify-between text-left md:space-x-8">
             {latestsShepperdDeks}
           </div>
+        </div>
+      </div>
+      <div
+        className="px-8 sm:px-0 pt-10"
+        style={{ backgroundColor: '#FCF0DB' }}
+      >
+        <div className="container mx-auto text-center pb-20 md:pb-40 pt-20 md:w-5/12">
+          <p className="text-gray-300 text-9xl font-serif leading-3">“</p>
+          <p className="font-bold text-3xl mb-12">
+            Transformar la ciudad, influenciar al mundo, ayudar a las personas a
+            conocer, amar y compartir a Jesús.
+          </p>
+          <a
+            href="https://www.youtube.com/c/UnionChurchcl"
+            className="tracking-wider uppercase text-sm inline px-8 py-3 border border-primary font-bold bg-black hover:bg-gray-900 text-white transition duration-150 ease-in-out"
+          >
+            lee mas acerca de Nosotros
+          </a>
         </div>
       </div>
       <div className="bg-oil">
