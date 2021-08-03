@@ -4,14 +4,13 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { siteTitle } from '../components/layout';
-import { Separator, Footer } from '../components/shapes';
+import { CircleFinal, Footer } from '../components/shapes';
 import { Facebook, Youtube, Instagram, Error } from '../components/icons';
 import { reducer, initialState, actions } from '../lib/reducer';
 
 // eslint-disable-next-line react/prop-types
 export default function Home({ data, data2 }) {
   const [state, dispatch] = useReducer(reducer, initialState);
-  console.log(data);
   const {
     email,
     firstname,
@@ -239,19 +238,25 @@ export default function Home({ data, data2 }) {
         className="px-8 sm:px-0"
         style={{ zIndex: '-1', backgroundColor: '#FCF0DB' }}
       >
-        <div className="container mx-auto mt-40 relative py-16">
-          <p className="font-serif text-4xl text-gray-800 mb-4">
-            Iglesia en línea
-          </p>
-          <p className="text-2xl text-gray-700 mb-12">
-            Descubra como Union church puede mejorarle la vida
-          </p>
-          <a
-            href="https://www.youtube.com/c/UnionChurchcl"
-            className="tracking-wider uppercase text-sm inline px-8 py-3 border border-primary font-bold bg-primary hover:bg-primary-dark text-white transition duration-150 ease-in-out"
-          >
-            Ir al canal de Youtube
-          </a>
+        <div className="relative">
+          <div className="container mx-auto mt-40 flex items-center">
+            <div>
+              <p className="font-serif text-4xl text-gray-800 mb-4">
+                Iglesia en línea
+              </p>
+              <p className="text-2xl text-gray-700 mb-12">
+                Descubra como Union church puede mejorarle la vida
+              </p>
+              <a
+                href="https://www.youtube.com/c/UnionChurchcl"
+                className="tracking-wider uppercase text-sm inline px-8 py-3 border border-primary font-bold bg-primary hover:bg-primary-dark text-white transition duration-150 ease-in-out"
+              >
+                Ir al canal de Youtube
+              </a>
+            </div>
+            <CircleFinal className="opacity-0" />
+          </div>
+          <CircleFinal className="absolute top-0 right-0" />
         </div>
       </div>
       <div className="px-8 sm:px-0">
