@@ -55,6 +55,17 @@ export default function Home({ data, data2 }) {
     data2.items.filter((_, i) => i % 2),
   ];
 
+  const ministries = [1, 2, 3, 4, 5, 6].map((item, key) => (
+    <Image
+      alt=""
+      key={key}
+      width={160}
+      height={160}
+      src={`/images/ministries/${item}.png`}
+      className="filter grayscale hover:grayscale-0"
+    />
+  ));
+
   const latestsServices = data.items.map(({ id, snippet = {} }) => {
     const { title, thumbnails = {}, resourceId = {} } = snippet;
     const { maxres } = thumbnails;
@@ -189,13 +200,15 @@ export default function Home({ data, data2 }) {
         </div>
       </div>
       <div className="container mx-auto mb-20 md:mb-40 px-8 sm:px-8">
-        <div className="mt-20 flex justify-center items-center flex-col md:flex-row">
-          <Image
-            src="/images/horaciopatty.png"
-            alt="Horacio y Patty"
-            width={408}
-            height={438}
-          />
+        <div className="mt-20 flex justify-center items-center flex-col md:flex-row text-center md:text-left">
+          <div className="mb-12 md:mb-0">
+            <Image
+              src="/images/horaciopatty.png"
+              alt="Horacio y Patty"
+              width={408}
+              height={438}
+            />
+          </div>
           <div className="md:ml-16 md:w-4/12">
             <p className="font-serif text-4xl text-gray-800 mb-8">
               Uniendo personas con propósito
@@ -222,18 +235,7 @@ export default function Home({ data, data2 }) {
           </div>
         </div>
       </div>
-      <div className="flex justify-center flex-wrap">
-        {[1, 2, 3, 4, 5, 6].map((item, key) => (
-          <Image
-            alt=""
-            key={key}
-            width={160}
-            height={160}
-            src={`/images/ministries/${item}.png`}
-            className="filter grayscale hover:grayscale-0"
-          />
-        ))}
-      </div>
+      <div className="flex justify-center flex-wrap">{ministries}</div>
       <div
         className="px-8 sm:px-0"
         style={{ zIndex: '-1', backgroundColor: '#FCF0DB' }}
