@@ -240,10 +240,7 @@ export default function Home({ dataServices, dataShepperdDeks }) {
       <div className="flex justify-center flex-wrap space-x-8">
         {ministries}
       </div>
-      <div
-        className="px-8 sm:px-0"
-        style={{ zIndex: '-1', backgroundColor: '#FCF0DB' }}
-      >
+      <div className="px-8 sm:px-0 bg-pink-light" style={{ zIndex: '-1' }}>
         <div className="relative">
           <div className="container mx-auto mt-40 flex items-center">
             <div className="py-12 md:py-0">
@@ -297,10 +294,7 @@ export default function Home({ dataServices, dataShepperdDeks }) {
           </div>
         </div>
       </div>
-      <div
-        className="px-8 sm:px-0 pt-10"
-        style={{ backgroundColor: '#FCF0DB' }}
-      >
+      <div className="px-8 sm:px-0 pt-10 bg-pink-light">
         <div className="container mx-auto text-center pb-20 md:pb-40 pt-20 md:w-5/12">
           <p className="text-gray-300 text-9xl font-serif leading-3">“</p>
           <p className="font-bold text-xl sm:text-2xl md:text-3xl mb-12">
@@ -311,7 +305,7 @@ export default function Home({ dataServices, dataShepperdDeks }) {
             href="/about"
             className="tracking-wider uppercase text-sm inline px-8 py-3 border border-primary font-bold bg-black hover:bg-gray-900 text-white transition duration-150 ease-in-out"
           >
-            lee mas acerca de Nosotros
+            sobre Nosotros
           </a>
         </div>
       </div>
