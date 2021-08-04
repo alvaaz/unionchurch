@@ -1,15 +1,14 @@
 import React, { useReducer } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
-import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { siteTitle } from '../components/layout';
-import { CircleFinal, Footer } from '../components/shapes';
+import Layout from '../components/layout';
+import { CircleFinal } from '../components/shapes';
 import { Facebook, Youtube, Instagram, Error } from '../components/icons';
 import { reducer, initialState, actions } from '../lib/reducer';
 
-// eslint-disable-next-line react/prop-types
-export default function Home({ data, data2 }) {
+export default function Home({ dataServices, dataShepperdDeks }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const {
     email,
@@ -51,22 +50,24 @@ export default function Home({ data, data2 }) {
   };
 
   const postsGroups = [
-    data2.items.filter((_, i) => !(i % 2)),
-    data2.items.filter((_, i) => i % 2),
+    dataShepperdDeks.items.filter((_, i) => !(i % 2)),
+    dataShepperdDeks.items.filter((_, i) => i % 2),
   ];
 
   const ministries = [1, 2, 3, 4, 5, 6].map((item, key) => (
-    <Image
-      alt=""
-      key={key}
-      width={160}
-      height={160}
-      src={`/images/ministries/${item}.png`}
-      className="filter grayscale hover:grayscale-0"
-    />
+    <div key={key}>
+      <Image
+        alt=""
+        key={key}
+        width={160}
+        height={160}
+        src={`/images/ministries/${item}.png`}
+        className="filter grayscale hover:grayscale-0"
+      />
+    </div>
   ));
 
-  const latestsServices = data.items.map(({ id, snippet = {} }) => {
+  const latestsServices = dataServices.items.map(({ id, snippet = {} }) => {
     const { title, thumbnails = {}, resourceId = {} } = snippet;
     const { maxres } = thumbnails;
     const regexDate = /\w[^-]*$/;
@@ -89,8 +90,12 @@ export default function Home({ data, data2 }) {
           alt=""
           placeholder="blur"
         />
-        <p className="text-2xl text-gray-800 my-4 font-medium">{name[0]}</p>
-        <p className="text-lg font-medium text-gray-700 mb-4">{date[0]}</p>
+        <p className="text-lg sm:text-xl md:text-2xl text-gray-800 my-4 font-medium">
+          {name[0]}
+        </p>
+        <p className="text-base md:text-lg font-medium text-gray-700 mb-4">
+          {date[0]}
+        </p>
       </a>
     );
   });
@@ -123,10 +128,10 @@ export default function Home({ data, data2 }) {
                 placeholder="blur"
               />
               <div className="ml-4">
-                <p className="text-xl text-gray-800 mb-2 font-medium">
+                <p className="text-lg sm:text-xl md:text-2xl text-gray-800 mb-2 font-medium">
                   {name[0]}
                 </p>
-                <p className="text-lg text-gray-600">
+                <p className="text-base md:text-lg text-gray-600">
                   {new Date(publishedAt).toLocaleDateString('es-ES', {
                     weekday: 'long',
                     year: 'numeric',
@@ -143,15 +148,7 @@ export default function Home({ data, data2 }) {
   });
 
   return (
-    <>
-      <Head>
-        <title>{siteTitle}</title>
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=DM+Serif+Display&display=swap"
-          rel="stylesheet"
-        />
-      </Head>
+    <Layout>
       <div className="h-screen">
         <Image
           className="absolute object-cover back filter contrast-900"
@@ -213,10 +210,10 @@ export default function Home({ data, data2 }) {
             />
           </div>
           <div className="md:ml-16 md:w-4/12">
-            <p className="font-serif text-4xl text-gray-800 mb-8">
+            <p className="font-serif text-2xl md:text-3xl lg:text-4xl text-gray-800 mb-8">
               Uniendo personas con propósito
             </p>
-            <p className="font-xl text-gray-600 mb-2">
+            <p className="font-xl text-gray-600 mb-8">
               Bienvenidos a Union Church. Somos una comunidad de La Viña que
               busca vivir los valores bíblicos, experimentando naturalmente lo
               sobrenatural. Te invitamos a vivir un encuentro con Jesús, a
@@ -224,12 +221,14 @@ export default function Home({ data, data2 }) {
               significativas con otras personas, crecer y vivir la Palabra y
               extender el Reino de Dios con tu vida.
             </p>
-            <Image
-              src="/images/sign.png"
-              alt="Horacio & Patty's Sign"
-              width={217}
-              height={57}
-            />
+            <div>
+              <Image
+                src="/images/sign.png"
+                alt="Horacio & Patty's Sign"
+                width={217}
+                height={57}
+              />
+            </div>
             <p>
               <span className="block">Horacio & Patty Gonzalez</span>
               <span className="block">Pastores principales</span>
@@ -238,18 +237,20 @@ export default function Home({ data, data2 }) {
           </div>
         </div>
       </div>
-      <div className="flex justify-center flex-wrap">{ministries}</div>
+      <div className="flex justify-center flex-wrap space-x-8">
+        {ministries}
+      </div>
       <div
         className="px-8 sm:px-0"
         style={{ zIndex: '-1', backgroundColor: '#FCF0DB' }}
       >
         <div className="relative">
           <div className="container mx-auto mt-40 flex items-center">
-            <div>
-              <p className="font-serif text-4xl text-gray-800 mb-4">
+            <div className="py-12 md:py-0">
+              <p className="font-serif text-2xl md:text-3xl lg:text-4xl text-gray-800 mb-4">
                 Iglesia en línea
               </p>
-              <p className="text-2xl text-gray-700 mb-12">
+              <p className="text-lg sm:text-xl md:text-2xl text-gray-700 mb-12">
                 Descubra como Union church puede mejorarle la vida
               </p>
               <a
@@ -259,15 +260,15 @@ export default function Home({ data, data2 }) {
                 Ir al canal de Youtube
               </a>
             </div>
-            <CircleFinal className="opacity-0" />
+            <CircleFinal className="opacity-0 hidden md:block" />
           </div>
-          <CircleFinal className="absolute top-0 right-0" />
+          <CircleFinal className="absolute top-0 right-0 hidden md:block" />
         </div>
       </div>
       <div className="px-8 sm:px-0">
         <div className="container mx-auto text-center relative pb-20 md:pb-40 pt-10">
           <div className="flex items-center justify-between py-16">
-            <p className="font-serif text-4xl text-gray-800">
+            <p className="font-serif text-2xl md:text-3xl lg:text-4xl text-gray-800">
               Últimos servicios
             </p>
             <a
@@ -281,7 +282,7 @@ export default function Home({ data, data2 }) {
             {latestsServices}
           </div>
           <div className="flex items-center justify-between py-16">
-            <p className="font-serif text-4xl text-gray-800">
+            <p className="font-serif text-2xl md:text-3xl lg:text-4xl text-gray-800">
               Escritorio del pastor
             </p>
             <a
@@ -302,7 +303,7 @@ export default function Home({ data, data2 }) {
       >
         <div className="container mx-auto text-center pb-20 md:pb-40 pt-20 md:w-5/12">
           <p className="text-gray-300 text-9xl font-serif leading-3">“</p>
-          <p className="font-bold text-3xl mb-12">
+          <p className="font-bold text-xl sm:text-2xl md:text-3xl mb-12">
             Transformar la ciudad, influenciar al mundo, ayudar a las personas a
             conocer, amar y compartir a Jesús.
           </p>
@@ -320,7 +321,7 @@ export default function Home({ data, data2 }) {
             <p className="font-sans uppercase text-white tracking-wider mb-4 font-bold text-center md:text-left">
               Mantente informado
             </p>
-            <p className="font-serif text-4xl lg:text-5xl text-white text-center md:text-left mb-4 md:pb-16">
+            <p className="font-serif text-2xl md:text-3xl lg:text-4xl lg:text-5xl text-white text-center md:text-left mb-4 md:pb-16">
               Suscríbete a nuestro <br />
               boletín de noticias
             </p>
@@ -434,70 +435,7 @@ export default function Home({ data, data2 }) {
           </form>
         </div>
       </div>
-      <div className="bg-gray">
-        <div className="container mx-auto flex justify-between flex-col md:flex-row px-8 sm:px-0 py-32 text-white">
-          <div className="md:pl-12 flex flex-col items-start">
-            <div className="mb-8">
-              <Image
-                src="/logo-white.png"
-                width={146}
-                height={73}
-                alt="logo"
-                layout="fixed"
-              />
-            </div>
-            <a
-              href="/give"
-              className="tracking-wider uppercase text-sm px-8 py-3 border border-white font-bold bg-transparent text-white transition duration-150 ease-in-out"
-            >
-              Dar
-            </a>
-          </div>
-          <div className="mt-8 md:mt-0 mb-8 md:mb-0 md:px-12">
-            <p className="font-serif text-2xl my-4 font-medium md:mt-0">
-              Streaming
-            </p>
-            <p className="mb-4">
-              <span className="font-bold text-lg block">Reunión general</span>{' '}
-              Domingos a las 10:45 hrs
-            </p>
-            <p>
-              <span className="font-bold text-lg block">Reunión oración</span>{' '}
-              Miércoles a las 19:45 hrs
-            </p>
-          </div>
-          <div className="mb-8 md:mb-0">
-            <p className="font-serif text-2xl my-4 font-medium md:mt-0">
-              Contacto
-            </p>
-            <p className="mb-4">
-              <span className="font-bold text-lg block">Teléfono</span> 32
-              2125033
-            </p>
-            <p>
-              <span className="font-bold text-lg block">
-                Celular / WhatsApp
-              </span>{' '}
-              +56 9 6569 6958
-            </p>
-          </div>
-          <div className="md:px-12">
-            <p className="font-serif text-2xl my-4 font-medium md:mt-0">
-              Ubicación y horario
-            </p>
-            <p className="mb-4">Von Schroeders #356, Viña del mar, Chile</p>
-            <p>
-              <span className="font-bold text-lg block">Lunes a Viernes</span>{' '}
-              9:00 a 14:00 hrs y 15:00 a 18:00 hrs
-            </p>
-          </div>
-        </div>
-        <p className="text-white text-center mb-8">© Union Church 2021</p>
-        <div style={{ height: '32px', overflowX: 'hidden' }}>
-          <Footer />
-        </div>
-      </div>
-    </>
+    </Layout>
   );
 }
 
@@ -511,12 +449,17 @@ export async function getServerSideProps() {
   const res2 = await fetch(
     `${YOUTUBE_PLAYLIST_ITEMS_API}?part=snippet&maxResults=6&playlistId=PLV_Ax0JpimXPgTVH7fvCVC-2X0XQ6vorg&key=${process.env.YOUTUBE_KEY}`
   );
-  const data = await res.json();
-  const data2 = await res2.json();
+  const dataServices = await res.json();
+  const dataShepperdDeks = await res2.json();
   return {
     props: {
-      data,
-      data2,
+      dataServices,
+      dataShepperdDeks,
     },
   };
 }
+
+Home.propTypes = {
+  dataServices: PropTypes.object,
+  dataShepperdDeks: PropTypes.object,
+};

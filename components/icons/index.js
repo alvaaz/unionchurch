@@ -5,3 +5,4 @@ export * from './error';
 export * from './duplicate';
 export * from './check';
 export * from './arrow';
+export * from './heart';

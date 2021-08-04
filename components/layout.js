@@ -1,15 +1,13 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import styles from './layout.module.css';
-import utilStyles from '../styles/utils.module.css';
-import Link from 'next/link';
+import { Footer } from './shapes';
+import PropTypes from 'prop-types';
 
-const name = '[Your Name]';
 export const siteTitle = 'Union Church | Una Iglesia Viña';
 
-export default function Layout({ children, home }) {
+export default function Layout({ children }) {
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta
@@ -30,49 +28,70 @@ export default function Layout({ children, home }) {
           rel="stylesheet"
         />
       </Head>
-      <header className={styles.header}>
-        {home ? (
-          <>
-            <Image
-              priority
-              src="/images/profile.jpg"
-              className={utilStyles.borderCircle}
-              height={144}
-              width={144}
-              alt={name}
-            />
-            <h1 className={utilStyles.heading2Xl}>{name}</h1>
-          </>
-        ) : (
-          <>
-            <Link href="/">
-              <a>
-                <Image
-                  priority
-                  src="/images/profile.jpg"
-                  className={utilStyles.borderCircle}
-                  height={108}
-                  width={108}
-                  alt={name}
-                />
-              </a>
-            </Link>
-            <h2 className={utilStyles.headingLg}>
-              <Link href="/">
-                <a className={utilStyles.colorInherit}>{name}</a>
-              </Link>
-            </h2>
-          </>
-        )}
-      </header>
+
       <main>{children}</main>
-      {!home && (
-        <div className={styles.backToHome}>
-          <Link href="/">
-            <a>← Back to home</a>
-          </Link>
+      <div className="bg-gray">
+        <div className="container mx-auto flex justify-between flex-col md:flex-row px-8 sm:px-0 py-32 text-white">
+          <div className="md:pl-12">
+            <Image
+              src="/logo-white.png"
+              width={146}
+              height={73}
+              alt="logo"
+              layout="fixed"
+            />
+          </div>
+          <div className="mt-8 md:mt-0 mb-8 md:mb-0 md:px-12">
+            <p className="font-serif text-2xl my-4 font-medium md:mt-0">
+              Streaming
+            </p>
+            <p className="mb-4">
+              <span className="font-bold text-lg block">Reunión general</span>{' '}
+              Domingos a las 10:45 hrs
+            </p>
+            <p>
+              <span className="font-bold text-lg block">Reunión oración</span>{' '}
+              Miércoles a las 19:45 hrs
+            </p>
+          </div>
+          <div className="mb-8 md:mb-0">
+            <p className="font-serif text-2xl my-4 font-medium md:mt-0">
+              Contacto
+            </p>
+            <p className="mb-4">
+              <span className="font-bold text-lg block">Teléfono</span> 32
+              2125033
+            </p>
+            <p>
+              <span className="font-bold text-lg block">
+                Celular / WhatsApp
+              </span>{' '}
+              +56 9 6569 6958
+            </p>
+          </div>
+          <div className="md:px-12">
+            <p className="font-serif text-2xl my-4 font-medium md:mt-0">
+              Ubicación y horario
+            </p>
+            <p className="mb-4">Von Schroeders #356, Viña del mar, Chile</p>
+            <p>
+              <span className="font-bold text-lg block">Lunes a Viernes</span>{' '}
+              9:00 a 14:00 hrs y 15:00 a 18:00 hrs
+            </p>
+          </div>
         </div>
-      )}
-    </div>
+        <p className="text-white text-center mb-8">© Union Church 2021</p>
+        <div style={{ height: '32px', overflowX: 'hidden' }}>
+          <Footer />
+        </div>
+      </div>
+    </>
   );
 }
+
+Layout.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
+};
