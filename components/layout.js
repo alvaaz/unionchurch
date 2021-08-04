@@ -33,14 +33,23 @@ export default function Layout({ children }) {
       <div className="bg-gray">
         <div className="container mx-auto flex justify-between flex-col md:flex-row px-8 sm:px-0 py-32 text-white">
           <div className="md:pl-12">
-            <Image
-              src="/logo-white.png"
-              width={146}
-              height={73}
-              alt="logo"
-              layout="fixed"
-            />
+            <div className="mb-8">
+              <Image
+                src="/logo-white.png"
+                width={146}
+                height={73}
+                alt="logo"
+                layout="fixed"
+              />
+            </div>
+            <a
+              href="/give"
+              className="tracking-wider uppercase text-sm px-8 py-3 border border-white font-bold bg-transparent text-white transition duration-150 ease-in-out"
+            >
+              Dar
+            </a>
           </div>
+
           <div className="mt-8 md:mt-0 mb-8 md:mb-0 md:px-12">
             <p className="font-serif text-2xl my-4 font-medium md:mt-0">
               Streaming

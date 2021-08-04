@@ -23,7 +23,7 @@ export default function about() {
   });
   return (
     <Layout>
-      <nav className="w-full pt-10 top-0 bg-pink" style={{ zIndex: '1' }}>
+      <nav className="px-8 md:px-0 pt-10 top-0 bg-pink" style={{ zIndex: '1' }}>
         <div className="container mx-auto sm:px-12">
           <Link href="/">
             <a>
@@ -40,7 +40,7 @@ export default function about() {
               Nosotros
             </p>
             <div className="mb-16">
-              <Adn className="mb-8 mx-auto md:m-0" />
+              <Adn className="mb-8 mx-auto md:mx-0" />
               <p className="text-xl text-gray-800 mb-2 font-medium mb-4">
                 Misión
               </p>
@@ -49,7 +49,7 @@ export default function about() {
               </p>
             </div>
             <div>
-              <Vision className="mb-8 mx-auto md:m-0" />
+              <Vision className="mb-8 mx-auto md:mx-0" />
               <p className="text-xl text-gray-800 mb-2 font-medium mb-4">
                 Visión
               </p>

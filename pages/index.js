@@ -308,7 +308,7 @@ export default function Home({ dataServices, dataShepperdDeks }) {
             conocer, amar y compartir a Jesús.
           </p>
           <a
-            href="https://www.youtube.com/c/UnionChurchcl"
+            href="/about"
             className="tracking-wider uppercase text-sm inline px-8 py-3 border border-primary font-bold bg-black hover:bg-gray-900 text-white transition duration-150 ease-in-out"
           >
             lee mas acerca de Nosotros
