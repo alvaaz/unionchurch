@@ -303,7 +303,7 @@ export default function Home({ dataServices, dataShepperdDeks }) {
           </p>
           <a
             href="/about"
-            className="tracking-wider uppercase text-sm inline px-8 py-3 border border-primary font-bold bg-black hover:bg-gray-900 text-white transition duration-150 ease-in-out"
+            className="tracking-wider uppercase text-sm inline px-8 py-3 font-bold bg-black hover:bg-gray-900 text-white transition duration-150 ease-in-out"
           >
             sobre Nosotros
           </a>
