@@ -28,6 +28,7 @@ module.exports = {
       opacity: ['disabled'],
       textOpacity: ['disabled'],
       grayscale: ['hover', 'focus'],
+      borderWidth: ['hover', 'focus'],
     },
   },
   plugins: [],

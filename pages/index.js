@@ -2,8 +2,7 @@ import React, { useReducer } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import Image from 'next/image';
-import Link from 'next/link';
-import Layout from '../components/layout';
+import { Layout, Header } from '../components';
 import { CircleFinal } from '../components/shapes';
 import { Facebook, Youtube, Instagram, Error } from '../components/icons';
 import { reducer, initialState, actions } from '../lib/reducer';
@@ -157,16 +156,7 @@ export default function Home({ dataServices, dataShepperdDeks }) {
           layout="fill"
         />
 
-        <nav
-          className="w-full pt-10 absolute top-0 text-center"
-          style={{ zIndex: '1' }}
-        >
-          <Link href="/">
-            <a>
-              <Image alt="Logo" src="/logo.png" height="57" width="145" />
-            </a>
-          </Link>
-        </nav>
+        <Header />
         <div className="h-full flex justify-center items-center relative">
           <div>
             <p className="text-center text-white font-serif text-5xl mb-20 md:text-6xl lg:text-8xl">
@@ -269,7 +259,7 @@ export default function Home({ dataServices, dataShepperdDeks }) {
               Últimos servicios
             </p>
             <a
-              className="text-yellow-700	font-semibold border-b-4 flex items-center"
+              className="text-yellow-700 font-semibold border-b-4 flex items-center"
               href="w"
             >
               Ver todos

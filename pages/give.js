@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import Image from 'next/image';
 import { Duplicate, Check } from '../components/icons';
-import Link from 'next/link';
-import Layout from '../components/layout';
+import { Layout, Header2 } from '../components';
 
 export default function give() {
   const [copied, setCopied] = useState(false);
@@ -18,18 +16,10 @@ export default function give() {
 
   return (
     <Layout>
-      <nav className="px-8 md:px-0 pt-10 top-0 bg-pink">
-        <div className="container mx-auto sm:px-12">
-          <Link href="/">
-            <a>
-              <Image alt="Logo" src="/logo.png" height="57" width="145" />
-            </a>
-          </Link>
-        </div>
-      </nav>
+      <Header2 />
       <div className="bg-pink">
         <div className="container mx-auto flex justify-between flex-col md:flex-row px-8 md:px-0 pt-16 md:pt-40 relative ">
-          <div className="sm:px-12 md:pb-32">
+          <div className="md:pb-32">
             <p className="font-sans uppercase text-gray-500 tracking-wider mb-4 font-bold md:text-left">
               Dar
             </p>

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 export const siteTitle = 'Union Church | Una Iglesia Viña';
 
-export default function Layout({ children }) {
+export function Layout({ children }) {
   return (
     <>
       <Head>

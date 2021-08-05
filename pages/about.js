@@ -2,8 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { Adn, Vision } from '../components/shapes';
 import { Heart } from '../components/icons';
-import Link from 'next/link';
-import Layout from '../components/layout';
+import { Layout, Header2 } from '../components';
 import { attributes } from '../data';
 
 export default function about() {
@@ -23,15 +22,7 @@ export default function about() {
   });
   return (
     <Layout>
-      <nav className="px-8 md:px-0 pt-10 top-0 bg-pink" style={{ zIndex: '1' }}>
-        <div className="container mx-auto sm:px-12">
-          <Link href="/">
-            <a>
-              <Image alt="Logo" src="/logo.png" height="57" width="145" />
-            </a>
-          </Link>
-        </div>
-      </nav>
+      <Header2 />
 
       <div className="bg-pink pt-20">
         <div className="container mx-auto flex flex-col md:flex-row pb-16 md:pb-24">
