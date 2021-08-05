@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Adn, Vision } from '../components/shapes';
 import { Heart } from '../components/icons';
 import { Layout, Header2 } from '../components';
@@ -39,7 +40,7 @@ export default function about() {
                 Conocer, llegar a ser, e impactar como Jesús
               </p>
             </div>
-            <div>
+            <div className="mb-24">
               <Vision className="mb-8 mx-auto md:mx-0" />
               <p className="text-xl text-gray-800 mb-2 font-medium mb-4">
                 Visión
@@ -49,6 +50,11 @@ export default function about() {
                 personas a conocer, amar y compartir a Jesús.
               </p>
             </div>
+            <Link href="confesion.pdf">
+              <a className="tracking-wider uppercase text-sm inline px-8 py-3 font-bold bg-black hover:bg-gray-900 text-white transition duration-150 ease-in-out">
+                Nuestra confesión
+              </a>
+            </Link>
           </div>
           <div className="w-full md:w-1/2">
             <Image
