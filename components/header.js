@@ -11,7 +11,14 @@ export function Header() {
       <nav className="container mx-auto px-8 md:px-0 flex items-center">
         <Link href="/">
           <a className="flex-grow">
-            <Image alt="Logo" src="/logo.png" height="57" width="145" />
+            <div className="w-32 relative h-16">
+              <Image
+                alt="Logo"
+                src="/logo.png"
+                layout="fill"
+                objectFit="contain"
+              />
+            </div>
           </a>
         </Link>
         <Link href="/about">
