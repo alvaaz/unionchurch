@@ -10,14 +10,7 @@ export function Header() {
     >
       <nav className="container mx-auto px-8 md:px-0 flex items-center">
         <Link href="/">
-          <a className="flex-grow">
-            <Image
-              alt="Logo"
-              src="/logo.png"
-              layout="fill"
-              objectFit="contain"
-            />
-          </a>
+          <Image alt="Logo" src="/logo.png" height="57" width="145" />
         </Link>
         <Link href="/about">
           <a className="mr-8 text-white text-lg border-transparent border-b-4 hover:border-white">
