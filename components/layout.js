@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { Footer } from './shapes';
 import PropTypes from 'prop-types';
+import { Facebook, Youtube, Instagram } from '../components/icons';
 
 export const siteTitle = 'Union Church | Una Iglesia Viña';
 
@@ -88,6 +89,29 @@ export function Layout({ children }) {
               9:00 a 14:00 hrs y 15:00 a 18:00 hrs
             </p>
           </div>
+        </div>
+        <div className="flex justify-center mb-8">
+          <a
+            href="https://www.facebook.com/unionchurch.cl"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Facebook className="mr-8" />
+          </a>
+          <a
+            href="https://www.instagram.com/unionchurch.cl/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Instagram className="mr-8" />
+          </a>
+          <a
+            href="https://www.youtube.com/c/UnionChurchcl"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Youtube />
+          </a>
         </div>
         <p className="text-white text-center mb-8">© Union Church 2021</p>
         <div style={{ height: '32px', overflowX: 'hidden' }}>

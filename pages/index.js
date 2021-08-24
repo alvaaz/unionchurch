@@ -48,11 +48,6 @@ export default function Home({ dataServices, dataShepperdDeks }) {
     }
   };
 
-  const postsGroups = [
-    dataShepperdDeks.items.filter((_, i) => !(i % 2)),
-    dataShepperdDeks.items.filter((_, i) => i % 2),
-  ];
-
   const ministries = [1, 2, 3, 4, 5, 6].map((item, key) => (
     <div key={key}>
       <Image
@@ -98,51 +93,44 @@ export default function Home({ dataServices, dataShepperdDeks }) {
       </a>
     );
   });
+  console.log(dataShepperdDeks.items);
 
-  const latestsShepperdDeks = postsGroups.map((posts, index) => {
+  const latestsShepperdDeks = dataShepperdDeks.items.map((posts, index) => {
+    const { title, thumbnails, resourceId, publishedAt } = posts.snippet;
+    const { default: standard } = thumbnails;
+    const regexName = /\w[^:]*$/;
+    const name = regexName.exec(title);
     return (
-      <div className="flex flex-col flex-1" key={index}>
-        {posts.map(({ id, snippet = {} }) => {
-          const { title, thumbnails, resourceId, publishedAt } = snippet;
-          const { default: standard } = thumbnails;
-
-          const regexName = /\w[^:]*$/;
-          const name = regexName.exec(title);
-
-          return (
-            <a
-              key={id}
-              href={`https://www.youtube.com/watch?v=${resourceId.videoId}`}
-              target="_blank"
-              rel="noreferrer"
-              className="flex-1 mb-8 flex bg-gray-50 hover:bg-gray-100 p-4 transition ease-in-out duration-200"
-            >
-              <Image
-                width={68}
-                height={68}
-                src={standard.url}
-                alt=""
-                layout="fixed"
-                className="object-cover"
-                placeholder="blur"
-              />
-              <div className="ml-4">
-                <p className="text-lg sm:text-xl md:text-2xl text-gray-800 mb-2 font-medium">
-                  {name[0]}
-                </p>
-                <p className="text-base md:text-lg text-gray-600">
-                  {new Date(publishedAt).toLocaleDateString('es-ES', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })}
-                </p>
-              </div>
-            </a>
-          );
-        })}
-      </div>
+      <a
+        key={index}
+        href={`https://www.youtube.com/watch?v=${resourceId.videoId}`}
+        target="_blank"
+        rel="noreferrer"
+        className="flex-1 mb-8 flex bg-gray-50 hover:bg-gray-100 p-4 transition ease-in-out duration-200"
+      >
+        <Image
+          width={68}
+          height={68}
+          src={standard.url}
+          alt=""
+          layout="fixed"
+          className="object-cover"
+          placeholder="blur"
+        />
+        <div className="ml-4">
+          <p className="text-lg sm:text-xl md:text-2xl text-gray-800 mb-2 font-medium">
+            {name[0]}
+          </p>
+          <p className="text-base md:text-lg text-gray-600">
+            {new Date(publishedAt).toLocaleDateString('es-ES', {
+              weekday: 'long',
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}
+          </p>
+        </div>
+      </a>
     );
   });
 
@@ -227,6 +215,9 @@ export default function Home({ dataServices, dataShepperdDeks }) {
           </div>
         </div>
       </div>
+      <p className="text-lg sm:text-xl md:text-2xl text-gray-800 mb-2 text-center">
+        Intégrate a nuestros grupos de crecimiento
+      </p>
       <div className="flex justify-center flex-wrap space-x-8">
         {ministries}
       </div>
@@ -431,7 +422,7 @@ export async function getServerSideProps() {
     `${YOUTUBE_PLAYLIST_ITEMS_API}?part=snippet&maxResults=3&playlistId=${process.env.PLAYLIST_ID}&key=${process.env.YOUTUBE_KEY}`
   );
   const res2 = await fetch(
-    `${YOUTUBE_PLAYLIST_ITEMS_API}?part=snippet&maxResults=6&playlistId=PLV_Ax0JpimXPgTVH7fvCVC-2X0XQ6vorg&key=${process.env.YOUTUBE_KEY}`
+    `${YOUTUBE_PLAYLIST_ITEMS_API}?part=snippet&maxResults=3&playlistId=PLV_Ax0JpimXPgTVH7fvCVC-2X0XQ6vorg&key=${process.env.YOUTUBE_KEY}`
   );
   const dataServices = await res.json();
   const dataShepperdDeks = await res2.json();
