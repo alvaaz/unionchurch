@@ -13,7 +13,7 @@ export function Header() {
           <Image alt="Logo" src="/logo.png" height="57" width="145" />
         </Link>
         <Link href="/about">
-          <a className="mr-8 text-white text-lg border-transparent border-b-4 hover:border-white">
+          <a className="ml-8 mr-8 text-white text-lg border-transparent border-b-4 hover:border-white">
             Nosotros
           </a>
         </Link>

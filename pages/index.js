@@ -270,7 +270,7 @@ export default function Home({ dataServices, dataShepperdDeks }) {
               Ver todos
             </a>
           </div>
-          <div className="flex flex-wrap flex-col sm:flex-row justify-between text-left md:space-x-8">
+          <div className="flex flex-wrap flex-col lg:flex-row justify-between text-left lg:space-x-8">
             {latestsShepperdDeks}
           </div>
         </div>

@@ -52,7 +52,7 @@ export default function about() {
             </div>
             <Link href="confesion.pdf">
               <a className="tracking-wider uppercase text-sm inline px-8 py-3 font-bold bg-black hover:bg-gray-900 text-white transition duration-150 ease-in-out">
-                Nuestra confesión
+                Confesión y valores
               </a>
             </Link>
           </div>

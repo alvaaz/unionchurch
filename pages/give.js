@@ -18,7 +18,7 @@ export default function give() {
     <Layout>
       <Header2 />
       <div className="bg-pink">
-        <div className="container mx-auto flex justify-between flex-col md:flex-row px-8 md:px-0 pt-16 md:pt-40 relative ">
+        <div className="container mx-auto flex justify-between flex-col md:flex-row px-8 md:px-0 pt-16 md:pt-16 relative ">
           <div className="md:pb-32">
             <p className="font-sans uppercase text-gray-500 tracking-wider mb-4 font-bold md:text-left">
               Dar
@@ -50,7 +50,7 @@ export default function give() {
               o transfiriendo a la cuenta de la Corporación Iglesia Union.
             </p>
 
-            <div className="flex flex-col w-full md:w-2/5 lg:w-1/3 mx-auto md:mx-0 bg-white p-4 shadow-2xl top-20 md:top-80 md:right-12 relative md:absolute">
+            <div className="flex flex-col w-full md:w-2/5 lg:w-1/3 mx-auto md:mx-0 bg-white p-4 shadow-2xl top-20 md:top-40 md:right-12 relative md:absolute">
               <p className="font-bold">Nombre</p>
               <p className="mb-4">Corporación Iglesia Union</p>
               <p className="font-bold">RUT</p>
