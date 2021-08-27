@@ -13,9 +13,12 @@ export function Layout({ children }) {
         <link rel="icon" href="/favicon.ico" />
         <meta
           name="description"
-          content="Learn how to build a personal website using Next.js"
+          content="Transformar la ciudad, influenciar al mundo, ayudar a las personas a conocer, amar y compartir a Jesús."
         />
-        <meta property="og:image" content="/images/og-image.png" />
+        <meta
+          property="og:image"
+          content="https://unionchurch.vercel.app/images/og-image.png"
+        />
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
