@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Duplicate, Check } from '../components/icons';
 import { Layout, Header2 } from '../components';
+import Image from 'next/image';
 
 export default function give() {
   const [copied, setCopied] = useState(false);
@@ -51,6 +52,16 @@ export default function give() {
             </p>
 
             <div className="flex flex-col w-full md:w-2/5 lg:w-1/3 mx-auto md:mx-0 bg-white p-4 shadow-2xl top-20 md:top-40 md:right-12 relative md:absolute">
+              <div className="mb-8">
+                <Image
+                  src="/images/dar.png"
+                  alt="Give"
+                  layout="responsive"
+                  objectFit="cover"
+                  height={534}
+                  width={641}
+                ></Image>
+              </div>
               <p className="font-bold">Nombre</p>
               <p className="mb-4">Corporación Iglesia Union</p>
               <p className="font-bold">RUT</p>
