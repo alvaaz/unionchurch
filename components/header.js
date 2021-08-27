@@ -32,9 +32,7 @@ export function Header2() {
     <div className="bg-pink w-full py-10" style={{ zIndex: 1 }}>
       <nav className="container mx-auto px-8 md:px-0 flex items-center">
         <Link href="/">
-          <a className="flex-grow">
-            <Image alt="Logo" src="/logo.png" height="57" width="145" />
-          </a>
+          <Image alt="Logo" src="/logo.png" height="57" width="145" />
         </Link>
         <Link href="/about">
           <a className="mr-8 text-black text-lg border-transparent border-b-4 hover:border-black">

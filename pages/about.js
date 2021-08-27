@@ -61,6 +61,7 @@ export default function about() {
               src="/images/zoom.png"
               alt="Zoom"
               layout="responsive"
+              objectFit="contain"
               height={534}
               width={641}
             ></Image>
