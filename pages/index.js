@@ -135,7 +135,7 @@ export default function Home({ dataServices, dataShepperdDeks }) {
   });
 
   return (
-    <Layout>
+    <Layout title="Inicio">
       <div className="h-screen">
         <Image
           className="absolute object-cover back filter contrast-900"

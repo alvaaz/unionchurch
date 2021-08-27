@@ -16,7 +16,7 @@ export default function give() {
   };
 
   return (
-    <Layout>
+    <Layout title="Dar">
       <Header2 />
       <div className="bg-pink">
         <div className="container mx-auto flex justify-between flex-col md:flex-row px-8 md:px-0 pt-16 md:pt-16 relative ">

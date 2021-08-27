@@ -6,7 +6,7 @@ import { Facebook, Youtube, Instagram } from '../components/icons';
 
 export const siteTitle = 'Union Church | Una Iglesia Viña';
 
-export function Layout({ children }) {
+export function Layout({ children, title }) {
   return (
     <>
       <Head>
@@ -26,6 +26,7 @@ export function Layout({ children }) {
           href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500&family=DM+Serif+Display&display=swap"
           rel="stylesheet"
         />
+        <title>{title} | Union Church</title>
       </Head>
 
       <main>{children}</main>
@@ -121,6 +122,7 @@ export function Layout({ children }) {
 }
 
 Layout.propTypes = {
+  title: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,

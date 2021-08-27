@@ -22,7 +22,7 @@ export default function about() {
     );
   });
   return (
-    <Layout>
+    <Layout title="Nosotros">
       <Header2 />
 
       <div className="bg-pink pt-20">
