@@ -10,7 +10,9 @@ export function Header() {
     >
       <nav className="container mx-auto px-8 md:px-0 flex items-center">
         <Link href="/">
-          <Image alt="Logo" src="/logo.png" height="57" width="145" />
+          <a>
+            <Image alt="Logo" src="/logo.png" height="57" width="145" />
+          </a>
         </Link>
         <Link href="/about">
           <a className="ml-8 mr-8 text-white text-lg border-transparent border-b-4 hover:border-white">
@@ -32,10 +34,12 @@ export function Header2() {
     <div className="bg-pink w-full py-10" style={{ zIndex: 1 }}>
       <nav className="container mx-auto px-8 md:px-0 flex items-center">
         <Link href="/">
-          <Image alt="Logo" src="/logo.png" height="57" width="145" />
+          <a>
+            <Image alt="Logo" src="/logo.png" height="57" width="145" />
+          </a>
         </Link>
         <Link href="/about">
-          <a className="mr-8 text-black text-lg border-transparent border-b-4 hover:border-black">
+          <a className="ml-8 mr-8 text-black text-lg border-transparent border-b-4 hover:border-black">
             Nosotros
           </a>
         </Link>
