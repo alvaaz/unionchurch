@@ -244,7 +244,7 @@ export default function Home({ dataServices, dataShepperdDeks }) {
                 Iglesia en línea
               </p>
               <p className="text-lg sm:text-xl md:text-2xl text-gray-700 mb-12">
-                Descubra como Union church puede mejorarle la vida
+                ¡Juntos hacemos la iglesia!{' '}
               </p>
               <a
                 href="https://www.youtube.com/c/UnionChurchcl"
