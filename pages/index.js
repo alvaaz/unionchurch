@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import Image from 'next/image';
-import { Layout, Header } from '../components';
+import { Layout, Header, shimmer, toBase64 } from '../components';
 import { CircleFinal } from '../components/shapes';
 import { Facebook, Youtube, Instagram, Error } from '../components/icons';
 import { reducer, initialState, actions } from '../lib/reducer';
@@ -57,6 +57,7 @@ export default function Home({ dataServices, dataShepperdDeks }) {
         height={160}
         src={`/images/ministries/${item}.png`}
         className="filter grayscale hover:grayscale-0"
+        placeholder="blur"
       />
     </div>
   ));
@@ -93,7 +94,6 @@ export default function Home({ dataServices, dataShepperdDeks }) {
       </a>
     );
   });
-  console.log(dataShepperdDeks.items);
 
   const latestsShepperdDeks = dataShepperdDeks.items.map((posts, index) => {
     const { title, thumbnails, resourceId, publishedAt } = posts.snippet;
@@ -142,6 +142,7 @@ export default function Home({ dataServices, dataShepperdDeks }) {
           alt="Cover"
           src="/images/cover.png"
           layout="fill"
+          placeholder="blur"
         />
 
         <Header />
@@ -205,6 +206,7 @@ export default function Home({ dataServices, dataShepperdDeks }) {
                 alt="Horacio & Patty's Sign"
                 width={217}
                 height={57}
+                placeholder="blur"
               />
             </div>
             <p>

@@ -11,7 +11,7 @@ export function Header() {
       <nav className="container mx-auto px-8 md:px-0 flex items-center">
         <Link href="/">
           <a>
-            <Image alt="Logo" src="/logo.png" height="57" width="145" />
+            <Image alt="Logo" src="/logo-white.svg" height="57" width="145" />
           </a>
         </Link>
         <Link href="/about">
@@ -35,7 +35,7 @@ export function Header2() {
       <nav className="container mx-auto px-8 md:px-0 flex items-center">
         <Link href="/">
           <a>
-            <Image alt="Logo" src="/logo.png" height="57" width="145" />
+            <Image alt="Logo" src="/logo-black.svg" height="57" width="145" />
           </a>
         </Link>
         <Link href="/about">

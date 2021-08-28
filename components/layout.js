@@ -35,7 +35,7 @@ export function Layout({ children, title }) {
           <div className="md:pl-12">
             <div className="mb-8">
               <Image
-                src="/logo-white.png"
+                src="/logo-white.svg"
                 width={146}
                 height={73}
                 alt="logo"

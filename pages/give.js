@@ -60,6 +60,7 @@ export default function give() {
                   objectFit="cover"
                   height={534}
                   width={641}
+                  placeholder="blur"
                 ></Image>
               </div>
               <p className="font-bold">Nombre</p>

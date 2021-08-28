@@ -64,6 +64,7 @@ export default function about() {
               objectFit="contain"
               height={534}
               width={641}
+              placeholder="blur"
             ></Image>
           </div>
         </div>
