@@ -84,6 +84,9 @@ export default function Home({ dataServices, dataShepperdDeks }) {
           src={maxres.url}
           alt=""
           placeholder="blur"
+          blurDataURL={`data:image/svg+xml;base64,${toBase64(
+            shimmer(1280, 720)
+          )}`}
         />
         <p className="text-lg sm:text-xl md:text-2xl text-gray-800 my-4 font-medium">
           {name[0]}
@@ -116,6 +119,9 @@ export default function Home({ dataServices, dataShepperdDeks }) {
           layout="fixed"
           className="object-cover"
           placeholder="blur"
+          blurDataURL={`data:image/svg+xml;base64,${toBase64(
+            shimmer(1280, 720)
+          )}`}
         />
         <div className="ml-4">
           <p className="text-lg sm:text-xl md:text-2xl text-gray-800 mb-2 font-medium">
