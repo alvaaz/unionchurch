@@ -119,9 +119,7 @@ export default function Home({ dataServices, dataShepperdDeks }) {
           layout="fixed"
           className="object-cover"
           placeholder="blur"
-          blurDataURL={`data:image/svg+xml;base64,${toBase64(
-            shimmer(1280, 720)
-          )}`}
+          blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(68, 68))}`}
         />
         <div className="ml-4">
           <p className="text-lg sm:text-xl md:text-2xl text-gray-800 mb-2 font-medium">
@@ -149,6 +147,9 @@ export default function Home({ dataServices, dataShepperdDeks }) {
           src="/images/cover.png"
           layout="fill"
           placeholder="blur"
+          blurDataURL={`data:image/svg+xml;base64,${toBase64(
+            shimmer(1920, 1080)
+          )}`}
         />
 
         <Header />
@@ -192,6 +193,9 @@ export default function Home({ dataServices, dataShepperdDeks }) {
               width={408}
               height={438}
               placeholder="blur"
+              blurDataURL={`data:image/svg+xml;base64,${toBase64(
+                shimmer(408, 438)
+              )}`}
             />
           </div>
           <div className="md:ml-16 md:w-4/12">
@@ -213,6 +217,9 @@ export default function Home({ dataServices, dataShepperdDeks }) {
                 width={217}
                 height={57}
                 placeholder="blur"
+                blurDataURL={`data:image/svg+xml;base64,${toBase64(
+                  shimmer(217, 57)
+                )}`}
               />
             </div>
             <p>
