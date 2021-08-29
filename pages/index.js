@@ -188,13 +188,13 @@ export default function Home({ dataServices, dataShepperdDeks }) {
         <div className="mt-20 flex justify-center items-center flex-col md:flex-row text-center md:text-left">
           <div className="mb-12 md:mb-0">
             <Image
-              src="/images/horaciopatty.png"
+              src="/images/horaciopatty2.png"
               alt="Horacio y Patty"
-              width={408}
-              height={438}
+              width={382}
+              height={300}
               placeholder="blur"
               blurDataURL={`data:image/svg+xml;base64,${toBase64(
-                shimmer(408, 438)
+                shimmer(382, 300)
               )}`}
             />
           </div>
