@@ -265,8 +265,9 @@ export default function Home({ dataServices, dataShepperdDeks }) {
               Últimos servicios
             </p>
             <a
+              target="_blank"
               className="text-yellow-700 font-semibold border-b-4 flex items-center"
-              href="w"
+              href="https://youtube.com/playlist?list=PLV_Ax0JpimXPtD-QDqcygoAwERU0rvU82"
             >
               Ver todos
             </a>
@@ -279,8 +280,9 @@ export default function Home({ dataServices, dataShepperdDeks }) {
               Escritorio del pastor
             </p>
             <a
+              target="_blank"
               className="text-yellow-700	font-semibold border-b-4 flex items-center"
-              href="w"
+              href="https://youtube.com/playlist?list=PLV_Ax0JpimXPgTVH7fvCVC-2X0XQ6vorg"
             >
               Ver todos
             </a>
