@@ -188,7 +188,7 @@ export default function Home({ dataServices, dataShepperdDeks }) {
         <div className="mt-20 flex justify-center items-center flex-col md:flex-row text-center md:text-left">
           <div className="mb-12 md:mb-0">
             <Image
-              src="/images/horaciopatty2.png"
+              src="/images/horaciopatty.png"
               alt="Horacio y Patty"
               width={382}
               height={300}
@@ -268,6 +268,7 @@ export default function Home({ dataServices, dataShepperdDeks }) {
               target="_blank"
               className="text-yellow-700 font-semibold border-b-4 flex items-center"
               href="https://youtube.com/playlist?list=PLV_Ax0JpimXPtD-QDqcygoAwERU0rvU82"
+              rel="noreferrer"
             >
               Ver todos
             </a>
@@ -283,6 +284,7 @@ export default function Home({ dataServices, dataShepperdDeks }) {
               target="_blank"
               className="text-yellow-700	font-semibold border-b-4 flex items-center"
               href="https://youtube.com/playlist?list=PLV_Ax0JpimXPgTVH7fvCVC-2X0XQ6vorg"
+              rel="noreferrer"
             >
               Ver todos
             </a>
