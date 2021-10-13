@@ -2,7 +2,12 @@
   "redirects": [
     { 
       "source": "/asiste",
-      "destination": "https://forms.gle/62zDKUQaboDceNqUA", 
+      "destination": "https://forms.gle/qRANcU8TJ4aL1z229", 
+      "permanent": true
+    },
+    { 
+      "source": "/escritorio",
+      "destination": "https://www.youtube.com/watch?v=-EM6iTwKH2M", 
       "permanent": true
     },
     { 
