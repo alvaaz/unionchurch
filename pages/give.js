@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Duplicate, Check } from '../components/icons';
 import { Layout, Header2 } from '../components';
 import Image from 'next/image';
+import dar from '../public/images/dar.png';
 
 export default function give() {
   const [copied, setCopied] = useState(false);
@@ -54,7 +55,7 @@ export default function give() {
             <div className="flex flex-col w-full md:w-2/5 lg:w-1/3 mx-auto md:mx-0 bg-white p-4 shadow-2xl top-10 md:top-16 md:right-12 relative md:absolute">
               <div className="mb-8">
                 <Image
-                  src="/images/dar.png"
+                  src={dar}
                   alt="Give"
                   layout="responsive"
                   objectFit="cover"

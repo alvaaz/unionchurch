@@ -5,6 +5,7 @@ import { Adn, Vision } from '../components/shapes';
 import { Heart } from '../components/icons';
 import { Layout, Header2 } from '../components';
 import { attributes } from '../data';
+import ZoomImage from '../public/images/zoom.png';
 
 export default function about() {
   const attributesRender = attributes.map((group, index) => {
@@ -58,7 +59,7 @@ export default function about() {
           </div>
           <div className="w-full md:w-1/2">
             <Image
-              src="/images/zoom.png"
+              src={ZoomImage}
               alt="Zoom"
               layout="responsive"
               objectFit="contain"

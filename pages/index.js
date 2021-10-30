@@ -6,6 +6,15 @@ import { Layout, Header, shimmer, toBase64 } from '../components';
 import { CircleFinal } from '../components/shapes';
 import { Facebook, Youtube, Instagram, Error } from '../components/icons';
 import { reducer, initialState, actions } from '../lib/reducer';
+import mujeres from '../public/images/ministries/1.png';
+import unionKids from '../public/images/ministries/2.png';
+import unionX from '../public/images/ministries/3.png';
+import hombres from '../public/images/ministries/4.png';
+import dorados from '../public/images/ministries/5.png';
+import foreverYoung from '../public/images/ministries/6.png';
+import horaciopatty from '../public/images/horaciopatty.png';
+import sign from '../public/images/sign.png';
+import cover from '../public/images/cover.png';
 
 export default function Home({ dataServices, dataShepperdDeks }) {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -48,94 +57,87 @@ export default function Home({ dataServices, dataShepperdDeks }) {
     }
   };
 
-  const ministries = [1, 2, 3, 4, 5, 6].map((item, key) => (
-    <div key={key}>
-      <Image
-        alt=""
-        key={key}
-        width={160}
-        height={160}
-        src={`/images/ministries/${item}.png`}
-        className="filter grayscale hover:grayscale-0"
-        placeholder="blur"
-      />
-    </div>
-  ));
-
-  const latestsServices = dataServices.items.map(({ id, snippet = {} }) => {
-    const { title, thumbnails = {}, resourceId = {} } = snippet;
-    const { maxres } = thumbnails;
-    const regexDate = /\w[^-]*$/;
-    const regexTitle = /"(.*?)"/;
-    const name = regexTitle.exec(title);
-    const date = regexDate.exec(title);
-
-    return (
-      <a
-        key={id}
-        href={`https://www.youtube.com/watch?v=${resourceId.videoId}`}
-        target="_blank"
-        rel="noreferrer"
-        className="flex-1 mb-8 lg:mb-0"
-      >
-        <Image
-          width={maxres.width}
-          height={maxres.height}
-          src={maxres.url}
-          alt=""
-          placeholder="blur"
-          blurDataURL={`data:image/svg+xml;base64,${toBase64(
-            shimmer(1280, 720)
-          )}`}
-        />
-        <p className="text-lg sm:text-xl md:text-2xl text-gray-800 my-4 font-medium">
-          {name[0]}
-        </p>
-        <p className="text-base md:text-lg font-medium text-gray-700 mb-4">
-          {date[0]}
-        </p>
-      </a>
-    );
-  });
+  const latestsServices = dataServices.items.map(
+    ({ id, snippet = {}, status }) => {
+      const { title, thumbnails = {}, resourceId = {} } = snippet;
+      const { maxres } = thumbnails;
+      const regexDate = /\w[^-]*$/;
+      const regexTitle = /"(.*?)"/;
+      const name = regexTitle.exec(title);
+      const date = regexDate.exec(title);
+      if (status.privacyStatus !== 'private') {
+        return (
+          <a
+            key={id}
+            href={`https://www.youtube.com/watch?v=${resourceId.videoId}`}
+            target="_blank"
+            rel="noreferrer"
+            className="flex-1 mb-8 lg:mb-0"
+          >
+            <Image
+              width={maxres.width}
+              height={maxres.height}
+              src={maxres.url}
+              alt=""
+              placeholder="blur"
+              blurDataURL={`data:image/svg+xml;base64,${toBase64(
+                shimmer(1280, 720)
+              )}`}
+            />
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-800 my-4 font-medium">
+              {name[0]}
+            </p>
+            <p className="text-base md:text-lg font-medium text-gray-700 mb-4">
+              {date[0]}
+            </p>
+          </a>
+        );
+      }
+    }
+  );
 
   const latestsShepperdDeks = dataShepperdDeks.items.map((posts, index) => {
     const { title, thumbnails, resourceId, publishedAt } = posts.snippet;
     const { default: standard } = thumbnails;
     const regexName = /\w[^:]*$/;
     const name = regexName.exec(title);
-    return (
-      <a
-        key={index}
-        href={`https://www.youtube.com/watch?v=${resourceId.videoId}`}
-        target="_blank"
-        rel="noreferrer"
-        className="flex-1 mb-8 flex bg-gray-50 hover:bg-gray-100 p-4 transition ease-in-out duration-200"
-      >
-        <Image
-          width={68}
-          height={68}
-          src={standard.url}
-          alt=""
-          layout="fixed"
-          className="object-cover"
-          placeholder="blur"
-          blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(68, 68))}`}
-        />
-        <div className="ml-4">
-          <p className="text-lg sm:text-xl md:text-2xl text-gray-800 mb-2 font-medium">
-            {name[0]}
-          </p>
-          <p className="text-base md:text-lg text-gray-600">
-            {new Date(publishedAt).toLocaleDateString('es-ES', {
-              weekday: 'long',
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            })}
-          </p>
-        </div>
-      </a>
-    );
+    if (posts.status.privacyStatus !== 'private') {
+      return (
+        <a
+          key={index}
+          href={`https://www.youtube.com/watch?v=${resourceId.videoId}`}
+          target="_blank"
+          rel="noreferrer"
+          className="flex-1 mb-8 flex bg-gray-50 hover:bg-gray-100 p-4 transition ease-in-out duration-200"
+        >
+          <Image
+            width={68}
+            height={68}
+            src={standard.url}
+            alt=""
+            layout="fixed"
+            className="object-cover"
+            placeholder="blur"
+            blurDataURL={`data:image/svg+xml;base64,${toBase64(
+              shimmer(68, 68)
+            )}`}
+          />
+          <div className="ml-4">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-800 mb-2 font-medium">
+              {name[0]}
+            </p>
+            <p className="text-base md:text-lg text-gray-600">
+              {new Date(publishedAt).toLocaleDateString('es-ES', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </p>
+          </div>
+        </a>
+      );
+    }
   });
 
   return (
@@ -144,12 +146,9 @@ export default function Home({ dataServices, dataShepperdDeks }) {
         <Image
           className="absolute object-cover back filter contrast-900"
           alt="Cover"
-          src="/images/cover.png"
+          src={cover}
           layout="fill"
           placeholder="blur"
-          blurDataURL={`data:image/svg+xml;base64,${toBase64(
-            shimmer(1920, 1080)
-          )}`}
         />
 
         <Header />
@@ -188,14 +187,11 @@ export default function Home({ dataServices, dataShepperdDeks }) {
         <div className="mt-20 flex justify-center items-center flex-col md:flex-row text-center md:text-left">
           <div className="mb-12 md:mb-0">
             <Image
-              src="/images/horaciopatty.png"
+              src={horaciopatty}
               alt="Horacio y Patty"
               width={382}
               height={300}
               placeholder="blur"
-              blurDataURL={`data:image/svg+xml;base64,${toBase64(
-                shimmer(382, 300)
-              )}`}
             />
           </div>
           <div className="md:ml-16 md:w-4/12">
@@ -212,14 +208,11 @@ export default function Home({ dataServices, dataShepperdDeks }) {
             </p>
             <div>
               <Image
-                src="/images/sign.png"
+                src={sign}
                 alt="Horacio & Patty's Sign"
                 width={217}
                 height={57}
                 placeholder="blur"
-                blurDataURL={`data:image/svg+xml;base64,${toBase64(
-                  shimmer(217, 57)
-                )}`}
               />
             </div>
             <p>
@@ -234,7 +227,54 @@ export default function Home({ dataServices, dataShepperdDeks }) {
         Intégrate a nuestros grupos de crecimiento
       </p>
       <div className="flex justify-center flex-wrap space-x-8">
-        {ministries}
+        <Image
+          alt=""
+          width={160}
+          height={160}
+          src={mujeres}
+          className="filter grayscale hover:grayscale-0"
+          placeholder="blur"
+        />
+        <Image
+          alt=""
+          width={160}
+          height={160}
+          src={hombres}
+          className="filter grayscale hover:grayscale-0"
+          placeholder="blur"
+        />
+        <Image
+          alt=""
+          width={160}
+          height={160}
+          src={foreverYoung}
+          className="filter grayscale hover:grayscale-0"
+          placeholder="blur"
+        />
+        <Image
+          alt=""
+          width={160}
+          height={160}
+          src={dorados}
+          className="filter grayscale hover:grayscale-0"
+          placeholder="blur"
+        />
+        <Image
+          alt=""
+          width={160}
+          height={160}
+          src={unionX}
+          className="filter grayscale hover:grayscale-0"
+          placeholder="blur"
+        />
+        <Image
+          alt=""
+          width={160}
+          height={160}
+          src={unionKids}
+          className="filter grayscale hover:grayscale-0"
+          placeholder="blur"
+        />
       </div>
       <div className="px-8 sm:px-0 bg-pink-light" style={{ zIndex: '-1' }}>
         <div className="relative">
@@ -438,10 +478,10 @@ const YOUTUBE_PLAYLIST_ITEMS_API =
 
 export async function getServerSideProps() {
   const res = await fetch(
-    `${YOUTUBE_PLAYLIST_ITEMS_API}?part=snippet&maxResults=3&playlistId=${process.env.PLAYLIST_ID}&key=${process.env.YOUTUBE_KEY}`
+    `${YOUTUBE_PLAYLIST_ITEMS_API}?part=snippet&part=status&maxResults=3&playlistId=${process.env.PLAYLIST_ID}&key=${process.env.YOUTUBE_KEY}`
   );
   const res2 = await fetch(
-    `${YOUTUBE_PLAYLIST_ITEMS_API}?part=snippet&maxResults=3&playlistId=PLV_Ax0JpimXPgTVH7fvCVC-2X0XQ6vorg&key=${process.env.YOUTUBE_KEY}`
+    `${YOUTUBE_PLAYLIST_ITEMS_API}?part=snippet&part=status&maxResults=3&playlistId=PLV_Ax0JpimXPgTVH7fvCVC-2X0XQ6vorg&key=${process.env.YOUTUBE_KEY}`
   );
   const dataServices = await res.json();
   const dataShepperdDeks = await res2.json();
