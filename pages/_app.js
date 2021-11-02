@@ -1,6 +1,13 @@
 import '../styles/global.css';
+import PropTypes from 'prop-types';
 
-// eslint-disable-next-line react/prop-types
-export default function App({ Component, pageProps }) {
+function App({ Component, pageProps }) {
   return <Component {...pageProps} />;
 }
+
+export default App;
+
+App.propTypes = {
+  Component: PropTypes.any,
+  pageProps: PropTypes.object,
+};
