@@ -12,4 +12,14 @@ module.exports = withKeystone({
   images: {
     domains: ['i.ytimg.com'],
   },
+  experimental: {
+    async rewrites() {
+      return [
+        {
+          source: '/favicon.ico',
+          destination: '/404' // or some other page/public file
+        }
+      ]
+    }
+  }
 });
