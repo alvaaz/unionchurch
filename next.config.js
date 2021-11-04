@@ -16,8 +16,8 @@ module.exports = withKeystone({
     async rewrites() {
       return [
         {
-          source: '/favicon.ico',
-          destination: '/404' // or some other page/public file
+          source: '/confesion.pdf',
+          destination: '/confesion.pdf'
         }
       ]
     }
