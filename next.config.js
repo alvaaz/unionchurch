@@ -11,15 +11,5 @@ module.exports = withKeystone({
   reactStrictMode: true,
   images: {
     domains: ['i.ytimg.com'],
-  },
-  experimental: {
-    async rewrites() {
-      return [
-        {
-          source: '/confesion.pdf',
-          destination: '/confesion.pdf'
-        }
-      ]
-    }
   }
 });
