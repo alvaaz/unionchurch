@@ -43,7 +43,7 @@ export function Layout({ children, title }) {
               />
             </div>
             <a
-              href="/give"
+              href="/dar"
               className="tracking-wider uppercase text-sm px-8 py-3 border border-white font-bold bg-transparent text-white transition duration-150 ease-in-out"
             >
               Dar

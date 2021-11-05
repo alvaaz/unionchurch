@@ -14,12 +14,12 @@ export function Header() {
             <Image alt="Logo" src="/logo-white.svg" height="57" width="145" />
           </a>
         </Link>
-        <Link href="/about">
+        <Link href="/nosotros">
           <a className="ml-8 mr-8 text-white text-lg border-transparent border-b-4 hover:border-white">
             Nosotros
           </a>
         </Link>
-        <Link href="/give">
+        <Link href="/dar">
           <a className="text-white text-lg border-transparent border-b-4 hover:border-white">
             Dar
           </a>
@@ -38,12 +38,12 @@ export function Header2() {
             <Image alt="Logo" src="/logo-black.svg" height="57" width="145" />
           </a>
         </Link>
-        <Link href="/about">
+        <Link href="/nosotros">
           <a className="ml-8 mr-8 text-black text-lg border-transparent border-b-4 hover:border-black">
             Nosotros
           </a>
         </Link>
-        <Link href="/give">
+        <Link href="/dar">
           <a className="text-black text-lg border-transparent border-b-4 hover:border-black">
             Dar
           </a>
