@@ -1,6 +1,6 @@
 # Código del sitio de la iglesia viña Union Church
 
-Este repositorio contiene el código fuente para [este sitio].(https://unionchurch.cl) desarrollado con [NextJS](https://nextjs.org/) y [KeystoneJS](https://keystonejs.com).
+Este repositorio contiene el código fuente para [este sitio](https://unionchurch.cl) desarrollado con [NextJS](https://nextjs.org/) y [KeystoneJS](https://keystonejs.com).
 
 ## Cómo contribuir
 
