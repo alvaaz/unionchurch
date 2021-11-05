@@ -12,7 +12,6 @@ export async function getServerSideProps({ params }) {
     },
     query: 'destination',
   });
-  console.log(data);
   if (!data) {
     return {
       redirect: { destination: '/' },
