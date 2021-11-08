@@ -23,8 +23,6 @@ export async function getServerSideProps({ params }) {
     variables: { source },
   });
 
-  console.log(data);
-
   if (!data) {
     return {
       redirect: { destination: '/' },

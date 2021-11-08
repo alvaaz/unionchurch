@@ -47,10 +47,11 @@ export default withAuth(
       cors: {
         credentials: true,
         origin: [
-          `localhost`,
+          `localhost:3000`,
           'https://unionchurch.cl',
         ],
-      }, },
+      },
+    },
     lists,
     // We add our session configuration to the system here.
     session,
@@ -58,7 +59,7 @@ export default withAuth(
       path: '/api/graphql',
       cors: {
         origin: [
-          `localhost`,
+          `localhost:3000`,
           'https://unionchurch.cl',
         ],
         credentials: true,
