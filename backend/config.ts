@@ -1,3 +1,6 @@
+import dotenv from 'dotenv'
+
+dotenv.config()
 // 3000 is standard for node apps
 // Once deployed, Heroku will supply this var to your app
 export const PORT = parseInt(process.env.PORT!) || 3000;

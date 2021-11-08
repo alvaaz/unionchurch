@@ -21,3 +21,5 @@
 2021-11-08 15:06:35.456 -03 [48438] LOG:  redo done at 0/1712ED8
 2021-11-08 15:06:35.464 -03 [48437] LOG:  database system is ready to accept connections
 2021-11-08 15:06:40.173 -03 [48450] LOG:  could not receive data from client: Connection reset by peer
+2021-11-08 17:56:22.222 -03 [67369] LOG:  could not receive data from client: Connection reset by peer
+2021-11-08 17:56:55.759 -03 [67460] LOG:  could not receive data from client: Connection reset by peer
