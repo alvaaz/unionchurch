@@ -58,7 +58,7 @@ export default withAuth(
       path: '/api/graphql',
       cors: {
         origin: [
-          `FRONTEND_URL`,
+          `localhost`,
           'https://unionchurch.cl',
         ],
         credentials: true,

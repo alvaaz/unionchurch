@@ -12,7 +12,7 @@ let apolloClient;
 const httpLink = new HttpLink({
   uri:
     process.env.NODE_ENV === 'development'
-      ? 'localhost'
+      ? 'http://localhost:3000/api/graphql'
       : 'https://unionchurch-app.herokuapp.com/api/graphql',
   credentials: 'include',
 });

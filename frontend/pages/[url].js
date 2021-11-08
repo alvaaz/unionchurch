@@ -25,15 +25,15 @@ export async function getServerSideProps({ params }) {
 
   console.log(data);
 
-  // if (!data) {
-  //   return {
-  //     redirect: { destination: '/' },
-  //   };
-  // }
+  if (!data) {
+    return {
+      redirect: { destination: '/' },
+    };
+  }
 
-  // return {
-  //   redirect: {
-  //     destination: data.destination,
-  //   },
-  // };
+  return {
+    redirect: {
+      destination: data.redirect.destination,
+    },
+  };
 }
