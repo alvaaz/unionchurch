@@ -9,7 +9,7 @@ export const CustomLogo = () => {
   return (
     <Link href="/" passHref>
       <Image
-        src="/logo-white.svg"
+        src="./logo-black.svg"
         width={146}
         height={73}
         alt="logo"
