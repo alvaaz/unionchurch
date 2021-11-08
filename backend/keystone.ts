@@ -42,9 +42,35 @@ export default withAuth(
       provider: 'postgresql',
       url: DATABASE_URL,
     },
-    server: { port: PORT },
+    server: {
+      port: PORT,
+      cors: {
+        credentials: true,
+        origin: [
+          `localhost`,
+          'https://unionchurch.cl',
+        ],
+      }, },
     lists,
     // We add our session configuration to the system here.
     session,
+    graphql: {
+      path: '/api/graphql',
+      cors: {
+        origin: [
+          `FRONTEND_URL`,
+          'https://unionchurch.cl',
+        ],
+        credentials: true,
+      },
+    },
   })
 );
+
+
+
+
+
+
+
+

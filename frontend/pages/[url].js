@@ -1,26 +1,39 @@
-import { query } from '.keystone/api';
+import { gql } from '@apollo/client';
+
+import { initializeApollo } from '../lib/apolloClient';
+
+const GET_DESTINATION = gql`
+  query Destination($source: String!) {
+    redirect(where: { source: $source }) {
+      destination
+    }
+  }
+`;
 
 export default function ShortIdPage() {
   return <div>ShortID Redirect</div>;
 }
 
 export async function getServerSideProps({ params }) {
-  const { url } = params;
-  const data = await query.Redirect.findOne({
-    where: {
-      source: url,
-    },
-    query: 'destination',
-  });
-  if (!data) {
-    return {
-      redirect: { destination: '/' },
-    };
-  }
+  const apolloClient = initializeApollo(null);
+  const { url: source } = params;
 
-  return {
-    redirect: {
-      destination: data.destination,
-    },
-  };
+  const { data } = await apolloClient.query({
+    query: GET_DESTINATION,
+    variables: { source },
+  });
+
+  console.log(data);
+
+  // if (!data) {
+  //   return {
+  //     redirect: { destination: '/' },
+  //   };
+  // }
+
+  // return {
+  //   redirect: {
+  //     destination: data.destination,
+  //   },
+  // };
 }
