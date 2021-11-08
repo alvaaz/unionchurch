@@ -1,0 +1,1 @@
+/Applications/Postgres.app/Contents/Versions/13/bin/postgres "-D" "/Users/alvarogoederivera/web/union-church/backend/db" "-p" "5432"

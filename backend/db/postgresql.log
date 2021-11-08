@@ -1,0 +1,27 @@
+2021-11-05 18:19:35.260 -03 [9072] LOG:  starting PostgreSQL 13.4 on x86_64-apple-darwin19.6.0, compiled by Apple clang version 11.0.3 (clang-1103.0.32.62), 64-bit
+2021-11-05 18:19:35.262 -03 [9072] LOG:  listening on IPv6 address "::1", port 5432
+2021-11-05 18:19:35.262 -03 [9072] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2021-11-05 18:19:35.263 -03 [9072] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2021-11-05 18:19:35.267 -03 [9073] LOG:  database system was shut down at 2021-11-05 18:19:35 -03
+2021-11-05 18:19:35.269 -03 [9072] LOG:  database system is ready to accept connections
+2021-11-05 18:29:46.845 -03 [10059] ERROR:  duplicate key value violates unique constraint "UQ_78a916df40e02a9deb1c4b75edb"
+2021-11-05 18:29:46.845 -03 [10059] DETAIL:  Key (username)=(bob) already exists.
+2021-11-05 18:29:46.845 -03 [10059] STATEMENT:  INSERT INTO "user"("createdAt", "updatedAt", "username", "email", "password") VALUES (DEFAULT, DEFAULT, $1, $2, $3) RETURNING *
+2021-11-05 18:32:04.024 -03 [10278] ERROR:  duplicate key value violates unique constraint "UQ_78a916df40e02a9deb1c4b75edb"
+2021-11-05 18:32:04.024 -03 [10278] DETAIL:  Key (username)=(bob) already exists.
+2021-11-05 18:32:04.024 -03 [10278] STATEMENT:  INSERT INTO "user"("createdAt", "updatedAt", "username", "email", "password") VALUES (DEFAULT, DEFAULT, $1, $2, $3) RETURNING *
+2021-11-05 18:48:55.165 -03 [12409] ERROR:  null value in column "username" of relation "user" violates not-null constraint
+2021-11-05 18:48:55.165 -03 [12409] DETAIL:  Failing row contains (6, 2021-11-05 18:48:55.164467, 2021-11-05 18:48:55.164467, null, alvaaz_@hotmail.com, $argon2i$v=19$m=4096,t=3,p=1$KbQAmWhzGh/x4XhfoeeOwQ$PymW92QCdu3B...).
+2021-11-05 18:48:55.165 -03 [12409] STATEMENT:  INSERT INTO "user"("createdAt", "updatedAt", "username", "email", "password") VALUES (DEFAULT, DEFAULT, DEFAULT, $1, $2) RETURNING *
+2021-11-05 18:49:08.891 -03 [12437] ERROR:  null value in column "username" of relation "user" violates not-null constraint
+2021-11-05 18:49:08.891 -03 [12437] DETAIL:  Failing row contains (7, 2021-11-05 18:49:08.889906, 2021-11-05 18:49:08.889906, null, alvaaz_@hotmail.com, $argon2i$v=19$m=4096,t=3,p=1$J0hG+2u6dl19yQa7TDdivg$eOCB0QIkaq5Z...).
+2021-11-05 18:49:08.891 -03 [12437] STATEMENT:  INSERT INTO "user"("createdAt", "updatedAt", "username", "email", "password") VALUES (DEFAULT, DEFAULT, DEFAULT, $1, $2) RETURNING *
+2021-11-05 18:49:45.485 -03 [12495] ERROR:  null value in column "username" of relation "user" violates not-null constraint
+2021-11-05 18:49:45.485 -03 [12495] DETAIL:  Failing row contains (8, 2021-11-05 18:49:45.485325, 2021-11-05 18:49:45.485325, null, alvaaz_@hotmail.com, $argon2i$v=19$m=4096,t=3,p=1$xtAKfwf7YVnG9qHnP9roBg$LjJSgJYjVAaL...).
+2021-11-05 18:49:45.485 -03 [12495] STATEMENT:  INSERT INTO "user"("createdAt", "updatedAt", "username", "email", "password") VALUES (DEFAULT, DEFAULT, DEFAULT, $1, $2) RETURNING *
+2021-11-05 22:45:52.562 -03 [33465] ERROR:  null value in column "username" of relation "user" violates not-null constraint
+2021-11-05 22:45:52.562 -03 [33465] DETAIL:  Failing row contains (9, 2021-11-05 22:45:52.560204, 2021-11-05 22:45:52.560204, null, horacio@gmail.com, $argon2i$v=19$m=4096,t=3,p=1$e6p7UNMW21MbqHPCWresxg$o45efXAd033C...).
+2021-11-05 22:45:52.562 -03 [33465] STATEMENT:  INSERT INTO "user"("createdAt", "updatedAt", "username", "email", "password") VALUES (DEFAULT, DEFAULT, DEFAULT, $1, $2) RETURNING *
+2021-11-05 22:55:03.811 -03 [34295] ERROR:  null value in column "username" of relation "user" violates not-null constraint
+2021-11-05 22:55:03.811 -03 [34295] DETAIL:  Failing row contains (10, 2021-11-05 22:55:03.80735, 2021-11-05 22:55:03.80735, null, alvaaz_@hotmail.com, $argon2i$v=19$m=4096,t=3,p=1$lz0tUAjqhdhrRbAOPbIE1A$MN24RSDIvraQ...).
+2021-11-05 22:55:03.811 -03 [34295] STATEMENT:  INSERT INTO "user"("createdAt", "updatedAt", "username", "email", "password") VALUES (DEFAULT, DEFAULT, DEFAULT, $1, $2) RETURNING *
