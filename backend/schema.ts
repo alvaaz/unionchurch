@@ -62,6 +62,14 @@ export const lists = {
         isIndexed: 'unique',
         isFilterable: true,
       }),
+      image: cloudinaryImage({
+        cloudinary: {
+          cloudName: process.env.CLOUDINARY_CLOUD_NAME!,
+          apiKey: process.env.CLOUDINARY_API_KEY!,
+          apiSecret: process.env.CLOUDINARY_API_SECRET!,
+          folder: process.env.CLOUDINARY_API_FOLDER!,
+        },
+      }),
       // The password field takes care of hiding details and hashing values
       password: password({ validation: { isRequired: true } }),
       // Relationships allow us to reference other lists. In this case,

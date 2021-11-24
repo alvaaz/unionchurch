@@ -102,14 +102,19 @@ export default function Home({ dataServices, dataShepperdDeks }) {
       }
     }
   );
+<<<<<<< HEAD
 
+=======
+>>>>>>> c71a8c38 (new developments)
   const latestsShepperdDeks = dataShepperdDeks.items.map((posts, index) => {
     const { title, thumbnails, resourceId, publishedAt } = posts.snippet;
     const { default: standard } = thumbnails;
-
     const regexName = /\w[^:]*$/;
     const name = regexName.exec(title);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c71a8c38 (new developments)
     if (posts.status.privacyStatus !== 'private') {
       return (
         <a
@@ -147,6 +152,7 @@ export default function Home({ dataServices, dataShepperdDeks }) {
         </a>
       );
     }
+<<<<<<< HEAD
 =======
     return (
       <a
@@ -177,6 +183,8 @@ export default function Home({ dataServices, dataShepperdDeks }) {
       </a>
     );
 >>>>>>> 81c90640 (advanced)
+=======
+>>>>>>> c71a8c38 (new developments)
   });
 
   return (

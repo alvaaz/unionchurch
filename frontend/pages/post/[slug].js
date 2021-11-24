@@ -3,6 +3,8 @@ import gql from 'graphql-tag';
 import { useQuery } from '@apollo/client';
 import PropTypes from 'prop-types';
 import { DocumentRenderer } from '@keystone-next/document-renderer';
+import Image from 'next/image';
+import { dateTransform } from '../../lib';
 
 const renderers = {
   // Render heading blocks
@@ -29,12 +31,25 @@ export const ARTICLE = gql`
       content {
         document
       }
+      cover {
+        publicUrl
+      }
+      category {
+        name
+        id
+      }
+      publishDate
+      author {
+        name
+        image {
+          publicUrl
+        }
+      }
     }
   }
 `;
 
 export default function PostPage({ query }) {
-  console.log(query.slug);
   const { data, loading, error } = useQuery(ARTICLE, {
     variables: {
       where: {
@@ -46,22 +61,29 @@ export default function PostPage({ query }) {
   if (error) return <p>Error: {error.message}</p>;
   const { post } = data;
   return (
-    <div>
-      <main style={{ margin: '3rem' }}>
-        <div>
-          <Link href="/">
-            <a>&larr; back home</a>
-          </Link>
-        </div>
-        <h1>{post.title}</h1>
-        {post.content?.document && (
-          <DocumentRenderer
-            document={post.content.document}
-            renderers={renderers}
-          />
-        )}
-      </main>
-    </div>
+    <main style={{ margin: '3rem' }} className="container mx-auto px-8">
+      <div className="w-full border-gray w-4/5 h-80	relative border border-indigo-600">
+        <Image src={post.cover.publicUrl} layout="fill" objectFit="cover" />
+      </div>
+      <Link href={`/category/${post.category.id}`}>{post.category.name}</Link>
+      <h1 className="font-serif text-5xl text-center">{post.title}</h1>
+      <p className="flex items-center font-sans justify-center">
+        <Image
+          height={40}
+          width={40}
+          className="rounded-full"
+          src={post.author.image.publicUrl}
+        ></Image>
+        <span>{post.author ? post.author.name : 'No tiene autor'}</span>
+        <span>{dateTransform(post.publishDate)}</span>
+      </p>
+      {post.content?.document && (
+        <DocumentRenderer
+          document={post.content.document}
+          renderers={renderers}
+        />
+      )}
+    </main>
   );
 }
 

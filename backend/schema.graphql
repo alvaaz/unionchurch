@@ -345,6 +345,7 @@ type User {
   id: ID!
   name: String
   email: String
+  image: CloudinaryImage_File
   password: PasswordState
   posts(
     where: PostWhereInput! = {}
@@ -353,70 +354,6 @@ type User {
     skip: Int! = 0
   ): [Post!]
   postsCount(where: PostWhereInput! = {}): Int
-}
-
-type PasswordState {
-  isSet: Boolean!
-}
-
-input UserWhereUniqueInput {
-  id: ID
-  email: String
-}
-
-input UserWhereInput {
-  AND: [UserWhereInput!]
-  OR: [UserWhereInput!]
-  NOT: [UserWhereInput!]
-  id: IDFilter
-  name: StringFilter
-  email: StringFilter
-  posts: PostManyRelationFilter
-}
-
-input UserOrderByInput {
-  id: OrderDirection
-  name: OrderDirection
-  email: OrderDirection
-}
-
-input UserUpdateInput {
-  name: String
-  email: String
-  password: String
-  posts: PostRelateToManyForUpdateInput
-}
-
-input UserUpdateArgs {
-  where: UserWhereUniqueInput!
-  data: UserUpdateInput!
-}
-
-input UserCreateInput {
-  name: String
-  email: String
-  password: String
-  posts: PostRelateToManyForCreateInput
-}
-
-type Post {
-  id: ID!
-  title: String
-  cover: CloudinaryImage_File
-  excerpt(length: Int! = 200): String
-  slug: String
-  status: String
-  content: Post_content_Document
-  publishDate: DateTime
-  category: Category
-  author: User
-  tags(
-    where: TagWhereInput! = {}
-    orderBy: [TagOrderByInput!]! = []
-    take: Int
-    skip: Int! = 0
-  ): [Tag!]
-  tagsCount(where: TagWhereInput! = {}): Int
 }
 
 type CloudinaryImage_File {
@@ -466,6 +403,77 @@ input CloudinaryImageFormat {
   density: String
   flags: String
   transformation: String
+}
+
+type PasswordState {
+  isSet: Boolean!
+}
+
+input UserWhereUniqueInput {
+  id: ID
+  email: String
+}
+
+input UserWhereInput {
+  AND: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+  id: IDFilter
+  name: StringFilter
+  email: StringFilter
+  posts: PostManyRelationFilter
+}
+
+input UserOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  email: OrderDirection
+}
+
+input UserUpdateInput {
+  name: String
+  email: String
+  image: Upload
+  password: String
+  posts: PostRelateToManyForUpdateInput
+}
+
+"""
+The `Upload` scalar type represents a file upload.
+"""
+scalar Upload
+
+input UserUpdateArgs {
+  where: UserWhereUniqueInput!
+  data: UserUpdateInput!
+}
+
+input UserCreateInput {
+  name: String
+  email: String
+  image: Upload
+  password: String
+  posts: PostRelateToManyForCreateInput
+}
+
+type Post {
+  id: ID!
+  title: String
+  cover: CloudinaryImage_File
+  excerpt(length: Int! = 200): String
+  slug: String
+  status: String
+  content: Post_content_Document
+  publishDate: DateTime
+  category: Category
+  author: User
+  tags(
+    where: TagWhereInput! = {}
+    orderBy: [TagOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Tag!]
+  tagsCount(where: TagWhereInput! = {}): Int
 }
 
 type Post_content_Document {
@@ -559,11 +567,6 @@ input PostUpdateInput {
   author: UserRelateToOneForUpdateInput
   tags: TagRelateToManyForUpdateInput
 }
-
-"""
-The `Upload` scalar type represents a file upload.
-"""
-scalar Upload
 
 input CategoryRelateToOneForUpdateInput {
   create: CategoryCreateInput

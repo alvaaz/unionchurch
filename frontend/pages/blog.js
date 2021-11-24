@@ -76,7 +76,9 @@ export default function blog() {
                     </div>
                     <div className="p-5">
                       <span className="tracking-wider text-yellow-500 uppercase text-xs">
-                        {article.category.name}
+                        {article.category
+                          ? article.category.name
+                          : 'no hay categoría'}
                       </span>
                       <h3 className="font-serif text-2xl">{article.title}</h3>
                       <span className="tracking-wider text-gray-500 uppercase text-xs inline-block mt-3 mb-4">

@@ -1,1 +1,0 @@
-{"c":["webpack"],"r":["pages/post/[slug]"],"m":["./node_modules/@keystone-next/document-renderer/dist/keystone-next-document-renderer.esm.js","./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2Fpost%2F%5Bslug%5D&absolutePagePath=%2FUsers%2Falvarogoederivera%2Fweb%2Funion-church%2Ffrontend%2Fpages%2Fpost%2F%5Bslug%5D.js!","./pages/post/[slug].js"]}
