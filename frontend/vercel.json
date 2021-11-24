@@ -1,0 +1,19 @@
+{
+  "redirects": [
+    { 
+      "source": "/asiste",
+      "destination": "https://forms.gle/qRANcU8TJ4aL1z229", 
+      "permanent": true
+    },
+    { 
+      "source": "/escritorio",
+      "destination": "https://www.youtube.com/watch?v=-EM6iTwKH2M", 
+      "permanent": true
+    },
+    { 
+      "source": "/vivo",
+      "destination": "http://www.youtube.com/embed/live_stream?channel=UCu6Lg36bytsZcRfXndWri2g&autoplay=1", 
+      "permanent": true
+    }
+  ]
+}
