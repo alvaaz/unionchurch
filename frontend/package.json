@@ -9,6 +9,12 @@
   },
   "dependencies": {
     "@apollo/client": "^3.4.16",
+<<<<<<< HEAD
+=======
+    "@apollo/link-error": "^2.0.0-beta.3",
+    "@keystone-next/document-renderer": "^4.0.1",
+    "apollo-upload-client": "^16.0.0",
+>>>>>>> 81c90640 (advanced)
     "axios": "^0.21.1",
     "deepmerge": "^4.2.2",
     "graphql": "^16.0.1",

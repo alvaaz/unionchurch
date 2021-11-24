@@ -15,6 +15,15 @@ type Mutation {
     email: String!
     password: String!
   ): UserAuthenticationWithPasswordResult!
+  createCategory(data: CategoryCreateInput!): Category
+  createCategories(data: [CategoryCreateInput!]!): [Category]
+  updateCategory(
+    where: CategoryWhereUniqueInput!
+    data: CategoryUpdateInput!
+  ): Category
+  updateCategories(data: [CategoryUpdateArgs!]!): [Category]
+  deleteCategory(where: CategoryWhereUniqueInput!): Category
+  deleteCategories(where: [CategoryWhereUniqueInput!]!): [Category]
   createUser(data: UserCreateInput!): User
   createUsers(data: [UserCreateInput!]!): [User]
   updateUser(where: UserWhereUniqueInput!, data: UserUpdateInput!): User
@@ -51,11 +60,9 @@ type UserAuthenticationWithPasswordFailure {
   message: String!
 }
 
-type User {
+type Category {
   id: ID!
   name: String
-  email: String
-  password: PasswordState
   posts(
     where: PostWhereInput! = {}
     orderBy: [PostOrderByInput!]! = []
@@ -65,22 +72,16 @@ type User {
   postsCount(where: PostWhereInput! = {}): Int
 }
 
-type PasswordState {
-  isSet: Boolean!
-}
-
-input UserWhereUniqueInput {
+input CategoryWhereUniqueInput {
   id: ID
-  email: String
 }
 
-input UserWhereInput {
-  AND: [UserWhereInput!]
-  OR: [UserWhereInput!]
-  NOT: [UserWhereInput!]
+input CategoryWhereInput {
+  AND: [CategoryWhereInput!]
+  OR: [CategoryWhereInput!]
+  NOT: [CategoryWhereInput!]
   id: IDFilter
   name: StringFilter
-  email: StringFilter
   posts: PostManyRelationFilter
 }
 
@@ -107,6 +108,9 @@ input StringFilter {
   startsWith: String
   endsWith: String
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 81c90640 (advanced)
   mode: QueryMode
   not: NestedStringFilter
 }
@@ -116,11 +120,14 @@ enum QueryMode {
   insensitive
 }
 
+<<<<<<< HEAD
 =======
   not: NestedStringFilter
 }
 
 >>>>>>> 83072a48 (new)
+=======
+>>>>>>> 81c90640 (advanced)
 input NestedStringFilter {
   equals: String
   in: [String!]
@@ -147,11 +154,14 @@ input PostManyRelationFilter {
   none: PostWhereInput
 }
 
-input UserOrderByInput {
+input CategoryOrderByInput {
   id: OrderDirection
   name: OrderDirection
+<<<<<<< HEAD
   email: OrderDirection
 >>>>>>> 83072a48 (new)
+=======
+>>>>>>> 81c90640 (advanced)
 }
 
 enum OrderDirection {
@@ -159,6 +169,7 @@ enum OrderDirection {
   desc
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 input RedirectUpdateInput {
   source: String
@@ -301,9 +312,10 @@ union AuthenticatedItem = Person
 
 =======
 input UserUpdateInput {
+=======
+input CategoryUpdateInput {
+>>>>>>> 81c90640 (advanced)
   name: String
-  email: String
-  password: String
   posts: PostRelateToManyForUpdateInput
 }
 
@@ -312,6 +324,67 @@ input PostRelateToManyForUpdateInput {
   set: [PostWhereUniqueInput!]
   create: [PostCreateInput!]
   connect: [PostWhereUniqueInput!]
+}
+
+input CategoryUpdateArgs {
+  where: CategoryWhereUniqueInput!
+  data: CategoryUpdateInput!
+}
+
+input CategoryCreateInput {
+  name: String
+  posts: PostRelateToManyForCreateInput
+}
+
+input PostRelateToManyForCreateInput {
+  create: [PostCreateInput!]
+  connect: [PostWhereUniqueInput!]
+}
+
+type User {
+  id: ID!
+  name: String
+  email: String
+  password: PasswordState
+  posts(
+    where: PostWhereInput! = {}
+    orderBy: [PostOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Post!]
+  postsCount(where: PostWhereInput! = {}): Int
+}
+
+type PasswordState {
+  isSet: Boolean!
+}
+
+input UserWhereUniqueInput {
+  id: ID
+  email: String
+}
+
+input UserWhereInput {
+  AND: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+  id: IDFilter
+  name: StringFilter
+  email: StringFilter
+  posts: PostManyRelationFilter
+}
+
+input UserOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  email: OrderDirection
+}
+
+input UserUpdateInput {
+  name: String
+  email: String
+  password: String
+  posts: PostRelateToManyForUpdateInput
 }
 
 input UserUpdateArgs {
@@ -326,17 +399,16 @@ input UserCreateInput {
   posts: PostRelateToManyForCreateInput
 }
 
-input PostRelateToManyForCreateInput {
-  create: [PostCreateInput!]
-  connect: [PostWhereUniqueInput!]
-}
-
 type Post {
   id: ID!
   title: String
+  cover: CloudinaryImage_File
+  excerpt(length: Int! = 200): String
+  slug: String
   status: String
   content: Post_content_Document
   publishDate: DateTime
+  category: Category
   author: User
   tags(
     where: TagWhereInput! = {}
@@ -345,6 +417,55 @@ type Post {
     skip: Int! = 0
   ): [Tag!]
   tagsCount(where: TagWhereInput! = {}): Int
+}
+
+type CloudinaryImage_File {
+  id: ID
+  filename: String
+  originalFilename: String
+  mimetype: String
+  encoding: String
+  publicUrl: String
+  publicUrlTransformed(transformation: CloudinaryImageFormat): String
+}
+
+"""
+Mirrors the formatting options [Cloudinary provides](https://cloudinary.com/documentation/image_transformation_reference).
+All options are strings as they ultimately end up in a URL.
+"""
+input CloudinaryImageFormat {
+  """
+   Rewrites the filename to be this pretty string. Do not include `/` or `.`
+  """
+  prettyName: String
+  width: String
+  height: String
+  crop: String
+  aspect_ratio: String
+  gravity: String
+  zoom: String
+  x: String
+  y: String
+  format: String
+  fetch_format: String
+  quality: String
+  radius: String
+  angle: String
+  effect: String
+  opacity: String
+  border: String
+  background: String
+  overlay: String
+  underlay: String
+  default_image: String
+  delay: String
+  color: String
+  color_space: String
+  dpr: String
+  page: String
+  density: String
+  flags: String
+  transformation: String
 }
 
 type Post_content_Document {
@@ -356,6 +477,7 @@ scalar DateTime
 
 input PostWhereUniqueInput {
   id: ID
+  slug: String
 }
 
 input PostWhereInput {
@@ -364,8 +486,10 @@ input PostWhereInput {
   NOT: [PostWhereInput!]
   id: IDFilter
   title: StringFilter
+  slug: StringFilter
   status: StringNullableFilter
   publishDate: DateTimeNullableFilter
+  category: CategoryWhereInput
   author: UserWhereInput
   tags: TagManyRelationFilter
 }
@@ -381,6 +505,7 @@ input StringNullableFilter {
   contains: String
   startsWith: String
   endsWith: String
+  mode: QueryMode
   not: NestedStringNullableFilter
 }
 
@@ -418,17 +543,32 @@ input TagManyRelationFilter {
 input PostOrderByInput {
   id: OrderDirection
   title: OrderDirection
+  slug: OrderDirection
   status: OrderDirection
   publishDate: OrderDirection
 }
 
 input PostUpdateInput {
   title: String
+  cover: Upload
+  slug: String
   status: String
   content: JSON
   publishDate: DateTime
+  category: CategoryRelateToOneForUpdateInput
   author: UserRelateToOneForUpdateInput
   tags: TagRelateToManyForUpdateInput
+}
+
+"""
+The `Upload` scalar type represents a file upload.
+"""
+scalar Upload
+
+input CategoryRelateToOneForUpdateInput {
+  create: CategoryCreateInput
+  connect: CategoryWhereUniqueInput
+  disconnect: Boolean
 }
 
 input UserRelateToOneForUpdateInput {
@@ -451,11 +591,19 @@ input PostUpdateArgs {
 
 input PostCreateInput {
   title: String
+  cover: Upload
+  slug: String
   status: String
   content: JSON
   publishDate: DateTime
+  category: CategoryRelateToOneForCreateInput
   author: UserRelateToOneForCreateInput
   tags: TagRelateToManyForCreateInput
+}
+
+input CategoryRelateToOneForCreateInput {
+  create: CategoryCreateInput
+  connect: CategoryWhereUniqueInput
 }
 
 input UserRelateToOneForCreateInput {
@@ -523,6 +671,14 @@ scalar JSON
 
 type Query {
   authenticatedItem: AuthenticatedItem
+  categories(
+    where: CategoryWhereInput! = {}
+    orderBy: [CategoryOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Category!]
+  category(where: CategoryWhereUniqueInput!): Category
+  categoriesCount(where: CategoryWhereInput! = {}): Int
   users(
     where: UserWhereInput! = {}
     orderBy: [UserOrderByInput!]! = []
@@ -624,6 +780,7 @@ enum KeystoneAdminUIFieldMetaItemViewFieldMode {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 enum QueryMode {
   default
@@ -631,6 +788,8 @@ enum QueryMode {
 }
 
 >>>>>>> 83072a48 (new)
+=======
+>>>>>>> 81c90640 (advanced)
 type KeystoneAdminUISort {
   field: String!
   direction: KeystoneAdminUISortDirection!

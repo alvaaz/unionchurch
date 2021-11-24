@@ -156,7 +156,16 @@
   resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-9.2.1.tgz#9551142a1980503752536b5050fd99f4a7f13b17"
   integrity sha512-gfta+H8aziZsm8pZa0vj04KO6biEiisppNgA1kbJvFrrWu9Vm7eaUEy76DIxsuTaWvti5fkJVhllWc6ZTE+Mdw==
 
+<<<<<<< HEAD
 "@napi-rs/triples@1.0.3":
+=======
+"@keystone-next/document-renderer@^4.0.1":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@keystone-next/document-renderer/-/document-renderer-4.0.1.tgz#d1ab67489028afe642b207d3b91213916693b19a"
+  integrity sha512-Q8gkAVJnvLlDeGZ7G5gKeaU86ns/csLt+Sa/AieWIRY4MBU7vrkh2Sfv320i7V/lI0yJr48KJrGLipmN/Ea0wQ==
+
+"@napi-rs/triples@^1.0.3":
+>>>>>>> 81c90640 (advanced)
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@napi-rs/triples/-/triples-1.0.3.tgz#76d6d0c3f4d16013c61e45dfca5ff1e6c31ae53c"
   integrity sha512-jDJTpta+P4p1NZTFVLHJ/TLFVYVcOqv6l8xwOeBKNPMgY/zDYH/YH7SJbvrr/h1RcS9GzbPcLKGzpuK9cV56UA==

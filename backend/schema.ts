@@ -15,7 +15,8 @@ A field: The individual bits of data on your list, each with its own type.
 // Like the `config` function we use in keystone.ts, we use functions
 // for putting in our config so we get useful errors. With typescript,
 // we get these even before code runs.
-import { list } from '@keystone-next/keystone';
+import { list, graphql } from '@keystone-next/keystone';
+import 'dotenv/config';
 
 // We're using some common fields in the starter. Check out https://keystonejs.com/docs/apis/fields#fields-api
 // for the full list of fields.
@@ -25,7 +26,12 @@ import {
   password,
   timestamp,
   select,
+  virtual,
+  image
 } from '@keystone-next/keystone/fields';
+
+import { cloudinaryImage } from '@keystone-next/cloudinary';
+
 // The document field is a more complicated field, so it's in its own package
 // Keystone aims to have all the base field types, but you can make your own
 // custom ones.
@@ -36,6 +42,16 @@ import { document } from '@keystone-next/fields-document';
 // with the value being the definition of the list, including the fields.
 export const lists = {
   // Here we define the user list.
+  Category: list({
+    fields: {
+      name: text({
+        validation: {
+          isRequired: true
+        }
+      }),
+      posts: relationship({ ref: 'Post.category', many: true }),
+    }
+  }),
   User: list({
     // Here are the fields that `User` will have. We want an email and password so they can log in
     // a name so we can refer to them, and a way to connect users to posts.
@@ -61,11 +77,48 @@ export const lists = {
       },
     },
   }),
-  // Our second list is the Posts list. We've got a few more fields here
-  // so we have all the info we need for displaying posts.
   Post: list({
     fields: {
-      title: text(),
+      title: text({
+        validation: {
+          isRequired: true,
+        }
+      }),
+
+      cover: cloudinaryImage({
+        cloudinary: {
+          cloudName: process.env.CLOUDINARY_CLOUD_NAME!,
+          apiKey: process.env.CLOUDINARY_API_KEY!,
+          apiSecret: process.env.CLOUDINARY_API_SECRET!,
+          folder: process.env.CLOUDINARY_API_FOLDER!,
+        },
+      }),
+      excerpt: virtual({
+        field: graphql.field({
+          type: graphql.String,
+          args: {
+            length: graphql.arg({
+              type: graphql.nonNull(graphql.Int),
+              defaultValue: 200
+            }),
+          },
+          resolve(item: any, { length }: { length: number }) {
+            if (!item.content) {
+              return null;
+            }
+            const content = item.content[0].children[0].text as string;
+
+            if (content.length <= length) {
+              return content;
+            } else {
+              return content.slice(0, length - 3) + '...';
+            }
+          },
+        }),
+        ui: { query: '(length: 20)' },
+      }),
+
+      slug: text({ isIndexed: 'unique', isFilterable: true }),
       // Having the status here will make it easy for us to choose whether to display
       // posts on a live site.
       status: select({
@@ -98,6 +151,17 @@ export const lists = {
       publishDate: timestamp(),
       // Here is the link from post => author.
       // We've configured its UI display quite a lot to make the experience of editing posts better.
+      category: relationship({
+        ref: 'Category.posts',
+        ui: {
+          inlineConnect: true,
+          displayMode: 'cards',
+          cardFields: ['name'],
+          inlineEdit: { fields: ['name'] },
+          linkToItem: true,
+          inlineCreate: { fields: ['name'] },
+        },
+      }),
       author: relationship({
         ref: 'User.posts',
         ui: {
