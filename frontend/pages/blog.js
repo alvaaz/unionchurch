@@ -5,7 +5,14 @@ import gql from 'graphql-tag';
 import Link from 'next/link';
 import { dateTransform } from '../lib';
 import { initializeApollo } from '../lib/apolloClient';
-import { useLazyQuery } from '@apollo/client';
+import { useLazyQuery, useQuery } from '@apollo/client';
+import { Loading } from '../components/icons/loading';
+
+export const POSTS_COUNT = gql`
+  query {
+    postsCount
+  }
+`;
 
 export const ALL_ARTICLES_QUERY = gql`
   query($orderBy: [PostOrderByInput!]!, $take: Int) {
@@ -51,7 +58,8 @@ export const MORE_ARTICLES_QUERY = gql`
 
 export default function blog({ data }) {
   const [posts, setPosts] = useState(data.posts);
-  const [loadPosts, { called, loading, data: newPosts }] = useLazyQuery(
+  const { data: postsCount } = useQuery(POSTS_COUNT);
+  const [loadPosts, { loading, data: newPosts }] = useLazyQuery(
     MORE_ARTICLES_QUERY,
     {
       variables: {
@@ -75,7 +83,6 @@ export default function blog({ data }) {
     return <h1>Posts does not exist.</h1>;
   }
 
-  console.log(posts, newPosts);
   return (
     <Layout title="Blog">
       <Header2 />
@@ -123,12 +130,17 @@ export default function blog({ data }) {
               );
             })}
           </section>
-          <button
-            className="tracking-wider uppercase text-sm inline px-8 py-3 font-bold bg-black hover:bg-gray-900 text-white transition duration-150 ease-in-out"
-            onClick={() => loadPosts()}
-          >
-            Cargar más
-          </button>
+          <div className="text-center pt-20">
+            {posts.length < postsCount?.postsCount ? (
+              <button
+                className="tracking-wider uppercase text-sm inline px-8 py-3 font-bold bg-black hover:bg-gray-900 text-white transition duration-150 ease-in-out"
+                onClick={() => loadPosts()}
+                disabled={loading}
+              >
+                {loading ? <Loading /> : 'Cargar más artículos'}
+              </button>
+            ) : null}
+          </div>
         </div>
       </div>
     </Layout>
