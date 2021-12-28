@@ -36,12 +36,6 @@ type Mutation {
   updatePosts(data: [PostUpdateArgs!]!): [Post]
   deletePost(where: PostWhereUniqueInput!): Post
   deletePosts(where: [PostWhereUniqueInput!]!): [Post]
-  createTag(data: TagCreateInput!): Tag
-  createTags(data: [TagCreateInput!]!): [Tag]
-  updateTag(where: TagWhereUniqueInput!, data: TagUpdateInput!): Tag
-  updateTags(data: [TagUpdateArgs!]!): [Tag]
-  deleteTag(where: TagWhereUniqueInput!): Tag
-  deleteTags(where: [TagWhereUniqueInput!]!): [Tag]
   endSession: Boolean!
 }
 
@@ -107,10 +101,6 @@ input StringFilter {
   contains: String
   startsWith: String
   endsWith: String
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 81c90640 (advanced)
   mode: QueryMode
   not: NestedStringFilter
 }
@@ -120,14 +110,6 @@ enum QueryMode {
   insensitive
 }
 
-<<<<<<< HEAD
-=======
-  not: NestedStringFilter
-}
-
->>>>>>> 83072a48 (new)
-=======
->>>>>>> 81c90640 (advanced)
 input NestedStringFilter {
   equals: String
   in: [String!]
@@ -142,12 +124,6 @@ input NestedStringFilter {
   not: NestedStringFilter
 }
 
-<<<<<<< HEAD
-input RedirectOrderByInput {
-  id: OrderDirection
-  source: OrderDirection
-  destination: OrderDirection
-=======
 input PostManyRelationFilter {
   every: PostWhereInput
   some: PostWhereInput
@@ -157,11 +133,6 @@ input PostManyRelationFilter {
 input CategoryOrderByInput {
   id: OrderDirection
   name: OrderDirection
-<<<<<<< HEAD
-  email: OrderDirection
->>>>>>> 83072a48 (new)
-=======
->>>>>>> 81c90640 (advanced)
 }
 
 enum OrderDirection {
@@ -169,152 +140,7 @@ enum OrderDirection {
   desc
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-input RedirectUpdateInput {
-  source: String
-  destination: String
-}
-
-input RedirectUpdateArgs {
-  where: RedirectWhereUniqueInput!
-  data: RedirectUpdateInput!
-}
-
-input RedirectCreateInput {
-  source: String
-  destination: String
-}
-
-type Person {
-  id: ID!
-  name: String
-  email: String
-  password: PasswordState
-}
-
-type PasswordState {
-  isSet: Boolean!
-}
-
-input PersonWhereUniqueInput {
-  id: ID
-  email: String
-}
-
-input PersonWhereInput {
-  AND: [PersonWhereInput!]
-  OR: [PersonWhereInput!]
-  NOT: [PersonWhereInput!]
-  id: IDFilter
-  name: StringFilter
-  email: StringFilter
-}
-
-input PersonOrderByInput {
-  id: OrderDirection
-  name: OrderDirection
-  email: OrderDirection
-}
-
-input PersonUpdateInput {
-  name: String
-  email: String
-  password: String
-}
-
-input PersonUpdateArgs {
-  where: PersonWhereUniqueInput!
-  data: PersonUpdateInput!
-}
-
-input PersonCreateInput {
-  name: String
-  email: String
-  password: String
-}
-
-"""
-The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSON
-  @specifiedBy(
-    url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf"
-  )
-
-type Mutation {
-  createRedirect(data: RedirectCreateInput!): Redirect
-  createRedirects(data: [RedirectCreateInput!]!): [Redirect]
-  updateRedirect(
-    where: RedirectWhereUniqueInput!
-    data: RedirectUpdateInput!
-  ): Redirect
-  updateRedirects(data: [RedirectUpdateArgs!]!): [Redirect]
-  deleteRedirect(where: RedirectWhereUniqueInput!): Redirect
-  deleteRedirects(where: [RedirectWhereUniqueInput!]!): [Redirect]
-  createPerson(data: PersonCreateInput!): Person
-  createPeople(data: [PersonCreateInput!]!): [Person]
-  updatePerson(where: PersonWhereUniqueInput!, data: PersonUpdateInput!): Person
-  updatePeople(data: [PersonUpdateArgs!]!): [Person]
-  deletePerson(where: PersonWhereUniqueInput!): Person
-  deletePeople(where: [PersonWhereUniqueInput!]!): [Person]
-  endSession: Boolean!
-  authenticatePersonWithPassword(
-    email: String!
-    password: String!
-  ): PersonAuthenticationWithPasswordResult
-  createInitialPerson(
-    data: CreateInitialPersonInput!
-  ): PersonAuthenticationWithPasswordSuccess!
-}
-
-union PersonAuthenticationWithPasswordResult =
-    PersonAuthenticationWithPasswordSuccess
-  | PersonAuthenticationWithPasswordFailure
-
-type PersonAuthenticationWithPasswordSuccess {
-  sessionToken: String!
-  item: Person!
-}
-
-type PersonAuthenticationWithPasswordFailure {
-  message: String!
-}
-
-input CreateInitialPersonInput {
-  name: String
-  email: String
-  password: String
-}
-
-type Query {
-  redirects(
-    where: RedirectWhereInput! = {}
-    orderBy: [RedirectOrderByInput!]! = []
-    take: Int
-    skip: Int! = 0
-  ): [Redirect!]
-  redirect(where: RedirectWhereUniqueInput!): Redirect
-  redirectsCount(where: RedirectWhereInput! = {}): Int
-  people(
-    where: PersonWhereInput! = {}
-    orderBy: [PersonOrderByInput!]! = []
-    take: Int
-    skip: Int! = 0
-  ): [Person!]
-  person(where: PersonWhereUniqueInput!): Person
-  peopleCount(where: PersonWhereInput! = {}): Int
-  keystone: KeystoneMeta!
-  authenticatedItem: AuthenticatedItem
-}
-
-union AuthenticatedItem = Person
-
-=======
-input UserUpdateInput {
-=======
 input CategoryUpdateInput {
->>>>>>> 81c90640 (advanced)
   name: String
   posts: PostRelateToManyForUpdateInput
 }
@@ -467,13 +293,6 @@ type Post {
   publishDate: DateTime
   category: Category
   author: User
-  tags(
-    where: TagWhereInput! = {}
-    orderBy: [TagOrderByInput!]! = []
-    take: Int
-    skip: Int! = 0
-  ): [Tag!]
-  tagsCount(where: TagWhereInput! = {}): Int
 }
 
 type Post_content_Document {
@@ -485,6 +304,7 @@ scalar DateTime
 
 input PostWhereUniqueInput {
   id: ID
+  title: String
   slug: String
 }
 
@@ -499,7 +319,6 @@ input PostWhereInput {
   publishDate: DateTimeNullableFilter
   category: CategoryWhereInput
   author: UserWhereInput
-  tags: TagManyRelationFilter
 }
 
 input StringNullableFilter {
@@ -542,12 +361,6 @@ input DateTimeNullableFilter {
   not: DateTimeNullableFilter
 }
 
-input TagManyRelationFilter {
-  every: TagWhereInput
-  some: TagWhereInput
-  none: TagWhereInput
-}
-
 input PostOrderByInput {
   id: OrderDirection
   title: OrderDirection
@@ -565,7 +378,6 @@ input PostUpdateInput {
   publishDate: DateTime
   category: CategoryRelateToOneForUpdateInput
   author: UserRelateToOneForUpdateInput
-  tags: TagRelateToManyForUpdateInput
 }
 
 input CategoryRelateToOneForUpdateInput {
@@ -578,13 +390,6 @@ input UserRelateToOneForUpdateInput {
   create: UserCreateInput
   connect: UserWhereUniqueInput
   disconnect: Boolean
-}
-
-input TagRelateToManyForUpdateInput {
-  disconnect: [TagWhereUniqueInput!]
-  set: [TagWhereUniqueInput!]
-  create: [TagCreateInput!]
-  connect: [TagWhereUniqueInput!]
 }
 
 input PostUpdateArgs {
@@ -601,7 +406,6 @@ input PostCreateInput {
   publishDate: DateTime
   category: CategoryRelateToOneForCreateInput
   author: UserRelateToOneForCreateInput
-  tags: TagRelateToManyForCreateInput
 }
 
 input CategoryRelateToOneForCreateInput {
@@ -612,56 +416,6 @@ input CategoryRelateToOneForCreateInput {
 input UserRelateToOneForCreateInput {
   create: UserCreateInput
   connect: UserWhereUniqueInput
-}
-
-input TagRelateToManyForCreateInput {
-  create: [TagCreateInput!]
-  connect: [TagWhereUniqueInput!]
-}
-
-type Tag {
-  id: ID!
-  name: String
-  posts(
-    where: PostWhereInput! = {}
-    orderBy: [PostOrderByInput!]! = []
-    take: Int
-    skip: Int! = 0
-  ): [Post!]
-  postsCount(where: PostWhereInput! = {}): Int
-}
-
-input TagWhereUniqueInput {
-  id: ID
-}
-
-input TagWhereInput {
-  AND: [TagWhereInput!]
-  OR: [TagWhereInput!]
-  NOT: [TagWhereInput!]
-  id: IDFilter
-  name: StringFilter
-  posts: PostManyRelationFilter
-}
-
-input TagOrderByInput {
-  id: OrderDirection
-  name: OrderDirection
-}
-
-input TagUpdateInput {
-  name: String
-  posts: PostRelateToManyForUpdateInput
-}
-
-input TagUpdateArgs {
-  where: TagWhereUniqueInput!
-  data: TagUpdateInput!
-}
-
-input TagCreateInput {
-  name: String
-  posts: PostRelateToManyForCreateInput
 }
 
 """
@@ -698,18 +452,9 @@ type Query {
   ): [Post!]
   post(where: PostWhereUniqueInput!): Post
   postsCount(where: PostWhereInput! = {}): Int
-  tags(
-    where: TagWhereInput! = {}
-    orderBy: [TagOrderByInput!]! = []
-    take: Int
-    skip: Int! = 0
-  ): [Tag!]
-  tag(where: TagWhereUniqueInput!): Tag
-  tagsCount(where: TagWhereInput! = {}): Int
   keystone: KeystoneMeta!
 }
 
->>>>>>> 83072a48 (new)
 type KeystoneMeta {
   adminMeta: KeystoneAdminMeta!
 }
@@ -782,17 +527,6 @@ enum KeystoneAdminUIFieldMetaItemViewFieldMode {
   hidden
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-enum QueryMode {
-  default
-  insensitive
-}
-
->>>>>>> 83072a48 (new)
-=======
->>>>>>> 81c90640 (advanced)
 type KeystoneAdminUISort {
   field: String!
   direction: KeystoneAdminUISortDirection!

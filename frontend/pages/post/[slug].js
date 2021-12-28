@@ -1,10 +1,10 @@
-import Link from 'next/link';
 import gql from 'graphql-tag';
-import { useQuery } from '@apollo/client';
+import { Layout, Header2 } from '../../components';
 import PropTypes from 'prop-types';
-import { DocumentRenderer } from '@keystone-next/document-renderer';
+import { DocumentRenderer } from '@keystone-6/document-renderer';
 import Image from 'next/image';
 import { dateTransform } from '../../lib';
+import { initializeApollo } from '../../lib/apolloClient';
 
 const renderers = {
   // Render heading blocks
@@ -14,7 +14,7 @@ const renderers = {
       return (
         <Comp
           // how to improve this?
-          className={`text-${level === 1 ? '' : level}xl font-serif`}
+          className={`text-${level === 1 ? '' : level}xl font-sans`}
           style={{ textAlign }}
         >
           {children}
@@ -49,46 +49,75 @@ export const ARTICLE = gql`
   }
 `;
 
-export default function PostPage({ query }) {
-  const { data, loading, error } = useQuery(ARTICLE, {
-    variables: {
-      where: {
-        slug: query.slug,
-      },
-    },
-  });
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
-  const { post } = data;
+export default function PostPage({ data }) {
+  if (!data.post) {
+    return <h1>Post does not exist.</h1>;
+  }
   return (
-    <main style={{ margin: '3rem' }} className="container mx-auto px-8">
-      <div className="w-full border-gray w-4/5 h-80	relative border border-indigo-600">
-        <Image src={post.cover.publicUrl} layout="fill" objectFit="cover" />
-      </div>
-      <Link href={`/category/${post.category.id}`}>{post.category.name}</Link>
-      <h1 className="font-serif text-5xl text-center">{post.title}</h1>
-      <p className="flex items-center font-sans justify-center">
+    <Layout title={data.post.title}>
+      <Header2 className="bg-pink-light" />
+      <div className="text-center bg-pink-light w-full pt-8 pb-40 mb-48">
         <Image
-          height={40}
-          width={40}
-          className="rounded-full"
-          src={post.author.image.publicUrl}
-        ></Image>
-        <span>{post.author ? post.author.name : 'No tiene autor'}</span>
-        <span>{dateTransform(post.publishDate)}</span>
-      </p>
-      {post.content?.document && (
-        <DocumentRenderer
-          document={post.content.document}
-          renderers={renderers}
+          alt="Blog"
+          src="/blog.png"
+          height="100"
+          width="180"
+          objectFit="contain"
         />
-      )}
-    </main>
+      </div>
+      <div
+        className="container mx-auto px-8 w-3/4 max-w-4xl relative"
+        style={{
+          top: '-320px',
+        }}
+      >
+        <div className="flex justify-center relative mb-12">
+          <div>
+            <Image
+              src={data.post.cover.publicUrl}
+              width={1000}
+              height={400}
+              objectFit="cover"
+            />
+          </div>
+        </div>
+        <p className="tracking-wider text-yellow-500 uppercase text-xs text-center mb-4">
+          {data.post.category.name}
+        </p>
+
+        <h1 className="font-serif text-5xl text-center mb-8">
+          {data.post.title}
+        </h1>
+        <p className="flex items-center font-sans justify-center gap-4 mb-20">
+          <Image
+            height={40}
+            width={40}
+            className="rounded-full"
+            src="/images/horaciopatty.png"
+            objectFit="cover"
+          ></Image>
+          <span>
+            {data.post.author ? data.post.author.name : 'No tiene autor'}
+          </span>
+          <span className="text-gray-500	">
+            {dateTransform(data.post.publishDate)}
+          </span>
+        </p>
+        <div className="blog">
+          {data.post.content?.document && (
+            <DocumentRenderer
+              document={data.post.content.document}
+              renderers={renderers}
+            />
+          )}
+        </div>
+      </div>
+    </Layout>
   );
 }
 
 PostPage.propTypes = {
-  query: PropTypes.object,
+  data: PropTypes.object,
 };
 
 renderers.block.heading.propTypes = {
@@ -96,3 +125,21 @@ renderers.block.heading.propTypes = {
   children: PropTypes.children,
   textAlign: PropTypes.arrayOf[('left', 'right', 'center')],
 };
+
+export async function getServerSideProps({ params }) {
+  const apolloClient = initializeApollo(null);
+  const { data } = await apolloClient.query({
+    query: ARTICLE,
+    variables: {
+      where: {
+        slug: params.slug,
+      },
+    },
+  });
+
+  return {
+    props: {
+      data,
+    },
+  };
+}

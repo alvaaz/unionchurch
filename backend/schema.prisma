@@ -12,39 +12,24 @@ generator client {
   engineType = "binary"
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-model Redirect {
-  id          String @id @default(cuid())
-  source      String @unique @default("")
-  destination String @default("")
-}
-
-model Person {
-=======
-=======
 model Category {
   id    String @id @default(cuid())
   name  String @default("")
   posts Post[] @relation("Post_category")
 }
 
->>>>>>> 81c90640 (advanced)
 model User {
->>>>>>> 83072a48 (new)
   id       String @id @default(cuid())
   name     String @default("")
   email    String @unique @default("")
   image    Json?
   password String
-<<<<<<< HEAD
-=======
   posts    Post[] @relation("Post_author")
 }
 
 model Post {
   id          String    @id @default(cuid())
-  title       String    @default("")
+  title       String    @unique @default("")
   cover       Json?
   slug        String    @unique @default("")
   status      String?   @default("draft")
@@ -54,15 +39,7 @@ model Post {
   categoryId  String?   @map("category")
   author      User?     @relation("Post_author", fields: [authorId], references: [id])
   authorId    String?   @map("author")
-  tags        Tag[]     @relation("Post_tags_Tag_posts")
 
   @@index([categoryId])
   @@index([authorId])
-}
-
-model Tag {
-  id    String @id @default(cuid())
-  name  String @default("")
-  posts Post[] @relation("Post_tags_Tag_posts")
->>>>>>> 83072a48 (new)
 }

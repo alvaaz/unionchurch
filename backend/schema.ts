@@ -86,13 +86,35 @@ export const lists = {
     },
   }),
   Post: list({
+    hooks: {
+      resolveInput: async ({ resolvedData, operation, inputData, item }) => {
+        console.log(inputData, 'inputData')
+        console.log(resolvedData, 'resolvedData')
+        console.log(item, 'item')
+        if(operation === 'create') {
+          const slug = resolvedData?.title.normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(' ').join('-').toLowerCase();
+          resolvedData!.slug = slug;
+          return resolvedData;
+        }
+        if(operation === 'update') {
+          if(!inputData.title) {
+            const slug = item?.title.normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(' ').join('-').toLowerCase();
+            resolvedData!.slug = slug;
+            return resolvedData;
+          }
+          const slug = inputData?.title.normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(' ').join('-').toLowerCase();
+          resolvedData!.slug = slug;
+          return resolvedData;
+        }
+      },
+    },
     fields: {
       title: text({
+        isIndexed: 'unique',
         validation: {
           isRequired: true,
         }
       }),
-
       cover: cloudinaryImage({
         cloudinary: {
           cloudName: process.env.CLOUDINARY_CLOUD_NAME!,
@@ -100,6 +122,16 @@ export const lists = {
           apiSecret: process.env.CLOUDINARY_API_SECRET!,
           folder: process.env.CLOUDINARY_API_FOLDER!,
         },
+        hooks: {
+          validateInput: ({ resolvedData, addValidationError, operation, item }) => {
+            if(operation === 'create' && !resolvedData.cover) {
+              addValidationError('Debes seleccionar una imagen');
+            }
+            if(operation === 'update' && !item.cover || operation === 'update' && resolvedData.cover === 'DbNull') {
+              addValidationError('Debes seleccionar una imagen');
+            }
+          }
+        }
       }),
       excerpt: virtual({
         field: graphql.field({
@@ -111,22 +143,37 @@ export const lists = {
             }),
           },
           resolve(item: any, { length }: { length: number }) {
-            if (!item.content) {
-              return null;
+            // TODO: This is a hack to get the excerpt to work. I should
+            // create loop to get the some paragraph excerpt.
+            if(item.content[0].type === 'paragraph') {
+              const content = item.content[0].children[0].text as string;
+              if (content.length <= length) {
+                return content;
+              } else {
+                return content.slice(0, length - 3) + '...';
+              }
             }
-            const content = item.content[0].children[0].text as string;
-
-            if (content.length <= length) {
-              return content;
-            } else {
-              return content.slice(0, length - 3) + '...';
-            }
+            return null
           },
         }),
         ui: { query: '(length: 20)' },
       }),
+      slug: text({
+        isIndexed: 'unique',
+        isFilterable: true,
+        ui: {
+          createView: {
+            fieldMode: 'hidden'
+          },
+          itemView: {
+            fieldMode: 'read'
+          },
+          listView: {
+            fieldMode: 'read'
+          }
+        },
 
-      slug: text({ isIndexed: 'unique', isFilterable: true }),
+      }),
       // Having the status here will make it easy for us to choose whether to display
       // posts on a live site.
       status: select({
@@ -145,18 +192,42 @@ export const lists = {
       // guide on the document field https://keystonejs.com/docs/guides/document-fields#how-to-use-document-fields
       // for more information
       content: document({
-        formatting: true,
-        layouts: [
-          [1, 1],
-          [1, 1, 1],
-          [2, 1],
-          [1, 2],
-          [1, 2, 1],
-        ],
+        formatting: {
+          alignment: true,
+          inlineMarks: {
+            bold: true,
+            italic: true
+          },
+          headingLevels: true,
+          listTypes: true,
+          softBreaks: true
+        },
+
         links: true,
         dividers: true,
       }),
-      publishDate: timestamp(),
+      publishDate: timestamp({
+        hooks: {
+          resolveInput: ({ resolvedData }) => {
+            if (resolvedData.status === 'published') {
+              return new Date();
+            }
+            return null
+          }
+        },
+        ui: {
+          itemView: {
+            fieldMode: 'read'
+          },
+          listView: {
+            fieldMode: 'read'
+          },
+          createView: {
+            fieldMode: 'hidden'
+          }
+        }
+
+      }),
       // Here is the link from post => author.
       // We've configured its UI display quite a lot to make the experience of editing posts better.
       category: relationship({
@@ -180,29 +251,7 @@ export const lists = {
           inlineCreate: { fields: ['name', 'email'] },
         },
       }),
-      // We also link posts to tags. This is a many <=> many linking.
-      tags: relationship({
-        ref: 'Tag.posts',
-        ui: {
-          displayMode: 'cards',
-          cardFields: ['name'],
-          inlineEdit: { fields: ['name'] },
-          linkToItem: true,
-          inlineConnect: true,
-          inlineCreate: { fields: ['name'] },
-        },
-        many: true,
-      })
     },
   }),
-  // Our final list is the tag list. This field is just a name and a relationship to posts
-  Tag: list({
-    ui: {
-      isHidden: true,
-    },
-    fields: {
-      name: text(),
-      posts: relationship({ ref: 'Post.tags', many: true }),
-    },
-  }),
+
 };

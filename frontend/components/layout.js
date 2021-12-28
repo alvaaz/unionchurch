@@ -6,7 +6,7 @@ import { Facebook, Youtube, Instagram } from '../components/icons';
 
 export const siteTitle = 'Union Church | Una Iglesia Viña';
 
-export function Layout({ children, title }) {
+export function Layout({ children, title, className }) {
   return (
     <>
       <Head>
@@ -29,7 +29,7 @@ export function Layout({ children, title }) {
         <title>{title} | Union Church</title>
       </Head>
 
-      <main>{children}</main>
+      <main className={className}>{children}</main>
       <div className="bg-gray">
         <div className="container mx-auto flex justify-between flex-col md:flex-row px-8 sm:px-0 py-32 text-white">
           <div className="md:pl-12">
@@ -123,6 +123,7 @@ export function Layout({ children, title }) {
 
 Layout.propTypes = {
   title: PropTypes.string,
+  className: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,

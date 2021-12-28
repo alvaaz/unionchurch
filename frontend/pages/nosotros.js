@@ -24,7 +24,7 @@ export default function about() {
   });
   return (
     <Layout title="Nosotros">
-      <Header2 />
+      <Header2 className="bg-pink" />
 
       <div className="bg-pink pt-20">
         <div className="container mx-auto flex flex-col md:flex-row pb-16 md:pb-24">

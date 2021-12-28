@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Layout, Header2 } from '../components';
 import Image from 'next/image';
-import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 import Link from 'next/link';
 import { dateTransform } from '../lib';
+import { initializeApollo } from '../lib/apolloClient';
+import { useLazyQuery } from '@apollo/client';
 
 export const ALL_ARTICLES_QUERY = gql`
-  query {
-    posts {
+  query($orderBy: [PostOrderByInput!]!, $take: Int) {
+    posts(orderBy: $orderBy, take: $take) {
       id
       title
       slug
@@ -27,29 +28,58 @@ export const ALL_ARTICLES_QUERY = gql`
   }
 `;
 
-export const ARTICLE_PER_CATEGORIES = gql`
-  query {
-    categories {
+export const MORE_ARTICLES_QUERY = gql`
+  query($orderBy: [PostOrderByInput!]!, $skip: Int) {
+    posts(orderBy: $orderBy, skip: $skip) {
       id
-      postsCount
-      name
+      title
+      slug
+      content {
+        document
+      }
+      excerpt
+      cover {
+        publicUrl
+      }
+      publishDate
+      category {
+        name
+      }
     }
   }
 `;
 
-export default function blog() {
-  const { data, error, loading } = useQuery(ALL_ARTICLES_QUERY);
-  const {
-    data: countData,
-    error: countError,
-    loading: countLoading,
-  } = useQuery(ARTICLE_PER_CATEGORIES);
-  if (loading | countLoading) return <p>Loading...</p>;
-  if (error | countError) return <p>Error: {error.message}</p>;
+export default function blog({ data }) {
+  const [posts, setPosts] = useState(data.posts);
+  const [loadPosts, { called, loading, data: newPosts }] = useLazyQuery(
+    MORE_ARTICLES_QUERY,
+    {
+      variables: {
+        orderBy: [
+          {
+            publishDate: 'desc',
+          },
+        ],
+        skip: 3,
+      },
+    }
+  );
+
+  useEffect(() => {
+    if (newPosts) {
+      setPosts((posts) => [...posts, ...newPosts.posts]);
+    }
+  }, [newPosts]);
+
+  if (!posts) {
+    return <h1>Posts does not exist.</h1>;
+  }
+
+  console.log(posts, newPosts);
   return (
-    <Layout title="Nosotros">
+    <Layout title="Blog">
       <Header2 />
-      <div className="container mx-auto flex gap-x-8">
+      <div className="container mx-auto flex gap-x-8 mb-20">
         <div className="flex-1">
           <div className="text-center">
             <Image alt="Blog" src="/blog.png" height="145" width="180" />
@@ -61,8 +91,8 @@ export default function blog() {
             </h3>
             <div className="h-px bg-gray-200 flex-1"></div>
           </div>
-          <section className="grid gallery gap-8">
-            {data?.posts.map((article) => {
+          <section className="grid grid-cols-3 gap-8">
+            {posts.map((article) => {
               return (
                 <Link href={`/post/${article.slug}`} key={article.id}>
                   <article className="border-solid border border-gray-100 transition-shadow hover:shadow cursor-pointer">
@@ -80,80 +110,49 @@ export default function blog() {
                           ? article.category.name
                           : 'no hay categoría'}
                       </span>
-                      <h3 className="font-serif text-2xl">{article.title}</h3>
+                      <h3 className="font-serif text-2xl line-clamp-1">
+                        {article.title}
+                      </h3>
                       <span className="tracking-wider text-gray-500 uppercase text-xs inline-block mt-3 mb-4">
                         {dateTransform(article.publishDate)}
                       </span>
-                      <p>{article.excerpt}</p>
+                      <p className="line-clamp-3">{article.excerpt}</p>
                     </div>
                   </article>
                 </Link>
               );
             })}
           </section>
+          <button
+            className="tracking-wider uppercase text-sm inline px-8 py-3 font-bold bg-black hover:bg-gray-900 text-white transition duration-150 ease-in-out"
+            onClick={() => loadPosts()}
+          >
+            Cargar más
+          </button>
         </div>
-
-        <aside className="w-80 pt-8">
-          <div className="flex flex-col gap-y-5 mb-8">
-            <div className="bg-pink-light font-serif text-xl w-full text-center py-3">
-              <p>Continua leyendo</p>
-            </div>
-            <div className="flex items-center cursor-pointer hover:bg-gray-50 transition-colors">
-              <img
-                className="w-20 h-20 mr-4"
-                src="https://cdn.stocksnap.io/img-thumbs/280h/autumn-leaves_FDXN0MENSV.jpg"
-                alt=""
-              />
-              <div className="flex flex-col">
-                <p className="mb-2 text-lg">La carrera</p>
-                <span className="tracking-wider text-gray-500 uppercase text-xs inline-block">
-                  10 octubre
-                </span>
-              </div>
-            </div>
-            <div className="flex items-center cursor-pointer hover:bg-gray-50 transition-colors">
-              <img
-                className="w-20 h-20 mr-4"
-                src="https://cdn.stocksnap.io/img-thumbs/280h/autumn-leaves_FDXN0MENSV.jpg"
-                alt=""
-              />
-              <div className="flex flex-col">
-                <p className="mb-2 text-lg">La carrera</p>
-                <span className="tracking-wider text-gray-500 uppercase text-xs inline-block">
-                  10 octubre
-                </span>
-              </div>
-            </div>
-            <div className="flex items-center cursor-pointer hover:bg-gray-50 transition-colors">
-              <img
-                className="w-20 h-20 mr-4"
-                src="https://cdn.stocksnap.io/img-thumbs/280h/autumn-leaves_FDXN0MENSV.jpg"
-                alt=""
-              />
-              <div className="flex flex-col">
-                <p className="mb-2 text-lg">La carrera</p>
-                <span className="tracking-wider text-gray-500 uppercase text-xs inline-block">
-                  10 octubre
-                </span>
-              </div>
-            </div>
-          </div>
-          <div className="bg-pink-light font-serif text-xl w-full text-center py-3">
-            <p>Categorías</p>
-          </div>
-          {countData.categories.map((category) => (
-            <div
-              key={category.id}
-              className="flex items-center justify-between cursor-pointer hover:bg-gray-50 transition-colors"
-            >
-              <p className="mb-2 text-lg">{category.name}</p>
-              <div className="w-16 h-16 text-white text-2xl font-extrabold rounded-md flex items-center justify-center bg- m-2">
-                {category.postsCount}
-              </div>
-            </div>
-          ))}
-        </aside>
       </div>
     </Layout>
   );
+}
+
+export async function getServerSideProps() {
+  const apolloClient = initializeApollo(null);
+
+  const { data } = await apolloClient.query({
+    query: ALL_ARTICLES_QUERY,
+    variables: {
+      orderBy: [
+        {
+          publishDate: 'desc',
+        },
+      ],
+      take: 3,
+    },
+  });
+
+  return {
+    props: {
+      data,
+    },
+  };
 }

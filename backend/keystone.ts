@@ -10,6 +10,7 @@ import { config } from '@keystone-next/keystone';
 
 // Look in the schema file for how we define our lists, and how users interact with them through graphql or the Admin UI
 import { lists } from './schema';
+import { PORT } from './config';
 
 // Keystone auth is configured separately - check out the basic auth setup we are importing from our auth file.
 import { withAuth, session } from './auth';
@@ -30,11 +31,18 @@ export default withAuth(
       },
     },
     server: {
-      cors: { origin: ['http://localhost:7777'], credentials: true }
+      port: PORT,
+      cors: {
+        credentials: true,
+        origin: [
+          `localhost:3000`,
+          'https://unionchurch.cl',
+        ],
+      },
     },
     db: {
       provider: 'postgresql',
-      url: 'postgres://alvarogoederivera:@localhost:5432/unionchurch',
+      url: 'postgres://root:root@localhost:5432/unionchurch',
       enableLogging: true,
     },
     // This config allows us to set up features of the Admin UI https://keystonejs.com/docs/apis/config#ui
@@ -44,5 +52,15 @@ export default withAuth(
     },
     lists,
     session,
+    graphql: {
+      path: '/api/graphql',
+      cors: {
+        origin: [
+          `localhost:3000`,
+          'https://unionchurch.cl',
+        ],
+        credentials: true,
+      },
+    },
   })
 );

@@ -15,13 +15,6 @@ import foreverYoung from '../public/images/ministries/6.png';
 import horaciopatty from '../public/images/horaciopatty.png';
 import sign from '../public/images/sign.png';
 import cover from '../public/images/cover.png';
-<<<<<<< HEAD
-=======
-import { Layout, Header, shimmer, toBase64 } from '../components';
-import { CircleFinal } from '../components/shapes';
-import { Facebook, Youtube, Instagram, Error } from '../components/icons';
-import { reducer, initialState, actions, dateTransform } from '../lib';
->>>>>>> 81c90640 (advanced)
 
 export default function Home({ dataServices, dataShepperdDeks }) {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -102,19 +95,12 @@ export default function Home({ dataServices, dataShepperdDeks }) {
       }
     }
   );
-<<<<<<< HEAD
-
-=======
->>>>>>> c71a8c38 (new developments)
   const latestsShepperdDeks = dataShepperdDeks.items.map((posts, index) => {
     const { title, thumbnails, resourceId, publishedAt } = posts.snippet;
     const { default: standard } = thumbnails;
     const regexName = /\w[^:]*$/;
     const name = regexName.exec(title);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> c71a8c38 (new developments)
+
     if (posts.status.privacyStatus !== 'private') {
       return (
         <a
@@ -152,39 +138,6 @@ export default function Home({ dataServices, dataShepperdDeks }) {
         </a>
       );
     }
-<<<<<<< HEAD
-=======
-    return (
-      <a
-        key={index}
-        href={`https://www.youtube.com/watch?v=${resourceId.videoId}`}
-        target="_blank"
-        rel="noreferrer"
-        className="flex-1 mb-8 flex bg-gray-50 hover:bg-gray-100 p-4 transition ease-in-out duration-200"
-      >
-        {/* <Image
-          width={68}
-          height={68}
-          src={standard.url}
-          alt=""
-          layout="fixed"
-          className="object-cover"
-          placeholder="blur"
-          blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(68, 68))}`}
-        /> */}
-        <div className="ml-4">
-          <p className="text-lg sm:text-xl md:text-2xl text-gray-800 mb-2 font-medium">
-            {name[0]}
-          </p>
-          <p className="text-base md:text-lg text-gray-600">
-            {dateTransform(publishedAt)}
-          </p>
-        </div>
-      </a>
-    );
->>>>>>> 81c90640 (advanced)
-=======
->>>>>>> c71a8c38 (new developments)
   });
 
   return (

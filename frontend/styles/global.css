@@ -9,3 +9,16 @@
 .back {
   z-index: -1;
 }
+
+.blog p {
+  margin-bottom: 1.5rem;
+}
+
+.blog h1,
+.blog h2,
+.blog h3,
+.blog h4,
+.blog h5,
+.blog h6 {
+  margin-bottom: 1rem;
+}
