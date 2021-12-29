@@ -1,5 +1,5 @@
-import { list } from '@keystone-next/keystone';
-import { checkbox, password, relationship, text, timestamp, select } from '@keystone-next/keystone/fields';
+import { list } from '@keystone-6/core';
+import { password, text } from '@keystone-6/core/fields';
 
 export const lists = {
   Redirect: list({
