@@ -7,7 +7,6 @@ import { dateTransform } from '../../lib';
 import { initializeApollo } from '../../lib/apolloClient';
 
 const renderers = {
-  // Render heading blocks
   block: {
     heading({ level, children, textAlign }) {
       const Comp = `h${level}`;
