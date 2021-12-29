@@ -3,9 +3,9 @@
   "version": "3.0.2",
   "private": true,
   "scripts": {
-    "dev": "keystone-next dev",
-    "start": "keystone-next start",
-    "build": "keystone-next build && keystone-next prisma migrate deploy"
+    "dev": "keystone dev",
+    "start": "keystone start",
+    "build": "keystone build && keystone prisma migrate deploy"
   },
   "dependencies": {
     "@keystone-6/auth": "^1.0.0",
