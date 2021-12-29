@@ -140,16 +140,12 @@ export const lists = {
         },
 
       }),
-      // Having the status here will make it easy for us to choose whether to display
-      // posts on a live site.
       status: select({
         options: [
           { label: 'Published', value: 'published' },
           { label: 'Draft', value: 'draft' },
         ],
-        // We want to make sure new posts start off as a draft when they are created
         defaultValue: 'draft',
-        // fields also have the ability to configure their appearance in the Admin UI
         ui: {
           displayMode: 'segmented-control',
         },
