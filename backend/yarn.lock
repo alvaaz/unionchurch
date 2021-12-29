@@ -471,7 +471,7 @@
 
 "@keystone-6/cloudinary@^1.0.0":
   version "1.0.0"
-  resolved "https://registry.npmjs.org/@keystone-6/cloudinary/-/cloudinary-1.0.0.tgz"
+  resolved "https://registry.yarnpkg.com/@keystone-6/cloudinary/-/cloudinary-1.0.0.tgz#b6fc48bbdf19911c22c6c69467b1c7f19a25d9b7"
   integrity sha512-YKJHljtyFq1NwOOK6774a50cwTj6YUo+k2bHaIO9Y1hnadsPh30+LdCB93xhXmj1+Txjr4jC3XNNDAF+P9FCVQ==
   dependencies:
     "@babel/runtime" "^7.16.3"
@@ -592,7 +592,7 @@
 
 "@keystone-6/fields-document@^1.0.1":
   version "1.0.1"
-  resolved "https://registry.npmjs.org/@keystone-6/fields-document/-/fields-document-1.0.1.tgz"
+  resolved "https://registry.yarnpkg.com/@keystone-6/fields-document/-/fields-document-1.0.1.tgz#d4ad90da33a3411100ed8d6669786f5084601c89"
   integrity sha512-w/VvNH6JQ5R1k8Jnfa/QDsfJM28uTExEE6FJOmunbrZ5LrH0rWmaBz+7V4w712mnkbIut3hcVquAH9vNqGaSjQ==
   dependencies:
     "@babel/runtime" "^7.16.3"
