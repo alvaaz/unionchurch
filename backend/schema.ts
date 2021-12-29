@@ -34,7 +34,6 @@ export const lists = {
         isIndexed: 'unique',
         isFilterable: true,
       }),
-      lastname: text(),
       image: cloudinaryImage({
         cloudinary: {
           cloudName: process.env.CLOUDINARY_CLOUD_NAME!,
