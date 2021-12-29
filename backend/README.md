@@ -50,3 +50,16 @@ A walkthrough on how to do this is forthcoming, but in the meantime our [todo ex
 ### Embedding Keystone in a Next.js frontend
 
 While Keystone works as a standalone app, you can embed your Keystone app into a [Next.js](https://nextjs.org/) app. This is quite a different setup to the starter, and we recommend checking out our walkthrough for that [here](https://keystonejs.com/docs/walkthroughs/embedded-mode-with-sqlite-nextjs#how-to-embed-keystone-sq-lite-in-a-next-js-app).
+
+When you install a new node version using nvm and then used npm to install yarn, you need to reinstall the yarn for the new node version.
+
+Try:
+
+nvm install 8.11.3
+nvm use 8.11.3
+npm install -g yarn
+This will install yarn in:
+
+.nvm/versions/node/v8.11.3/
+
+You can then switch between 8.11.0 and 8.11.3 and your yarn will still work.

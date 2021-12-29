@@ -54,20 +54,17 @@ export const lists = {
   Post: list({
     hooks: {
       resolveInput: async ({ resolvedData, operation, inputData, item }) => {
-        console.log(inputData, 'inputData')
-        console.log(resolvedData, 'resolvedData')
-        console.log(item, 'item')
         if(operation === 'create') {
           const slug = resolvedData?.title.normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(' ').join('-').toLowerCase();
           resolvedData!.slug = slug;
           return resolvedData;
         }
         if(operation === 'update') {
-          // if(!inputData.title) {
-          //   const slug = item.title.normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(' ').join('-').toLowerCase();
-          //   resolvedData!.slug = slug;
-          //   return resolvedData;
-          // }
+          if(!inputData.title) {
+            const slug = item.title.normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(' ').join('-').toLowerCase();
+            resolvedData!.slug = slug;
+            return resolvedData;
+          }
           const slug = inputData?.title.normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(' ').join('-').toLowerCase();
           resolvedData!.slug = slug;
           return resolvedData;
