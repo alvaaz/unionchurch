@@ -17,6 +17,7 @@ export default withAuth(
         origin: [
           `localhost:3000`,
           'https://unionchurch.cl',
+          'https://unionchurch-experimental.vercel.app'
         ],
       },
     },
@@ -28,6 +29,7 @@ export default withAuth(
         origin: [
           `localhost:3000`,
           'https://unionchurch.cl',
+          'https://unionchurch-experimental.vercel.app'
         ],
         credentials: true,
       },
