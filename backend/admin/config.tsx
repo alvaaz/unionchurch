@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from "@keystone-ui/core";
-import { AdminConfig } from "@keystone-next/keystone/types";
+import { AdminConfig } from "@keystone-6/core/types";
 import Link from "next/link";
 
 export const CustomLogo = () => {
