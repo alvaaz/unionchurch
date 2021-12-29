@@ -10,7 +10,10 @@ let apolloClient;
 // ############################################################
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:8000/api/graphql',
+  uri:
+    process.env.NODE_ENV === 'development'
+      ? process.env.ENDPOINT
+      : process.env.PRODENDPOINT,
   credentials: 'include',
 });
 
