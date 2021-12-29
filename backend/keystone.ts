@@ -7,7 +7,7 @@ export default withAuth(
   config({
     db: {
       provider: 'postgresql',
-      url: DATABASE_URL,
+      url: DATABASE_URL
     },
     server: {
       port: PORT,
