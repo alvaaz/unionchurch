@@ -98,7 +98,7 @@ export default function blog({ data }) {
             </h3>
             <div className="h-px bg-gray-200 flex-1"></div>
           </div>
-          <section className="grid grid-cols-3 gap-8">
+          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {posts.map((article) => {
               return (
                 <Link href={`/post/${article.slug}`} key={article.id}>
