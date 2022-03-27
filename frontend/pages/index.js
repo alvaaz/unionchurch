@@ -60,7 +60,8 @@ export default function Home({ dataServices, dataShepperdDeks }) {
   const latestsServices = dataServices.items.map(
     ({ id, snippet = {}, status }) => {
       const { title, thumbnails = {}, resourceId = {} } = snippet;
-      const { maxres } = thumbnails;
+      const { high } = thumbnails;
+
       const regexDate = /\w[^-]*$/;
       const regexTitle = /"(.*?)"/;
       const name = regexTitle.exec(title);
@@ -75,9 +76,9 @@ export default function Home({ dataServices, dataShepperdDeks }) {
             className="flex-1 mb-8 lg:mb-0"
           >
             <Image
-              width={maxres.width}
-              height={maxres.height}
-              src={maxres.url}
+              width={high.width}
+              height={high.height}
+              src={high.url}
               alt=""
               placeholder="blur"
               blurDataURL={`data:image/svg+xml;base64,${toBase64(
