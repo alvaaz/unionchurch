@@ -14,7 +14,7 @@ import dorados from '../public/images/ministries/5.png';
 import foreverYoung from '../public/images/ministries/6.png';
 import horaciopatty from '../public/images/horaciopatty.png';
 import sign from '../public/images/sign.png';
-import cover from '../public/images/cover.png';
+import cover from '../public/images/cover.jpg';
 
 export default function Home({ dataServices, dataShepperdDeks }) {
   const [state, dispatch] = useReducer(reducer, initialState);
