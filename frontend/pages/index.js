@@ -98,11 +98,13 @@ export default function Home({ dataServices, dataShepperdDeks }) {
   );
 
   const latestsShepperdDeks = dataShepperdDeks.items.map((posts, index) => {
-    const { title, thumbnails, resourceId, publishedAt } = posts.snippet;
-    const { default: standard } = thumbnails;
+    const { title, resourceId, publishedAt } = posts.snippet;
     const regexName = /\w[^:]*$/;
     const name = regexName.exec(title);
-    if (posts.status.privacyStatus !== 'private') {
+    if (
+      posts.status.privacyStatus !== 'private' &&
+      name[0].split(' ').includes('Deleted') === false
+    ) {
       return (
         <a
           key={index}
@@ -114,7 +116,7 @@ export default function Home({ dataServices, dataShepperdDeks }) {
           <Image
             width={68}
             height={68}
-            src={standard.url}
+            src={`https://img.youtube.com/vi/${resourceId.videoId}/0.jpg`}
             alt=""
             layout="fixed"
             className="object-cover"
