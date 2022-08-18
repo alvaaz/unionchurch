@@ -66,7 +66,11 @@ export default function Home({ dataServices, dataShepperdDeks }) {
       const regexTitle = /"(.*?)"/;
       const name = regexTitle.exec(title);
       const date = regexDate.exec(title);
-      if (status.privacyStatus !== 'private') {
+      console.log(title);
+      if (
+        status.privacyStatus !== 'private' &&
+        title.split(' ').includes('Deleted') === false
+      ) {
         return (
           <a
             key={id}
