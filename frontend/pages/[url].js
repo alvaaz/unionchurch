@@ -15,23 +15,27 @@ export default function ShortIdPage() {
 }
 
 export async function getServerSideProps({ params }) {
-  const apolloClient = initializeApollo(null);
-  const { url: source } = params;
+  try {
+    const apolloClient = initializeApollo(null);
+    const { url: source } = params;
 
-  const { data } = await apolloClient.query({
-    query: GET_DESTINATION,
-    variables: { source },
-  });
+    const { data } = await apolloClient.query({
+      query: GET_DESTINATION,
+      variables: { source },
+    });
 
-  if (!data) {
+    if (!data) {
+      return {
+        redirect: { destination: '/' },
+      };
+    }
+
     return {
-      redirect: { destination: '/' },
+      redirect: {
+        destination: data.redirect.destination,
+      },
     };
+  } catch (error) {
+    return new Error(error);
   }
-
-  return {
-    redirect: {
-      destination: data.redirect.destination,
-    },
-  };
 }
