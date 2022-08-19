@@ -66,7 +66,6 @@ export default function Home({ dataServices, dataShepperdDeks }) {
       const regexTitle = /"(.*?)"/;
       const name = regexTitle.exec(title);
       const date = regexDate.exec(title);
-      console.log(title);
       if (
         status.privacyStatus !== 'private' &&
         title.split(' ').includes('Deleted') === false
@@ -230,6 +229,7 @@ export default function Home({ dataServices, dataShepperdDeks }) {
           </div>
         </div>
       </div>
+
       <p className="text-lg sm:text-xl md:text-2xl text-gray-800 mb-2 text-center">
         Intégrate a nuestros grupos de crecimiento
       </p>
