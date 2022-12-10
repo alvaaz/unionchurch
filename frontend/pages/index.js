@@ -362,7 +362,7 @@ export default function Home({ dataServices, dataShepperdDeks }) {
             <p className="font-sans uppercase text-white tracking-wider mb-4 font-bold text-center md:text-left">
               Mantente informado
             </p>
-            <p className="font-serif text-2xl md:text-3xl lg:text-4xl lg:text-5xl text-white text-center md:text-left mb-4 md:pb-16">
+            <p className="font-serif text-2xl md:text-3xl lg:text-4xl text-white text-center md:text-left mb-4 md:pb-16">
               Suscríbete a nuestro <br />
               boletín de noticias
             </p>
