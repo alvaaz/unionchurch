@@ -17,6 +17,7 @@ import sign from '../public/images/sign.png';
 import cover from '../public/images/cover.jpg';
 
 export default function Home({ dataServices, dataShepperdDeks }) {
+  console.log(dataServices.items);
   const [state, dispatch] = useReducer(reducer, initialState);
   const {
     email,
@@ -63,7 +64,8 @@ export default function Home({ dataServices, dataShepperdDeks }) {
       const { high } = thumbnails;
 
       const regexDate = /\w[^-]*$/;
-      const regexTitle = /"(.*?)"/;
+      const regexTitle =
+        /(?:Servicio de Adoración(?::| Y)) ?"?([\w\sÁÉÍÓÚáéíóúÑñ]+)(?:"? pt\.(\d+))?/;
       const name = regexTitle.exec(title);
       const date = regexDate.exec(title);
       if (
