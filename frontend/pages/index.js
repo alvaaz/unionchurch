@@ -11,7 +11,6 @@ import unionKids from '../public/images/ministries/2.png';
 import unionX from '../public/images/ministries/3.png';
 import hombres from '../public/images/ministries/4.png';
 import dorados from '../public/images/ministries/5.png';
-import foreverYoung from '../public/images/ministries/6.png';
 import horaciopatty from '../public/images/horaciopatty.png';
 import sign from '../public/images/sign.png';
 import cover from '../public/images/cover.jpg';
@@ -224,9 +223,7 @@ export default function Home({ dataServices, dataShepperdDeks }) {
               />
             </div>
             <p>
-              <span className="block">Horacio & Patty Gonzalez</span>
-              <span className="block">Pastores principales</span>
-              Union Church
+              <span className="block font-bold">Pastores principales</span>
             </p>
           </div>
         </div>
@@ -249,14 +246,6 @@ export default function Home({ dataServices, dataShepperdDeks }) {
           width={160}
           height={160}
           src={hombres}
-          className="filter grayscale hover:grayscale-0"
-          placeholder="blur"
-        />
-        <Image
-          alt=""
-          width={160}
-          height={160}
-          src={foreverYoung}
           className="filter grayscale hover:grayscale-0"
           placeholder="blur"
         />
@@ -290,7 +279,7 @@ export default function Home({ dataServices, dataShepperdDeks }) {
           <div className="container mx-auto mt-40 flex items-center">
             <div className="py-12 md:py-0">
               <p className="font-serif text-2xl md:text-3xl lg:text-4xl text-gray-800 mb-4">
-                Iglesia en línea
+                Hacemos iglesia presencial y en línea
               </p>
               <p className="text-lg sm:text-xl md:text-2xl text-gray-700 mb-12">
                 ¡Juntos hacemos la iglesia!{' '}

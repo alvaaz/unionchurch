@@ -52,15 +52,18 @@ export function Layout({ children, title }) {
 
           <div className="mt-8 md:mt-0 mb-8 md:mb-0 md:px-12">
             <p className="font-serif text-2xl my-4 font-medium md:mt-0">
-              Streaming
+              Reuniones
             </p>
             <p className="mb-4">
               <span className="font-bold text-lg block">Reunión general</span>{' '}
-              Domingos a las 10:45 hrs
+              Domingos a las 11:00 hrs
             </p>
             <p>
-              <span className="font-bold text-lg block">Reunión oración</span>{' '}
-              Miércoles a las 19:45 hrs
+              <span className="font-bold text-lg block">
+                Reuniones de oración
+              </span>{' '}
+              <p>Domingos a las 10:00 hrs — Presencial</p>
+              <p>Miércoles a las 20:00 hrs — Zoom</p>
             </p>
           </div>
           <div className="mb-8 md:mb-0">
