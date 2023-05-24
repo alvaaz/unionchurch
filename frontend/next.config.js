@@ -10,7 +10,7 @@ const { withSentryConfig } = require('@sentry/nextjs');
 const moduleExports = {
   reactStrictMode: true,
   images: {
-    domains: ['i.ytimg.com', 'img.youtube.com'],
+    domains: ['i.ytimg.com', 'img.youtube.com', 'res.cloudinary.com'],
   },
 };
 

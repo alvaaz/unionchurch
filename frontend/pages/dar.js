@@ -57,8 +57,6 @@ export default function give() {
                 <Image
                   src={dar}
                   alt="Give"
-                  layout="responsive"
-                  objectFit="cover"
                   height={534}
                   width={641}
                   placeholder="blur"

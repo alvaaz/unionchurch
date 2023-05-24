@@ -10,19 +10,19 @@ export function Header() {
     >
       <nav className="container mx-auto px-8 md:px-0 flex items-center">
         <Link href="/">
-          <a>
-            <Image alt="Logo" src="/logo-white.svg" height="57" width="145" />
-          </a>
+          <Image alt="Logo" src="/logo-white.svg" height="57" width="145" />
         </Link>
-        <Link href="/nosotros">
-          <a className="ml-8 mr-8 text-white text-lg border-transparent border-b-4 hover:border-white">
-            Nosotros
-          </a>
+        <Link
+          href="/nosotros"
+          className="ml-8 mr-8 text-white text-lg border-transparent border-b-4 hover:border-white"
+        >
+          Nosotros
         </Link>
-        <Link href="/dar">
-          <a className="text-white text-lg border-transparent border-b-4 hover:border-white">
-            Dar
-          </a>
+        <Link
+          href="/dar"
+          className="text-white text-lg border-transparent border-b-4 hover:border-white"
+        >
+          Dar
         </Link>
       </nav>
     </div>
@@ -34,19 +34,19 @@ export function Header2() {
     <div className="bg-pink w-full py-10" style={{ zIndex: 1 }}>
       <nav className="container mx-auto px-8 md:px-0 flex items-center">
         <Link href="/">
-          <a>
-            <Image alt="Logo" src="/logo-black.svg" height="57" width="145" />
-          </a>
+          <Image alt="Logo" src="/logo-black.svg" height="57" width="145" />
         </Link>
-        <Link href="/nosotros">
-          <a className="ml-8 mr-8 text-black text-lg border-transparent border-b-4 hover:border-black">
-            Nosotros
-          </a>
+        <Link
+          href="/nosotros"
+          className="ml-8 mr-8 text-black text-lg border-transparent border-b-4 hover:border-black"
+        >
+          Nosotros
         </Link>
-        <Link href="/dar">
-          <a className="text-black text-lg border-transparent border-b-4 hover:border-black">
-            Dar
-          </a>
+        <Link
+          href="/dar"
+          className="text-black text-lg border-transparent border-b-4 hover:border-black"
+        >
+          Dar
         </Link>
       </nav>
     </div>

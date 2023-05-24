@@ -34,35 +34,30 @@ export default function about() {
             </p>
             <div className="mb-16">
               <Adn className="mb-8 mx-auto md:mx-0" />
-              <p className="text-xl text-gray-800 mb-2 font-medium mb-4">
-                Misión
-              </p>
+              <p className="text-xl text-gray-800 font-medium mb-4">Misión</p>
               <p className="text-lg text-gray-600">
                 Conocer, llegar a ser, e impactar como Jesús
               </p>
             </div>
             <div className="mb-24">
               <Vision className="mb-8 mx-auto md:mx-0" />
-              <p className="text-xl text-gray-800 mb-2 font-medium mb-4">
-                Visión
-              </p>
+              <p className="text-xl text-gray-800 font-medium mb-4">Visión</p>
               <p className="text-lg text-gray-600">
                 Transformar la ciudad, influenciar al mundo, ayudar a las
                 personas a conocer, amar y compartir a Jesús.
               </p>
             </div>
-            <Link href="recursos/confesion.pdf">
-              <a className="tracking-wider uppercase text-sm inline px-8 py-3 font-bold bg-black hover:bg-gray-900 text-white transition duration-150 ease-in-out">
-                Confesión y valores
-              </a>
+            <Link
+              href="recursos/confesion.pdf"
+              className="tracking-wider uppercase text-sm inline px-8 py-3 font-bold bg-black hover:bg-gray-900 text-white transition duration-150 ease-in-out"
+            >
+              Confesión y valores
             </Link>
           </div>
           <div className="w-full md:w-1/2">
             <Image
               src={ZoomImage}
               alt="Zoom"
-              layout="responsive"
-              objectFit="contain"
               height={534}
               width={641}
               placeholder="blur"

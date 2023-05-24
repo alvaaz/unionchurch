@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export function Footer(props) {
+export function FooterShape(props) {
   return (
     <svg
       {...props}

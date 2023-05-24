@@ -9,7 +9,6 @@ datasource postgresql {
 
 generator client {
   provider = "prisma-client-js"
-  output   = "node_modules/.prisma/client"
 }
 
 model Redirect {
@@ -23,4 +22,11 @@ model Person {
   name     String @default("")
   email    String @unique @default("")
   password String
+}
+
+model Ministry {
+  id    String @id @default(cuid())
+  name  String @unique @default("")
+  slug  String @unique @default("")
+  photo Json?
 }

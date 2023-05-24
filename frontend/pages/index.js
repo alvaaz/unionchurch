@@ -6,17 +6,16 @@ import { Layout, Header, shimmer, toBase64 } from '../components';
 import { CircleFinal } from '../components/shapes';
 import { Facebook, Youtube, Instagram, Error } from '../components/icons';
 import { reducer, initialState, actions } from '../lib/reducer';
-import mujeres from '../public/images/ministries/1.png';
-import unionKids from '../public/images/ministries/2.png';
-import unionX from '../public/images/ministries/3.png';
-import hombres from '../public/images/ministries/4.png';
-import dorados from '../public/images/ministries/5.png';
+
+import { gql } from '@apollo/client';
+import { initializeApollo } from '../lib/apolloClient';
+
 import horaciopatty from '../public/images/horaciopatty.png';
 import sign from '../public/images/sign.png';
 import cover from '../public/images/cover.jpg';
+import Link from 'next/link';
 
-export default function Home({ dataServices, dataShepperdDeks }) {
-  console.log(dataServices.items);
+export default function Home({ dataServices, dataShepperdDeks, data }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const {
     email,
@@ -122,7 +121,6 @@ export default function Home({ dataServices, dataShepperdDeks }) {
             height={68}
             src={`https://img.youtube.com/vi/${resourceId.videoId}/0.jpg`}
             alt=""
-            layout="fixed"
             className="object-cover"
             placeholder="blur"
             blurDataURL={`data:image/svg+xml;base64,${toBase64(
@@ -154,7 +152,7 @@ export default function Home({ dataServices, dataShepperdDeks }) {
           className="absolute object-cover back filter contrast-900"
           alt="Cover"
           src={cover}
-          layout="fill"
+          fill
           placeholder="blur"
         />
 
@@ -205,7 +203,7 @@ export default function Home({ dataServices, dataShepperdDeks }) {
             <p className="font-serif text-2xl md:text-3xl lg:text-4xl text-gray-800 mb-8">
               Uniendo personas con propósito
             </p>
-            <p className="font-xl text-gray-600 mb-8">
+            <p className="text-xl text-gray-600 mb-8">
               Bienvenidos a Union Church. Somos una comunidad de La Viña que
               busca vivir los valores bíblicos, experimentando naturalmente lo
               sobrenatural. Te invitamos a vivir un encuentro con Jesús, a
@@ -233,47 +231,24 @@ export default function Home({ dataServices, dataShepperdDeks }) {
         Intégrate a nuestros grupos de crecimiento
       </p>
       <div className="flex justify-center flex-wrap space-x-8">
-        <Image
-          alt=""
-          width={160}
-          height={160}
-          src={mujeres}
-          className="filter grayscale hover:grayscale-0"
-          placeholder="blur"
-        />
-        <Image
-          alt=""
-          width={160}
-          height={160}
-          src={hombres}
-          className="filter grayscale hover:grayscale-0"
-          placeholder="blur"
-        />
-        <Image
-          alt=""
-          width={160}
-          height={160}
-          src={dorados}
-          className="filter grayscale hover:grayscale-0"
-          placeholder="blur"
-        />
-        <Image
-          alt=""
-          width={160}
-          height={160}
-          src={unionX}
-          className="filter grayscale hover:grayscale-0"
-          placeholder="blur"
-        />
-        <Image
-          alt=""
-          width={160}
-          height={160}
-          src={unionKids}
-          className="filter grayscale hover:grayscale-0"
-          placeholder="blur"
-        />
+        {data.ministries.map((ministry, index) => (
+          <Link href={`ministerios/${ministry.slug}`}>
+            <Image
+            alt=""
+            width={160}
+            height={160}
+            src={ministry.photo.publicUrl}
+            blurDataURL={`data:image/svg+xml;base64,${toBase64(
+              shimmer(160, 160)
+            )}`}
+            key={index}
+            className="filter grayscale hover:grayscale-0"
+            placeholder="blur"
+          />
+          </Link>
+        ))}
       </div>
+
       <div className="px-8 sm:px-0 bg-pink-light" style={{ zIndex: '-1' }}>
         <div className="relative">
           <div className="container mx-auto mt-40 flex items-center">
@@ -282,7 +257,7 @@ export default function Home({ dataServices, dataShepperdDeks }) {
                 Hacemos iglesia presencial y en línea
               </p>
               <p className="text-lg sm:text-xl md:text-2xl text-gray-700 mb-12">
-                ¡Juntos hacemos la iglesia!{' '}
+                ¡Juntos hacemos la iglesia!
               </p>
               <a
                 href="https://www.youtube.com/c/UnionChurchcl"
@@ -475,6 +450,25 @@ const YOUTUBE_PLAYLIST_ITEMS_API =
   'https://www.googleapis.com/youtube/v3/playlistItems';
 
 export async function getServerSideProps() {
+  const apolloClient = initializeApollo(null);
+
+  const GET_DESTINATION = gql`
+    query Ministries {
+      ministries {
+        name
+        id
+        slug
+        photo {
+          publicUrl
+        }
+      }
+    }
+  `;
+
+  const { data } = await apolloClient.query({
+    query: GET_DESTINATION,
+  });
+
   const res = await fetch(
     `${YOUTUBE_PLAYLIST_ITEMS_API}?part=snippet&part=status&maxResults=3&playlistId=${process.env.PLAYLIST_ID}&key=${process.env.YOUTUBE_KEY}`
   );
@@ -487,6 +481,7 @@ export async function getServerSideProps() {
     props: {
       dataServices,
       dataShepperdDeks,
+      data,
     },
   };
 }
@@ -494,4 +489,5 @@ export async function getServerSideProps() {
 Home.propTypes = {
   dataServices: PropTypes.object,
   dataShepperdDeks: PropTypes.object,
+  data: PropTypes.object,
 };
