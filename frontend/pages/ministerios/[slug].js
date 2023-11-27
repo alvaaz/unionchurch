@@ -4,7 +4,7 @@ import { Header2, Layout } from '../../components';
 export default function Ministry() {
   const router = useRouter();
   return (
-    <Layout>
+    <Layout title="Ministerio de prueba">
       <Header2 />
       <div className="bg-pink">
         <div className="grid grid-cols-2 container mx-auto">
