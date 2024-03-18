@@ -9,15 +9,6 @@ const { withSentryConfig } = require('@sentry/nextjs');
 
 const moduleExports = {
   reactStrictMode: true,
-  async redirects() {
-    return [
-      {
-        source: '/escritorio',
-        destination: 'https://youtu.be/VUKiImZcjO8?si=YkJpPA8C6RSYuyi9',
-        permanent: true,
-      },
-    ]
-  },
   images: {
     domains: ['i.ytimg.com', 'img.youtube.com'],
   },
