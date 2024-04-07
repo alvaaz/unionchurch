@@ -181,10 +181,10 @@ input CreateInitialPersonInput {
 }
 
 type Query {
-  redirects(where: RedirectWhereInput! = {}, orderBy: [RedirectOrderByInput!]! = [], take: Int, skip: Int! = 0): [Redirect!]
+  redirects(where: RedirectWhereInput! = {}, orderBy: [RedirectOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: RedirectWhereUniqueInput): [Redirect!]
   redirect(where: RedirectWhereUniqueInput!): Redirect
   redirectsCount(where: RedirectWhereInput! = {}): Int
-  people(where: PersonWhereInput! = {}, orderBy: [PersonOrderByInput!]! = [], take: Int, skip: Int! = 0): [Person!]
+  people(where: PersonWhereInput! = {}, orderBy: [PersonOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: PersonWhereUniqueInput): [Person!]
   person(where: PersonWhereUniqueInput!): Person
   peopleCount(where: PersonWhereInput! = {}): Int
   keystone: KeystoneMeta!
@@ -229,6 +229,7 @@ type KeystoneAdminUIFieldMeta {
   description: String
   isOrderable: Boolean!
   isFilterable: Boolean!
+  isNonNull: [KeystoneAdminUIFieldMetaIsNonNull!]
   fieldMeta: JSON
   viewsIndex: Int!
   customViewsIndex: Int
@@ -236,6 +237,12 @@ type KeystoneAdminUIFieldMeta {
   listView: KeystoneAdminUIFieldMetaListView!
   itemView(id: ID): KeystoneAdminUIFieldMetaItemView
   search: QueryMode
+}
+
+enum KeystoneAdminUIFieldMetaIsNonNull {
+  read
+  create
+  update
 }
 
 type KeystoneAdminUIFieldMetaCreateView {

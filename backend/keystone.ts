@@ -8,6 +8,7 @@ export default withAuth(
     db: {
       provider: 'postgresql',
       url: DATABASE_URL,
+      prismaClientPath: 'node_modules/.prisma/client',
     },
     server: {
       port: PORT,
