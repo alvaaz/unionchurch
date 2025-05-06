@@ -1,0 +1,130 @@
+---
+import { Image } from "astro:assets";
+
+export const prerender = false;
+
+const response = await fetch(
+  `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&part=status&maxResults=3&playlistId=${
+    import.meta.env.SHEPPERD_PLAYLIST_ID
+  }&key=${import.meta.env.YOUTUBE_KEY}`
+);
+const data = await response.json();
+
+// let maxResults = 3;
+// let data;
+// let hasDeletedVideo = true;
+
+// let validVideosCount = 0;
+
+// while (hasDeletedVideo || validVideosCount < 3) {
+//   const response = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&part=status&maxResults=${maxResults}&playlistId=${
+//     import.meta.env.SHEPPERD_PLAYLIST_ID}&key=${import.meta.env.YOUTUBE_KEY}`);
+//   data = await response.json();
+
+//   const validVideos = data.items.filter(({ snippet, status }: Video) =>
+//     status.privacyStatus !== 'private' && !snippet.title.split(' ').includes('Deleted')
+//   );
+
+//   validVideosCount = validVideos.length;
+
+//   hasDeletedVideo = data.items.some(({ snippet, status }: Video) =>
+//     status.privacyStatus === 'private' || snippet.title.split(' ').includes('Deleted')
+//   );
+
+//   if (hasDeletedVideo || validVideosCount < 3) {
+//     maxResults++;
+//     console.log(`Increasing maxResults to ${maxResults} to fetch more videos.`);
+//   }
+// }
+// while (hasDeletedVideo) {
+//   const response = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&part=status&maxResults=${maxResults}&playlistId=${
+//     import.meta.env.SHEPPERD_PLAYLIST_ID}&key=${import.meta.env.YOUTUBE_KEY}`);
+//   data = await response.json();
+
+//   hasDeletedVideo = data.items.some(({ snippet, status }: Video) =>
+//     status.privacyStatus === 'private' || snippet.title.split(' ').includes('Deleted')
+//   );
+
+//   if (hasDeletedVideo) {
+//     maxResults++;
+//     console.log(`Increasing maxResults to ${maxResults} to fetch more videos.`);
+//   }
+// }
+// const response = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&part=status&maxResults=3&playlistId=${
+// import.meta.env.SHEPPERD_PLAYLIST_ID}&key=${import.meta.env.YOUTUBE_KEY}`);
+// const data = await response.json();
+
+type Video = {
+  id: number;
+  snippet: {
+    title: string;
+    thumbnails: {
+      high: {
+        url: string;
+        width: number;
+        height: number;
+      };
+    };
+    resourceId: {
+      videoId: string;
+    };
+  };
+  status: {
+    privacyStatus: string;
+  };
+};
+
+type VideoRender = {
+  title: string;
+  date: string;
+  videoId: string;
+  thumbnailSrc: string;
+  thumbnailWidth: number;
+  thumbnailHeight: number;
+};
+
+const videos: VideoRender[] = data.items
+  .map(({ snippet, status }: Video) => {
+    const dashSplitRegex = /(.*?)-(.*)/;
+
+    const { title, thumbnails, resourceId } = snippet;
+    const { high } = thumbnails;
+
+    const dashSplitMatch = dashSplitRegex.exec(title);
+    const videoName = dashSplitMatch ? dashSplitMatch[1].trim() : "";
+    const videoDate = dashSplitMatch ? dashSplitMatch[2].trim() : "";
+
+    console.log(title);
+
+    if (status.privacyStatus !== "private" && title.split(" ").includes("Deleted") === false) {
+      return {
+        title: videoName ? videoName : "",
+        date: videoDate ? videoDate : "",
+        videoId: resourceId.videoId,
+        thumbnailSrc: high.url,
+        thumbnailWidth: high.width,
+        thumbnailHeight: high.height,
+      };
+    } else {
+      return null;
+    }
+  })
+  .filter((video: VideoRender) => video !== null) as VideoRender[];
+---
+
+<div class="flex flex-wrap flex-col sm:flex-row justify-between text-left pb-16 md:space-x-8">
+  {
+    videos.map(({ videoId, thumbnailWidth, thumbnailHeight, thumbnailSrc, title, date }) => (
+      <a
+        href={`https://www.youtube.com/watch?v=${videoId}`}
+        target="_blank"
+        rel="noreferrer"
+        class="flex-1 mb-8 lg:mb-0"
+      >
+        <Image width={thumbnailWidth} height={thumbnailHeight} src={thumbnailSrc} alt="" />
+        <p class="text-lg sm:text-xl md:text-2xl text-gray-800 my-4 font-medium">{title}</p>
+        <p class="text-base md:text-lg font-medium text-gray-700 mb-4">{date}</p>
+      </a>
+    ))
+  }
+</div>
